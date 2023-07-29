@@ -4,6 +4,7 @@ import { SemanticStatement } from "../../semantic-context/src/SemanticContext"
 
 const GENERATE_ENDPOINT: string = 'generate-query';
 const RUN_ENDPOINT: string = 'run-query';
+const SUBMIT_ENDPOINT: string = 'submit-query'
 const FAVORITE_ENDPOINT: string = 'like-query';
 const DESCRIBE_ENDPOINT: string = 'describe-query';
 const RESULTS_ENDPOINT: string = 'get-query-result';
@@ -31,7 +32,7 @@ type DescribeQueryRequest = {
 
 type DescribeQueryResponse = {
     summary?: string
-    detailed_steps?: string
+    detailed_steps?: string[]
     tables?: TableName[]
 }
 
@@ -80,7 +81,7 @@ type CancelQueryResponse = {
 }
 
 type GetQueryResultResponse = {
-    rows?: [{str, any}],
+    rows?: object[],
     more_rows?: number,
     column_definitions?: Column[],
     query_uuid?: string
@@ -111,7 +112,7 @@ export let Query = (
             },
             run: (
                 params: RunQueryRequest,
-                callback: (result: RunQueryResponse) => void,
+                callback: (result: GetQueryResultResponse) => void,
                 error: (detail: object) => void
             ): AbortController => {
                 return WaiiHttpClient.getInstance().commonFetch(
@@ -128,6 +129,18 @@ export let Query = (
             ): AbortController => {
                 return WaiiHttpClient.getInstance().commonFetch(
                     FAVORITE_ENDPOINT,
+                    params,
+                    callback,
+                    error
+                );
+            },
+            submit: (
+                params: RunQueryRequest,
+                callback: (result: RunQueryResponse) => void,
+                error: (detail: object) => void
+            ): AbortController => {
+                return WaiiHttpClient.getInstance().commonFetch(
+                    SUBMIT_ENDPOINT,
                     params,
                     callback,
                     error
