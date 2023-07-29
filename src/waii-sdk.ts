@@ -16,6 +16,6 @@ export let WAII = (
             }
         }
     }
-)()
+)();
 
 export default WAII;

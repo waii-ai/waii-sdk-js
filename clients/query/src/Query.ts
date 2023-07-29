@@ -16,7 +16,7 @@ type Tweak = {
 
 type QueryGenerationRequest = {
     search_context?: SearchContext[],
-    tweak_history: Tweak[],
+    tweak_history?: Tweak[],
     ask?: string
     uuid?: string
     dialect?: string
@@ -171,7 +171,7 @@ export let Query = (
             },
         }
     }
-);
+)();
 
 export default Query;
 export {

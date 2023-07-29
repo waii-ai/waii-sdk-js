@@ -64,7 +64,7 @@ export let SemanticContext = (
             },
         }
     }
-);
+)();
 
 export default SemanticContext;
 export {

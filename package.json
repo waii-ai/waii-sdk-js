@@ -1,6 +1,20 @@
 {
   "name": "waii-sdk-js",
   "packageManager": "yarn@3.6.1",
+  "description": "Typescript / Javascript SDK for the waii api. SQL generation and much more/",
+  "main": "src/waii-sdk.ts",
+  "keywords": [
+    "SQL",
+    "AI",
+    "TypeScript"
+  ],
+  "homepage": "https://www.waii.ai",
+  "author": "Waii, Inc. support@waii.ai",
+  "license": "Apache-2.0",
+  "repository": {
+    "url": "https://github.com/waii-abi/waii-sdk-js",
+    "type": "git"
+  },
   "devDependencies": {
     "typescript": "^5.1.6"
   },

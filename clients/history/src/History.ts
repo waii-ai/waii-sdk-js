@@ -32,7 +32,7 @@ export let History = (
             }
         }
     }
-);
+)();
 
 export default History;
 export { 

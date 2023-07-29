@@ -117,7 +117,7 @@ export let Database = (
             modifyConnections: (
                 params: ModifyDBConnectionRequest,
                 callback: (result: ModifyDBConnectionResponse) => void,
-                error: (detail: object) => void
+                error: (detail: GetDBConnectionRequest) => void
             ): AbortController => {
                 return WaiiHttpClient.getInstance().commonFetch(
                     MODIFY_DB_ENDPOINT,
@@ -128,7 +128,7 @@ export let Database = (
             },
             getConnections: (
                 params: object = {},
-                callback: (result: GetDBConnectionRequest) => void,
+                callback: (result: GetDBConnectionResponse) => void,
                 error: (detail: object) => void
             ): AbortController => {
                 return WaiiHttpClient.getInstance().commonFetch(
@@ -157,7 +157,7 @@ export let Database = (
             },
         }
     }
-);
+)();
 
 export default Database;
 export {

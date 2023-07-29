@@ -3,10 +3,10 @@ export default class WaiiHttpClient {
 
     url: string;
     apiKey: string;
-    timeout: number;
-    scope: string;
-    orgId: string;
-    userId: string;
+    timeout: number = 150000000;
+    scope: string = '';
+    orgId: string = '';
+    userId: string = '';
 
     private constructor(url: string, apiKey: string) {
         this.url = url;
@@ -42,9 +42,9 @@ export default class WaiiHttpClient {
 
         let abortController = new AbortController();
 
-        params['scope'] = this.scope;
-        params['org_id'] = this.orgId;
-        params['user_id'] = this.userId;
+        (params as any)['scope'] = this.scope;
+        (params as any)['org_id'] = this.orgId;
+        (params as any)['user_id'] = this.userId;
 
         let request = {
             method: 'POST',
