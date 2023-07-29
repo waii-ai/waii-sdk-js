@@ -5,6 +5,8 @@ export default class WaiiHttpClient {
     apiKey: string;
     timeout: number;
     scope: string;
+    orgId: string;
+    userId: string;
 
     private constructor(url: string, apiKey: string) {
         this.url = url;
@@ -23,22 +25,27 @@ export default class WaiiHttpClient {
         this.scope = scope;
     }
 
-    private handleError(error: object, abortController: AbortController, errorCallback: (detail: object) => void) {
-        abortController.abort();
-        errorCallback(error);
+    public setOrgId(orgId: string) {
+        this.orgId = orgId;
     }
 
-    public async commonFetch(
+    public setUserId(userId: string) {
+        this.userId = userId;
+    }
+
+    public commonFetch(
         endpoint: string,
         params: object,
-        callback: (result: string) => void,
+        callback: (result: object) => void,
         error: (detail: object) => void
-
-    ): Promise<void> {
+    ): AbortController {
 
         let abortController = new AbortController();
 
         params['scope'] = this.scope;
+        params['org_id'] = this.orgId;
+        params['user_id'] = this.userId;
+
         let request = {
             method: 'POST',
             headers: {
@@ -53,26 +60,32 @@ export default class WaiiHttpClient {
                 fetch(this.url + endpoint, request),
                 new Promise<Response>(
                     (res, rej) => setTimeout(
-                        () => rej(new Error(`timed out after ${this.timeout} ms`)),
+                        () => rej(new Error(`Call timed out after ${this.timeout} ms`)),
                         this.timeout
                     ))
             ]
         );
 
-        try {
-            const response = await fetchOrTimeout;
-            response.text().then((text) => {
-                if (response.ok) {
-                    callback(text);
-                } else {
-                    let obj: object = JSON.parse(text);
-                    this.handleError(obj, abortController, error);
-                }
-            }).catch((error_2) => {
-                this.handleError(error_2, abortController, error_2);
-            });
-        } catch (error_3) {
-            this.handleError(error_3, abortController, error_3);
-        }
+        fetchOrTimeout
+            .then(response => {
+                response.text().then((text) => {
+                    if (response.ok) {
+                        callback(JSON.parse(text));
+                    } else {
+                        let errMsg = JSON.parse(text);
+                        abortController.abort();
+                        error(errMsg);
+                    }
+                }).catch((errMsg) => {
+                    abortController.abort();
+                    error(errMsg);
+                });
+            })
+            .catch((errMsg) => {
+                abortController.abort();
+                error(errMsg);
+            })
+
+        return abortController;
     }
 }

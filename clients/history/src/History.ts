@@ -1,16 +1,29 @@
 import WaiiHttpClient from "../../../lib/src/WaiiHttpClient"
+import { GeneratedQuery, QueryGenerationRequest } from "../../query/src/Query"
 
 const GET_ENDPOINT: string = 'get-generated-query-history';
+
+type GeneratedQueryHistoryEntry = {
+    query?: GeneratedQuery,
+    request?: QueryGenerationRequest
+}
+
+type GetGeneratedQueryHistoryRequest = {
+}
+
+type GetGeneratedQueryHistoryResponse = {
+    history?: GeneratedQueryHistoryEntry[]
+}
 
 export let History = (
     function () {
         return {
             list: function (
-                params: object = {},
-                callback: (result: string) => void,
+                params: GetGeneratedQueryHistoryRequest = {},
+                callback: (result: GetGeneratedQueryHistoryResponse) => void,
                 error: (detail: object) => void
-            ) {
-                WaiiHttpClient.getInstance().commonFetch(
+            ): AbortController {
+                return WaiiHttpClient.getInstance().commonFetch(
                     GET_ENDPOINT,
                     {},
                     callback,
@@ -22,3 +35,9 @@ export let History = (
 );
 
 export default History;
+export { 
+    GeneratedQueryHistoryEntry, 
+    GetGeneratedQueryHistoryRequest, 
+    GetGeneratedQueryHistoryResponse, 
+    GeneratedQuery 
+};
