@@ -100,7 +100,7 @@ type Column = {
 
 type Catalog = {
     name: string
-    schemas?: Schema
+    schemas?: Schema[]
 }
 
 type GetCatalogRequest = {
