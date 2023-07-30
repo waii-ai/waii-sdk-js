@@ -123,7 +123,7 @@ export let Database = (
                 signal
             ),
             getConnections: async (
-                params: object = {},
+                params: GetDBConnectionRequest = {},
                 signal?: AbortSignal
             ): Promise<GetDBConnectionResponse> => WaiiHttpClient.getInstance().commonFetch<GetDBConnectionResponse>(
                 MODIFY_DB_ENDPOINT,

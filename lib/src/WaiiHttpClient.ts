@@ -76,7 +76,7 @@ export default class WaiiHttpClient {
         try {
             let result: Type = JSON.parse(text);
             return result;
-        } catch (e_1) {
+        } catch (e) {
             throw new Error("Invalid response received.");
         }
     }

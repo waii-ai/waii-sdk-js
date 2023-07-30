@@ -19,13 +19,13 @@ class SemanticStatement {
 }
 
 type ModifySemanticContextRequest = {
-    updated?: [SemanticStatement],
-    deleted?: [string]
+    updated?: SemanticStatement[],
+    deleted?: string[]
 }
 
 type ModifySemanticContextResponse = {
-    updated?: [SemanticStatement],
-    deleted?: [string]
+    updated?: SemanticStatement[],
+    deleted?: string[]
 }
 
 type GetSemanticContextRequest = {
