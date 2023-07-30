@@ -19,8 +19,8 @@ export let History = (
     function () {
         return {
             list: async (params: GetGeneratedQueryHistoryRequest = {},
-                signal?: AbortSignal): Promise<GetGeneratedQueryHistoryResponse> 
-                => WaiiHttpClient.getInstance().commonFetch(
+                signal?: AbortSignal): Promise<GetGeneratedQueryHistoryResponse> => 
+                WaiiHttpClient.getInstance().commonFetch(
                     GET_ENDPOINT,
                     {},
                     signal
