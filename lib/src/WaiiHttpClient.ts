@@ -33,14 +33,11 @@ export default class WaiiHttpClient {
         this.userId = userId;
     }
 
-    public commonFetch(
+    public async commonFetch<Type>(
         endpoint: string,
         params: object,
-        callback: (result: object) => void,
-        error: (detail: object) => void
-    ): AbortController {
-
-        let abortController = new AbortController();
+        signal?: AbortSignal
+    ): Promise<Type> {
 
         (params as any)['scope'] = this.scope;
         (params as any)['org_id'] = this.orgId;
@@ -52,7 +49,7 @@ export default class WaiiHttpClient {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(params),
-            signal: abortController.signal
+            signal: signal
         }
 
         let fetchOrTimeout = Promise.race(
@@ -66,26 +63,21 @@ export default class WaiiHttpClient {
             ]
         );
 
-        fetchOrTimeout
-            .then(response => {
-                response.text().then((text) => {
-                    if (response.ok) {
-                        callback(JSON.parse(text));
-                    } else {
-                        let errMsg = JSON.parse(text);
-                        abortController.abort();
-                        error(errMsg);
-                    }
-                }).catch((errMsg) => {
-                    abortController.abort();
-                    error(errMsg);
-                });
-            })
-            .catch((errMsg) => {
-                abortController.abort();
-                error(errMsg);
-            })
-
-        return abortController;
+        const response = await fetchOrTimeout;
+        const text = await response.text();
+        if (!response.ok) {
+            try {
+                let error = JSON.parse(text);
+                throw new Error(error.detail);
+            } catch (e) {
+                throw new Error(text);
+            }
+        }
+        try {
+            let result: Type = JSON.parse(text);
+            return result;
+        } catch (e_1) {
+            throw new Error("Invalid response received.");
+        }
     }
 }

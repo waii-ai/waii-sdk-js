@@ -114,47 +114,35 @@ type GetCatalogResponse = {
 export let Database = (
     function () {
         return {
-            modifyConnections: (
+            modifyConnections: async (
                 params: ModifyDBConnectionRequest,
-                callback: (result: ModifyDBConnectionResponse) => void,
-                error: (detail: GetDBConnectionRequest) => void
-            ): AbortController => {
-                return WaiiHttpClient.getInstance().commonFetch(
-                    MODIFY_DB_ENDPOINT,
-                    params,
-                    callback,
-                    error
-                );
-            },
-            getConnections: (
+                signal?: AbortSignal
+            ): Promise<ModifyDBConnectionResponse> => WaiiHttpClient.getInstance().commonFetch<ModifyDBConnectionResponse>(
+                MODIFY_DB_ENDPOINT,
+                params,
+                signal
+            ),
+            getConnections: async (
                 params: object = {},
-                callback: (result: GetDBConnectionResponse) => void,
-                error: (detail: object) => void
-            ): AbortController => {
-                return WaiiHttpClient.getInstance().commonFetch(
-                    MODIFY_DB_ENDPOINT,
-                    params,
-                    callback,
-                    error
-                );
-            },
+                signal?: AbortSignal
+            ): Promise<GetDBConnectionResponse> => WaiiHttpClient.getInstance().commonFetch<GetDBConnectionResponse>(
+                MODIFY_DB_ENDPOINT,
+                params,
+                signal
+            ),
             activateConnection: (
                 key: string
-            ): void => {
-                WaiiHttpClient.getInstance().setScope(key);
-            },
-            getCatalogs: (
+            ): void => WaiiHttpClient.getInstance().setScope(
+                key
+            ),
+            getCatalogs: async (
                 params: GetCatalogRequest = {},
-                callback: (result: GetCatalogResponse) => void,
-                error: (detail: object) => void
-            ): AbortController => {
-                return WaiiHttpClient.getInstance().commonFetch(
-                    GET_CATALOG_ENDPOINT,
-                    params,
-                    callback,
-                    error
-                );
-            },
+                signal?: AbortSignal
+            ): Promise<GetCatalogResponse> => WaiiHttpClient.getInstance().commonFetch<GetCatalogResponse>(
+                GET_CATALOG_ENDPOINT,
+                params,
+                signal
+            ),
         }
     }
 )();

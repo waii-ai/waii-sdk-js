@@ -38,28 +38,24 @@ type GetSemanticContextResponse = {
 export let SemanticContext = (
     function () {
         return {
-            modifySemanticContext: (
+            modifySemanticContext: async (
                 params: ModifySemanticContextRequest,
-                callback: (result: ModifySemanticContextResponse) => void,
-                error: (detail: object) => void
-            ): AbortController => {
-                return WaiiHttpClient.getInstance().commonFetch(
+                signal?: AbortSignal
+            ): Promise<ModifySemanticContextResponse> => {
+                return WaiiHttpClient.getInstance().commonFetch<ModifySemanticContextResponse>(
                     MODIFY_ENDPOINT,
                     params,
-                    callback,
-                    error
+                    signal
                 );
             },
             getSemanticContext: (
                 params: GetSemanticContextRequest = {},
-                callback: (result: GetSemanticContextResponse) => void,
-                error: (detail: object) => void
-            ): AbortController => {
-                return WaiiHttpClient.getInstance().commonFetch(
+                signal?: AbortSignal
+            ): Promise<GetSemanticContextResponse> => {
+                return WaiiHttpClient.getInstance().commonFetch<GetSemanticContextResponse>(
                     GET_ENDPOINT,
                     params,
-                    callback,
-                    error
+                    signal
                 );
             },
         }

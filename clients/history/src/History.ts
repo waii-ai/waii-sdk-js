@@ -18,18 +18,13 @@ type GetGeneratedQueryHistoryResponse = {
 export let History = (
     function () {
         return {
-            list: function (
-                params: GetGeneratedQueryHistoryRequest = {},
-                callback: (result: GetGeneratedQueryHistoryResponse) => void,
-                error: (detail: object) => void
-            ): AbortController {
-                return WaiiHttpClient.getInstance().commonFetch(
+            list: async (params: GetGeneratedQueryHistoryRequest = {},
+                signal?: AbortSignal): Promise<GetGeneratedQueryHistoryResponse> 
+                => WaiiHttpClient.getInstance().commonFetch(
                     GET_ENDPOINT,
                     {},
-                    callback,
-                    error
-                );
-            }
+                    signal
+                )
         }
     }
 )();

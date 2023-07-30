@@ -98,90 +98,62 @@ type LikeQueryResponse = {
 export let Query = (
     function () {
         return {
-            generate: (
+            generate: async (
                 params: QueryGenerationRequest,
-                callback: (result: GeneratedQuery) => void,
-                error: (detail: object) => void
-            ): AbortController => {
-                return WaiiHttpClient.getInstance().commonFetch(
-                    GENERATE_ENDPOINT,
-                    params,
-                    callback,
-                    error
-                );
-            },
-            run: (
+                signal?: AbortSignal
+            ): Promise<GeneratedQuery> => WaiiHttpClient.getInstance().commonFetch<GeneratedQuery>(
+                GENERATE_ENDPOINT,
+                params,
+                signal
+            ),
+            run: async (
                 params: RunQueryRequest,
-                callback: (result: GetQueryResultResponse) => void,
-                error: (detail: object) => void
-            ): AbortController => {
-                return WaiiHttpClient.getInstance().commonFetch(
-                    RUN_ENDPOINT,
-                    params,
-                    callback,
-                    error
-                );
-            },
-            like: (
+                signal?: AbortSignal
+            ): Promise<GetQueryResultResponse> => WaiiHttpClient.getInstance().commonFetch<GetQueryResultResponse>(
+                RUN_ENDPOINT,
+                params,
+                signal
+            ),
+            like: async (
                 params: LikeQueryRequest,
-                callback: (result: LikeQueryResponse) => void,
-                error: (detail: object) => void
-            ): AbortController => {
-                return WaiiHttpClient.getInstance().commonFetch(
-                    FAVORITE_ENDPOINT,
-                    params,
-                    callback,
-                    error
-                );
-            },
-            submit: (
+                signal?: AbortSignal
+            ): Promise<LikeQueryResponse> => WaiiHttpClient.getInstance().commonFetch<LikeQueryResponse>(
+                FAVORITE_ENDPOINT,
+                params,
+                signal
+            ),
+            submit: async (
                 params: RunQueryRequest,
-                callback: (result: RunQueryResponse) => void,
-                error: (detail: object) => void
-            ): AbortController => {
-                return WaiiHttpClient.getInstance().commonFetch(
-                    SUBMIT_ENDPOINT,
-                    params,
-                    callback,
-                    error
-                );
-            },
-            getResults: (
+                signal?: AbortSignal
+            ): Promise<RunQueryResponse> => WaiiHttpClient.getInstance().commonFetch<RunQueryResponse>(
+                SUBMIT_ENDPOINT,
+                params,
+                signal
+            ),
+            getResults: async (
                 params: GetQueryResultRequest,
-                callback: (result: GetQueryResultResponse) => void,
-                error: (detail: object) => void
-            ): AbortController => {
-                return WaiiHttpClient.getInstance().commonFetch(
-                    RESULTS_ENDPOINT,
-                    params,
-                    callback,
-                    error
-                );
-            },
-            cancel: (
+                signal?: AbortSignal
+            ): Promise<GetQueryResultResponse> => WaiiHttpClient.getInstance().commonFetch<GetQueryResultResponse>(
+                RESULTS_ENDPOINT,
+                params,
+                signal
+            ),
+            cancel: async (
                 params: CancelQueryRequest,
-                callback: (result: CancelQueryResponse) => void,
-                error: (detail: object) => void
-            ): AbortController => {
-                return WaiiHttpClient.getInstance().commonFetch(
-                    CANCEL_ENDPOINT,
-                    params,
-                    callback,
-                    error
-                );
-            },
-            describe: (
+                signal?: AbortSignal
+            ): Promise<CancelQueryResponse> => WaiiHttpClient.getInstance().commonFetch<CancelQueryResponse>(
+                CANCEL_ENDPOINT,
+                params,
+                signal
+            ),
+            describe: async (
                 params: DescribeQueryRequest,
-                callback: (result: DescribeQueryResponse) => void,
-                error: (detail: object) => void
-            ): AbortController => {
-                return WaiiHttpClient.getInstance().commonFetch(
-                    DESCRIBE_ENDPOINT,
-                    params,
-                    callback,
-                    error
-                );
-            },
+                signal?: AbortSignal
+            ): Promise<DescribeQueryResponse> => WaiiHttpClient.getInstance().commonFetch<DescribeQueryResponse>(
+                DESCRIBE_ENDPOINT,
+                params,
+                signal
+            ),
         }
     }
 )();
