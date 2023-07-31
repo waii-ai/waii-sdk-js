@@ -162,9 +162,9 @@ async function like(params: LikeQueryRequest, signal?: AbortSignal): Promise<Lik
 
 - A Promise resolving to a `LikeQueryResponse` object confirming the success of the operation. The `LikeQueryResponse` object has no fields, and is just a placeholder. If the query doesn't fail, the state is updated to mark the requested query as a favorite.
 
-### Submitting a Query <a name="submitting-a-query"></a>
+### Submitting a Query for Execution <a name="submitting-a-query"></a>
 
-This function allows you to submit a query for processing. This is the same as "Running a Query" except that this function is async. It will return an id that can be used later to retrieve a query response.
+This function allows you to submit a query for processing. This is the same as "Running a Query" except that this function is async. It returns an id that can be used later to retrieve a query response.
 
 ```typescript
 async function submit(params: RunQueryRequest, signal?: AbortSignal): Promise<RunQueryResponse>;
@@ -219,7 +219,7 @@ async function cancel(params: CancelQueryRequest, signal?: AbortSignal): Promise
 
 - `params` (required): An object containing the cancel query request parameters.
 
-  - `query_id` (required): The unique identifier of the query to be canceled.
+  - `query_id` (required): The unique identifier of the query to be canceled. This is the response of the "Submit Query" api.
 
 - `signal` (optional): An AbortSignal object for aborting the request.
 
@@ -239,8 +239,8 @@ async function describe(params: DescribeQueryRequest, signal?: AbortSignal): Pro
 
 - `params` (required): An object containing the describe query request parameters.
 
-  - `search_context` (optional): An array of `SearchContext` objects that specify the database, schema, and table names related to the query.
-  - `current_schema` (optional): The current schema name for the query.
+  - `search_context` (optional): An array of `SearchContext` objects that specify the database, schema, and table names related to the query. This is optional, when provided the query processing engine will only consider objects in the search context. If ommitted, all objects in the database will be considered.
+  - `current_schema` (optional): The current schema name for the query. An optional hint to the system that the query is using a particular schema.
   - `query` (optional): The query string to be described.
 
 - `signal` (optional): An AbortSignal object for aborting the request.
@@ -250,17 +250,15 @@ async function describe(params: DescribeQueryRequest, signal?: AbortSignal): Pro
 - A Promise resolving to a `DescribeQueryResponse object containing the query description details.
 The DescribeQueryResponse object contains the following fields:
 
-summary (optional): A string representing a summary of the query's purpose or objective.
+- `summary` (optional): A string representing a summary of the query's purpose or objective.
+- `detailed_steps` (optional): An array of strings providing detailed steps or actions performed by the query.
+- `tables` (optional): An array of TableName objects representing the tables involved in the query. Each TableName object may contain the following fields:
 
-detailed_steps (optional): An array of strings providing detailed steps or actions performed by the query.
+  - `table_name` (required): The name of the table.
+  - `schema_name` (optional): The name of the schema (if applicable).
+  - `database_name` (optional): The name of the database (if applicable).
 
-tables (optional): An array of TableName objects representing the tables involved in the query. Each TableName object may contain the following fields:
-
-table_name (required): The name of the table.
-schema_name (optional): The name of the schema (if applicable).
-database_name (optional): The name of the database (if applicable).
-Please note that some fields in the DescribeQueryResponse object may be optional, and their presence depends on the information available for the query or the provided search_context. The response will provide relevant information and descriptions based on the context of the query.
-
+Please note that some fields in the DescribeQueryResponse object may be optional, and their presence depends on the information available for the query or the provided search_context.
 
 ## Semantic Context Module <a name="semantic-context-module"></a>
 
