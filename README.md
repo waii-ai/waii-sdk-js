@@ -36,6 +36,7 @@ import WAII from 'waii-sdk-js';
 WAII.initialize('https://tweakit.waii.ai/api/', 'your_api_key');
 ```
 
+
 If it's the first time you're using the system you have to add a database connection. This can be done ahead of time / outside the sdk (using the UI for instance).
 
 ```javascript
@@ -55,7 +56,8 @@ let result = await WAII.Database.modifyConnections(
     );
 ```
 
-if you already have database connections configured you can activate them by key. Like so:
+
+If you already have database connections configured you can activate them by key. Like so:
 
 ```javascript
 WAII.Database.activateConnection(<connection key>);
