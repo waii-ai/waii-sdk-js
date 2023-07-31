@@ -67,7 +67,7 @@ And now you are ready to generate queries:
 
 ```javascript
 let result = await WAII.Query.generate({
-      ask: 'show me the revenue month over month for the last three years, with percentage difference to previous and subsequent months'
+      ask: 'show me the revenue month over month for the last three years by store location'
 });
 ```
 
