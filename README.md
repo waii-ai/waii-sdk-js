@@ -61,19 +61,17 @@ async function generate(params: QueryGenerationRequest, signal?: AbortSignal): P
 
 - `signal` (optional): An AbortSignal object for aborting the request.
 
-Certainly! Here's the documentation for the `GeneratedQuery` object:
-
 #### Returns:
 
-A Promise resolving to a `GeneratedQuery` object containing the generated query details.
+A Promise resolving to a `GeneratedQuery` object containing the details of the generated SQL query.
 
 The `GeneratedQuery` object represents the details of a generated query and contains the following fields:
 
 - `uuid` (optional): A string representing the unique identifier of the generated query.
 
-- `liked` (optional): A boolean value indicating whether the query has been liked by the user.
+- `liked` (optional): A boolean value indicating whether the query has been liked/favorited by the user. This is always false when the query is generated, but can be set via the "like" API.
 
-- `tables` (optional): An array of `TableName` objects representing the tables involved in the generated query. Each `TableName` object may contain the following fields:
+- `tables` (optional): An array of `TableName` objects representing the tables used in the generated query (this is a subset of the search_context). Each `TableName` object may contain the following fields:
 
   - `table_name` (required): The name of the table.
   - `schema_name` (optional): The name of the schema (if applicable).
@@ -82,15 +80,15 @@ The `GeneratedQuery` object represents the details of a generated query and cont
 - `semantic_context` (optional): An array of `SemanticStatement` objects representing the semantic context of the generated query. Each `SemanticStatement` object may contain the following fields:
 
   - `id` (optional): A string representing the unique identifier of the semantic statement.
-  - `scope` (required): A string representing the scope of the semantic statement.
-  - `statement` (required): A string representing the semantic statement itself.
+  - `scope` (required): A string representing the scope of the semantic statement. This is either a database, schema, table or column name. The semantic statement will be considered whenever that object is involved in a query.
+  - `statement` (required): A string representing the semantic statement itself (e.g.: Describes the price of an item, final price is computed as 'price - discount'). This helps understand why a query was built a certain way.
   - `labels` (optional): An array of strings representing the labels associated with the semantic statement.
 
-- `query` (optional): A string representing the generated query.
+- `query` (optional): A string representing the generated SQL query.
 
-- `detailed_steps` (optional): An array of strings providing detailed steps or actions performed by the generated query.
+- `detailed_steps` (optional): An array of strings providing detailed steps or actions performed by the generated SQL query. This is the textual "explain plan".
 
-- `what_changed` (optional): A string representing what changed in the query.
+- `what_changed` (optional): A string representing what changed in the query. This will be set when a generated query is refined with additional asks.
 
 - `compilation_errors` (optional): An array of `CompilationError` objects representing any compilation errors that occurred during query generation. Each `CompilationError` object may contain the following fields:
 
@@ -101,7 +99,7 @@ The `GeneratedQuery` object represents the details of a generated query and cont
 
 - `timestamp_ms` (optional): A number representing the timestamp (in milliseconds) when the query was generated.
 
-Please note that some fields in the `GeneratedQuery` object may be optional, and their presence depends on the details of the specific generated query. The object provides comprehensive information about the generated query, its semantic context, compilation status, and other relevant details.
+Please note that some fields in the `GeneratedQuery` object may be optional, and their presence depends on the details of the specific generated query.
 
 ### Running a Query <a name="running-a-query"></a>
 
