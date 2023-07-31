@@ -1,2 +1,2 @@
-# waii-sdk
-SDKs for the WAII data AI APIs
+# Waii-sdk-js
+SDK for Waii's data AI APIs
