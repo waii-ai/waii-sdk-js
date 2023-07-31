@@ -1,6 +1,6 @@
-# WAII API Documentation
+# WAII SDK Documentation for TypeScript and JavaScript
 
-Welcome to the API documentation for WAII (Data & AI Applications). This documentation provides detailed information on how to use the API to interact with the WAII system. The API allows engineers to perform queries, generate queries, manage the semantic context, database connections, and access query history.
+Welcome to the SDK documentation for WAII (Data & AI applications). This documentation provides detailed information on how to use the SDK to interact with the WAII system. The SDK allows enables developers to generate, explain, describe, modify and run SQL queries from text input, as well as manage a semantic layer, handle database connections, perform semantic search, and access the history of generated queries.
 
 ## Table of Contents
 
@@ -26,19 +26,19 @@ Welcome to the API documentation for WAII (Data & AI Applications). This documen
 
 ## Getting Started <a name="getting-started"></a>
 
-To get started with the WAII API, you first need to initialize the system. Make sure you have the appropriate URL and API key.
+To get started with the WAII API, you first need to initialize the system. You can get your API key, but reaching out to us here: https://www.waii.ai
 
 ```javascript
 // Import the WAII module
 import { WAII } from './waii';
 
 // Initialize the WAII system with the URL and API key (optional)
-WAII.initialize('http://localhost:9859/api/', 'your_api_key_here');
+WAII.initialize('https://tweakit.waii.ai/api/', 'your_api_key');
 ```
 
 ## Query Module <a name="query-module"></a>
 
-The Query module provides functions to generate, run, and manage queries.
+The Query module provides functions to generate, run, and manage SQL queries.
 
 ### Query Generation <a name="query-generation"></a>
 
@@ -52,12 +52,12 @@ async function generate(params: QueryGenerationRequest, signal?: AbortSignal): P
 
 - `params` (required): An object containing the query generation request parameters.
 
-  - `search_context` (optional): An array of `SearchContext` objects that specify the database, schema, and table names to consider during query generation.
-  - `tweak_history` (optional): An array of `Tweak` objects that provide additional information for query generation, such as SQL or ASK statements.
-  - `ask` (optional): A string containing the ASK statement for the query generation.
+  - `search_context` (optional): An array of `SearchContext` objects that specify the database, schema, and table names to consider during query generation. The system will automatically pick the needed objects, if this field is ommitted all the objects in the database will be considered (that's the common case).
+  - `tweak_history` (optional): An array of `Tweak` objects that provide additional information for query generation. This is to interactively update a query. The Tweaks are the previous asks and response queries and these will be refined with the new ask.
+  - `ask` (optional): A string containing the english language statement for the query generation. Can we a question or a description of the requested result.
   - `uuid` (optional): A unique identifier for the query.
-  - `dialect` (optional): The dialect of the query.
-  - `parent_uuid` (optional): The parent query's unique identifier.
+  - `dialect` (optional): The dialect of the query: Snowflake, or PostgreSQL.
+  - `parent_uuid` (optional): The parent query's unique identifier. This is for interactive sessions and refers to the UUID from the previous interaction.
 
 - `signal` (optional): An AbortSignal object for aborting the request.
 
