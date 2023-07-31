@@ -5,8 +5,8 @@ Welcome to the SDK documentation for WAII (Data & AI applications). This documen
 ## Table of Contents
 
 1. [Getting Started](#getting-started)
-2. [Query Module](#query-module)
-   - [Query Generation](#query-generation)
+2. [SQL Query Module](#query-module)
+   - [Query Generation and Update](#query-generation)
    - [Running a Query](#running-a-query)
    - [Liking a Query](#liking-a-query)
    - [Submitting a Query](#submitting-a-query)
@@ -36,13 +36,13 @@ import WAII from 'waii-sdk-js';
 WAII.initialize('https://tweakit.waii.ai/api/', 'your_api_key');
 ```
 
-## Query Module <a name="query-module"></a>
+## SQL Query Module <a name="query-module"></a>
 
 The Query module provides functions to generate, run, and manage SQL queries.
 
-### Query Generation <a name="query-generation"></a>
+### Query Generation and Update <a name="query-generation"></a>
 
-This function allows you to generate a query based on the provided request parameters.
+This function allows you to generate or refine/update a query based on the provided request parameters.
 
 ```typescript
 async function generate(params: QueryGenerationRequest, signal?: AbortSignal): Promise<GeneratedQuery>;
