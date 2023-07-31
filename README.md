@@ -114,17 +114,36 @@ async function run(params: RunQueryRequest, signal?: AbortSignal): Promise<GetQu
 - `params` (required): An object containing the run query request parameters.
 
   - `query` (required): The query string to be executed.
-  - `session_id` (optional): The session ID for the query execution.
+  - `session_id` (optional): The session ID for the query execution. We will use the same connection for specific sessionIds, thus it's possible to use stateful statements as well (e.g: use schema, create temproary table, etc)
 
 - `signal` (optional): An AbortSignal object for aborting the request.
 
 #### Returns:
 
-- A Promise resolving to a `GetQueryResultResponse` object containing the query result details.
+A Promise resolving to a `GetQueryResultResponse` object containing the query result details.
+
+The `GetQueryResultResponse` object represents the result of a query execution and contains the following fields:
+
+- `rows` (optional): An array of objects representing the rows of the query result. Each object corresponds to a row, and its properties represent the column values.
+
+- `more_rows` (optional): A number indicating the number of additional rows available for the query result. If the query result exceeds the maximum returned rows, this field indicates the number of remaining rows that can be fetched.
+
+- `column_definitions` (optional): An array of `Column` objects representing the column definitions of the query result. Each `Column` object may contain the following fields:
+
+  - `name` (required): A string representing the name of the column.
+  - `type` (required): A string representing the data type of the column.
+  - `comment` (optional): A string representing any comment or description associated with the column.
+  - `sample_values` (optional): An array of `ColumnSampleValues` objects representing sample values for the column. Each `ColumnSampleValues` object may contain the following fields:
+
+    - `values` (optional): An array of objects representing sample values for the column, along with their respective counts. Each object may have `value` (string) and `count` (number) properties.
+
+- `query_uuid` (optional): A string representing the unique identifier of the query associated with the result.
+
+Please note that some fields in the `GetQueryResultResponse` object may be optional, and their presence depends on the specific result of the executed query.
 
 ### Liking a Query <a name="liking-a-query"></a>
 
-This function allows you to like or dislike a specific query.
+This function allows you to like or favorite a specific query. This helps finding queries in the query history, but also tells the system when queries are correct to learn from them.
 
 ```typescript
 async function like(params: LikeQueryRequest, signal?: AbortSignal): Promise<LikeQueryResponse>;
@@ -141,11 +160,11 @@ async function like(params: LikeQueryRequest, signal?: AbortSignal): Promise<Lik
 
 #### Returns:
 
-- A Promise resolving to a `LikeQueryResponse` object confirming the success of the operation.
+- A Promise resolving to a `LikeQueryResponse` object confirming the success of the operation. The `LikeQueryResponse` object has no fields, and is just a placeholder. If the query doesn't fail, the state is updated to mark the requested query as a favorite.
 
 ### Submitting a Query <a name="submitting-a-query"></a>
 
-This function allows you to submit a query for processing.
+This function allows you to submit a query for processing. This is the same as "Running a Query" except that this function is async. It will return an id that can be used later to retrieve a query response.
 
 ```typescript
 async function submit(params: RunQueryRequest, signal?: AbortSignal): Promise<RunQueryResponse>;
@@ -160,9 +179,13 @@ async function submit(params: RunQueryRequest, signal?: AbortSignal): Promise<Ru
 
 - `signal` (optional): An AbortSignal object for aborting the request.
 
-#### Returns:
+### Returns:
 
-- A Promise resolving to a `RunQueryResponse` object containing the query ID.
+A Promise resolving to a `RunQueryResponse` object containing the query ID.
+
+The `RunQueryResponse` object represents the response of the "run query" operation and contains the following field:
+
+- `query_id` (optional): A string representing the unique identifier of the executed query. This id is to be used in the "Get Query Results" call.
 
 ### Getting Query Results <a name="getting-query-results"></a>
 
@@ -182,7 +205,7 @@ async function getResults(params: GetQueryResultRequest, signal?: AbortSignal): 
 
 #### Returns:
 
-- A Promise resolving to a `GetQueryResultResponse` object containing the query result data.
+- A Promise resolving to a `GetQueryResultResponse` object containing the query result data. For a description of this object please refer to the documentation of "Running a query".
 
 ### Cancelling a Query <a name="cancelling-a-query"></a>
 
