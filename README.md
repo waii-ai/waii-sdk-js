@@ -30,7 +30,7 @@ To get started with the WAII API, you first need to initialize the system. You c
 
 ```javascript
 // Import the WAII module
-import { WAII } from './waii';
+import WAII from 'waii-sdk-js';
 
 // Initialize the WAII system with the URL and API key (optional)
 WAII.initialize('https://tweakit.waii.ai/api/', 'your_api_key');
