@@ -283,10 +283,25 @@ async function modifySemanticContext(params: ModifySemanticContextRequest, signa
 
 - `signal` (optional): An AbortSignal object for aborting the request.
 
+Certainly! Here's the documentation for the `ModifySemanticContextResponse` object:
+
 #### Returns:
 
-- A Promise resolving to a `ModifySemanticContextResponse` object containing the updated and deleted semantic statements.
+A Promise resolving to a `ModifySemanticContextResponse` object containing the updated and deleted semantic statements.
 
+The `ModifySemanticContextResponse` object represents the response of the "modify semantic context" operation and contains the following fields:
+
+- `updated` (optional): An array of `SemanticStatement` objects representing the semantic statements that have been updated as a result of the operation. Each `SemanticStatement` object may contain the following fields:
+
+  - `id` (optional): A string representing the unique identifier of the semantic statement.
+  - `scope` (required): A string representing the scope of the semantic statement.
+  - `statement` (required): A string representing the semantic statement itself.
+  - `labels` (optional): An array of strings representing the labels associated with the semantic statement.
+
+- `deleted` (optional): An array of strings representing the IDs of the semantic statements that have been deleted as a result of the operation.
+
+Please note that the `updated` and `deleted` fields in the `ModifySemanticContextResponse` object may be optional, depending on the changes made during the "modify semantic context" operation.
+   
 ### Getting the Semantic Context <a name="getting-the-semantic-context"></a>
 
 This function allows you to retrieve the current semantic context.
@@ -301,9 +316,22 @@ async function getSemanticContext(params: GetSemanticContextRequest, signal?: Ab
 
 - `signal` (optional): An AbortSignal object for aborting the request.
 
+Certainly! Here's the documentation for the `GetSemanticContextResponse` object:
+
 #### Returns:
 
-- A Promise resolving to a `GetSemanticContextResponse` object containing the semantic statements.
+A Promise resolving to a `GetSemanticContextResponse` object containing the semantic statements.
+
+The `GetSemanticContextResponse` object represents the response of the "get semantic context" operation and contains the following field:
+
+- `semantic_context` (optional): An array of `SemanticStatement` objects representing the semantic statements retrieved from the server. Each `SemanticStatement` object may contain the following fields:
+
+  - `id` (optional): A string representing the unique identifier of the semantic statement.
+  - `scope` (required): A string representing the scope of the semantic statement.
+  - `statement` (required): A string representing the semantic statement itself.
+  - `labels` (optional): An array of strings representing the labels associated with the semantic statement.
+
+Please note that the `semantic_context` field in the `GetSemanticContextResponse` object may be optional.
 
 ## Database Module <a name="database-module"></a>
 
