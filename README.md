@@ -404,4 +404,4 @@ async function list(params: GetGeneratedQueryHistoryRequest = {}, signal?: Abort
 
 ---
 
-Congratulations! You have completed the API documentation for the WAII API. These modules provide essential functions for managing database connections, accessing schema and table information, querying data, and accessing the history of generated queries. With this information, you can now build powerful data & AI applications using the WAII system. If you have any questions or need further assistance, please refer to the contact information provided in the system's official documentation. Happy coding!
+That's all folks! You have completed the API documentation for the WAII API. If you have any questions or need further assistance, please refer to the contact information provided on the webpage www.waii.ai . Happy coding!
