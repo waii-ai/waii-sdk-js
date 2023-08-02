@@ -11,9 +11,9 @@ export let WAII = (
             SemanticContext: SemanticContext,
             Query: Query,
             Database: Database,
-            initialize(url: string = 'http://localhost:9859/api/', apiKey: string = '') {
+            initialize: (url: string = 'http://localhost:9859/api/', apiKey: string = '') => {
                 WaiiHttpClient.getInstance(url, apiKey);
-            }
+            },
         }
     }
 )();
