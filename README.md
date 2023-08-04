@@ -318,8 +318,6 @@ async function modifySemanticContext(params: ModifySemanticContextRequest, signa
 
 - `signal` (optional): An AbortSignal object for aborting the request.
 
-Certainly! Here's the documentation for the `ModifySemanticContextResponse` object:
-
 #### Returns:
 
 A Promise resolving to a `ModifySemanticContextResponse` object containing the updated and deleted semantic statements.
@@ -350,8 +348,6 @@ async function getSemanticContext(params: GetSemanticContextRequest, signal?: Ab
 - `params` (optional): An object containing the get semantic context request parameters.
 
 - `signal` (optional): An AbortSignal object for aborting the request.
-
-Certainly! Here's the documentation for the `GetSemanticContextResponse` object:
 
 #### Returns:
 
@@ -390,8 +386,6 @@ async function modifyConnections(params: ModifyDBConnectionRequest, signal?: Abo
   - `user_id` (optional): The ID of the user performing the modification.
 
 - `signal` (optional): An AbortSignal object for aborting the request.
-
-Certainly! Here's the documentation for the `ModifyDBConnectionResponse` object:
 
 #### Returns:
 
@@ -473,8 +467,6 @@ async function getCatalogs(params: GetCatalogRequest = {}, signal?: AbortSignal)
 
 - `signal` (optional): An AbortSignal object for aborting the request.
 
-Certainly! Here's the documentation for the `GetCatalogResponse` object:
-
 #### Returns:
 
 A Promise resolving to a `GetCatalogResponse` object containing the list of catalogs and associated schema and table information.
@@ -518,8 +510,6 @@ async function list(params: GetGeneratedQueryHistoryRequest = {}, signal?: Abort
 - `params` (optional): An object containing the get generated query history request parameters.
 
 - `signal` (optional): An AbortSignal object for aborting the request.
-
-Certainly! Here's the documentation for the `GetGeneratedQueryHistoryResponse` object:
 
 #### Returns:
 
