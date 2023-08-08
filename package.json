@@ -1,7 +1,7 @@
 {
   "name": "waii-sdk-js",
   "version": "1.0.0",
-  "description": "Typescript / Javascript SDK for the waii api. SQL generation and much more/",
+  "description": "Typescript / Javascript SDK for the waii api. SQL generation and much more.",
   "main": "dist/src/waii-sdk.js",
   "types": "dist/src/index.d.ts",
   "prepublish": "tsc",
@@ -11,10 +11,10 @@
     "TypeScript"
   ],
   "homepage": "https://www.waii.ai",
-  "author": "Waii, Inc. support@waii.ai",
+  "author": "Waii, Inc. <support@waii.ai> (https://www.waii.ai)",
   "license": "Apache-2.0",
   "repository": {
-    "url": "https://github.com/waii-abi/waii-sdk-js",
+    "url": "https://github.com/waii-ai/waii-sdk-js",
     "type": "git"
   },
   "devDependencies": {
