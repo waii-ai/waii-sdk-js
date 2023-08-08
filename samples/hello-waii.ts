@@ -1,4 +1,5 @@
 import WAII from '../src/waii-sdk';
+import process = require("node:process");
 
 const connection = "http://localhost:9859/api/";
 
@@ -54,7 +55,7 @@ async function main() {
     console.log('-----Query History-----');
     console.log(queryHistory);
     
-    
+    process.exit(0);
 }
 
 main();
