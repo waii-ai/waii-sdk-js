@@ -26,7 +26,7 @@ Welcome to the SDK documentation for WAII (World's most powerful SQL/AI API). Th
 
 ## Getting Started <a name="getting-started"></a>
 
-To get started with the WAII API, you first need to initialize the system. You can get your API key, but reaching out to us here: https://www.waii.ai
+To get started with the WAII API, you first need to initialize the system. You can get your API key, by reaching out to us here: https://www.waii.ai
 
 ```javascript
 // Import the WAII module
@@ -62,6 +62,7 @@ If you already have database connections configured you can activate them by key
 ```javascript
 WAII.Database.activateConnection(<connection key>);
 ```
+It can take little time depending on the number of tables in the system.
 
 And now you are ready to generate queries:
 
@@ -102,7 +103,7 @@ A Promise resolving to a `GeneratedQuery` object containing the details of the g
 
 The `GeneratedQuery` object represents the details of a generated query and contains the following fields:
 
-- `uuid` (optional): A string representing the unique identifier of the generated query.
+- `uuid` (optional): A string representing the unique identifier of the generated query. This can be later used for liking the query. Please refer to documentation of "Liking a Query".
 
 - `liked` (optional): A boolean value indicating whether the query has been liked/favorited by the user. This is always false when the query is generated, but can be set via the "like" API.
 
