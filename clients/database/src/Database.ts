@@ -84,7 +84,7 @@ type Table = {
 type Schema = {
     name: SchemaName
     tables?: Table[]
-    description?: SchemaDescription[]
+    description?: SchemaDescription
 }
 
 type ColumnSampleValues = {

@@ -1,9 +1,9 @@
 {
   "name": "waii-sdk-js",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Typescript / Javascript SDK for the waii api. SQL generation and much more.",
   "main": "dist/src/waii-sdk.js",
-  "types": "dist/src/index.d.ts",
+  "types": "dist/src/waii-sdk.d.ts",
   "prepublish": "tsc",
   "keywords": [
     "SQL",
