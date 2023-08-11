@@ -46,12 +46,13 @@ export default class WaiiHttpClient {
         let request = {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Authorization': 'Bearer ' + this.apiKey,
+                'Content-Type': 'application/json',
             },
             body: JSON.stringify(params),
             signal: signal
         }
-
+        
         let fetchOrTimeout = Promise.race(
             [
                 fetch(this.url + endpoint, request),
