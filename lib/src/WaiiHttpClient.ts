@@ -25,6 +25,10 @@ export default class WaiiHttpClient {
         this.scope = scope;
     }
 
+    public getScope() {
+        return this.scope
+    }
+
     public setOrgId(orgId: string) {
         this.orgId = orgId;
     }

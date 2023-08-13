@@ -1,4 +1,5 @@
 import WaiiHttpClient from "../../../lib/src/WaiiHttpClient";
+import WAII from "../../../src/waii-sdk";
 
 const MODIFY_DB_ENDPOINT: string = 'update-db-connect-info';
 const GET_CATALOG_ENDPOINT: string = 'get-table-definitions';
@@ -21,7 +22,8 @@ type ModifyDBConnectionRequest = {
     updated?: DBConnection[],
     removed?: string[],
     validate_before_save?: boolean,
-    user_id?: string
+    user_id?: string,
+    default_db_connection_key?: string
 }
 
 type ModifyDBConnectionResponse = {
@@ -34,7 +36,8 @@ type GetDBConnectionRequest = {
 
 type GetDBConnectionResponse = {
     connectors?: DBConnection[],
-    diagnostics?: string[]
+    diagnostics?: string[],
+    default_db_connection_key?: string
 }
 
 type SearchContext = {
@@ -130,11 +133,19 @@ export let Database = (
                 params,
                 signal
             ),
-            activateConnection: (
-                key: string
-            ): void => WaiiHttpClient.getInstance().setScope(
-                key
-            ),
+
+            activateConnection: async (
+                key: string,
+                signal?: AbortSignal
+            ): Promise<GetDBConnectionResponse> => {
+                let result = await WaiiHttpClient.getInstance().commonFetch<ModifyDBConnectionRequest>(
+                    MODIFY_DB_ENDPOINT, {
+                        default_db_connection_key: key
+                    }, signal)
+                WaiiHttpClient.getInstance().setScope(key)
+                return result
+            },
+
             getCatalogs: async (
                 params: GetCatalogRequest = {},
                 signal?: AbortSignal
@@ -143,6 +154,10 @@ export let Database = (
                 params,
                 signal
             ),
+
+            getDefaultConnection: () => {
+                return WaiiHttpClient.getInstance().getScope()
+            }
         }
     }
 )();
