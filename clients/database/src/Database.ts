@@ -138,11 +138,11 @@ export let Database = (
                 key: string,
                 signal?: AbortSignal
             ): Promise<GetDBConnectionResponse> => {
+                WaiiHttpClient.getInstance().setScope(key)
                 let result = await WaiiHttpClient.getInstance().commonFetch<ModifyDBConnectionRequest>(
                     MODIFY_DB_ENDPOINT, {
                         default_db_connection_key: key
                     }, signal)
-                WaiiHttpClient.getInstance().setScope(key)
                 return result
             },
 
