@@ -11,8 +11,15 @@ export let WAII = (
             SemanticContext: SemanticContext,
             Query: Query,
             Database: Database,
-            initialize: (url: string = 'http://localhost:9859/api/', apiKey: string = '') => {
+            initialize: async (url: string = 'http://localhost:9859/api/', apiKey: string = '') => {
                 WaiiHttpClient.getInstance(url, apiKey);
+                let result = await WAII.Database.getConnections({});
+
+                if (result.default_db_connection_key) {
+                    await WAII.Database.activateConnection(result.default_db_connection_key);
+                } else if (result.connectors && result.connectors.length > 0) {
+                    await WAII.Database.activateConnection(result.connectors[0].key);
+                }
             },
         }
     }
