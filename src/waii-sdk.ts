@@ -15,11 +15,16 @@ export let WAII = (
                 WaiiHttpClient.getInstance(url, apiKey);
                 let result = await WAII.Database.getConnections({});
 
+                let activeConnection = null
                 if (result.default_db_connection_key) {
+                    activeConnection = result.default_db_connection_key
                     await WAII.Database.activateConnection(result.default_db_connection_key);
                 } else if (result.connectors && result.connectors.length > 0) {
+                    activeConnection = result.connectors[0].key
                     await WAII.Database.activateConnection(result.connectors[0].key);
                 }
+
+                return activeConnection
             },
         }
     }
