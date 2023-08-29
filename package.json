@@ -1,6 +1,6 @@
 {
   "name": "waii-sdk-js",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Typescript / Javascript SDK for the waii api. SQL generation and much more.",
   "main": "dist/src/waii-sdk.js",
   "types": "dist/src/waii-sdk.d.ts",
@@ -23,6 +23,7 @@
     "typescript": "^5.1.6"
   },
   "dependencies": {
-    "uuid": "^9.0.0"
+    "uuid": "^9.0.0",
+    "js-yaml": "^4.1.0"
   }
 }

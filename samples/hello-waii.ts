@@ -4,6 +4,7 @@ import process = require("node:process");
 const connection = "http://localhost:9859/api/";
 
 async function main() {
+    console.log('-----Initializing WAII-----');
     WAII.initialize(connection, '');
 
     

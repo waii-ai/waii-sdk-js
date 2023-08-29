@@ -9,6 +9,7 @@ const FAVORITE_ENDPOINT: string = 'like-query';
 const DESCRIBE_ENDPOINT: string = 'describe-query';
 const RESULTS_ENDPOINT: string = 'get-query-result';
 const CANCEL_ENDPOINT: string = 'cancel-query';
+const AUTOCOMPLETE_ENDPOINT: string = 'auto-complete';
 
 type Tweak = {
     sql?: string,
@@ -95,6 +96,18 @@ type LikeQueryRequest = {
 type LikeQueryResponse = {
 }
 
+type AutoCompleteRequest = {
+    text: string,
+    cursor_offset?: number,
+    dialect?: string,
+    search_context?: SearchContext[],
+    max_output_tokens?: number
+}
+
+type AutoCompleteResponse = {
+    text?: string
+}
+
 export let Query = (
     function () {
         return {
@@ -154,6 +167,14 @@ export let Query = (
                 params,
                 signal
             ),
+            autoComplete: async (
+                params: AutoCompleteRequest,
+                signal?: AbortSignal
+            ): Promise<AutoCompleteResponse> => WaiiHttpClient.getInstance().commonFetch<AutoCompleteResponse>(
+                AUTOCOMPLETE_ENDPOINT,
+                params,
+                signal
+            )
         }
     }
 )();
@@ -172,5 +193,7 @@ export {
     DescribeQueryResponse,
     CancelQueryRequest,
     CancelQueryResponse,
-    Tweak
+    Tweak,
+    AutoCompleteRequest,
+    AutoCompleteResponse
 }
