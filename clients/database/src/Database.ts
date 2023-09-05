@@ -3,6 +3,8 @@ import WAII from "../../../src/waii-sdk";
 
 const MODIFY_DB_ENDPOINT: string = 'update-db-connect-info';
 const GET_CATALOG_ENDPOINT: string = 'get-table-definitions';
+const UPDATE_TABLE_DESCRIPTION_ENDPOINT: string = 'update-table-description';
+const UPDATE_SCHEMA_DESCRIPTION_ENDPOINT: string = 'update-schema-description';
 
 type DBConnection = {
     key: string,
@@ -113,6 +115,23 @@ type GetCatalogResponse = {
     catalogs?: Catalog[],
 }
 
+type UpdateTableDescriptionRequest = {
+    table_name: TableName,
+    description: string
+}
+
+type UpdateSchemaDescriptionRequest = {
+    schema_name: SchemaName,
+    description: SchemaDescription
+}
+
+type UpdateTableDescriptionResponse = {
+
+}
+
+type UpdateSchemaDescriptionResponse = {
+
+}
 
 export let Database = (
     function () {
@@ -157,7 +176,25 @@ export let Database = (
 
             getDefaultConnection: () => {
                 return WaiiHttpClient.getInstance().getScope()
-            }
+            },
+
+            updateTableDescription: async (
+                params: UpdateTableDescriptionRequest,
+                signal?: AbortSignal
+            ): Promise<ModifyDBConnectionResponse> => WaiiHttpClient.getInstance().commonFetch<UpdateTableDescriptionResponse>(
+                UPDATE_TABLE_DESCRIPTION_ENDPOINT,
+                params,
+                signal
+            ),
+
+            updateSchemaDescription: async (
+                params: UpdateSchemaDescriptionRequest,
+                signal?: AbortSignal
+            ): Promise<ModifyDBConnectionResponse> => WaiiHttpClient.getInstance().commonFetch<UpdateSchemaDescriptionResponse>(
+                UPDATE_SCHEMA_DESCRIPTION_ENDPOINT,
+                params,
+                signal
+            )
         }
     }
 )();
