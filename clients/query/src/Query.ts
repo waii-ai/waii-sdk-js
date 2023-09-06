@@ -7,6 +7,7 @@ const RUN_ENDPOINT: string = 'run-query';
 const SUBMIT_ENDPOINT: string = 'submit-query'
 const FAVORITE_ENDPOINT: string = 'like-query';
 const DESCRIBE_ENDPOINT: string = 'describe-query';
+const DIFF_ENDPOINT: string = 'diff-query';
 const RESULTS_ENDPOINT: string = 'get-query-result';
 const CANCEL_ENDPOINT: string = 'cancel-query';
 const AUTOCOMPLETE_ENDPOINT: string = 'auto-complete';
@@ -35,6 +36,20 @@ type DescribeQueryResponse = {
     summary?: string
     detailed_steps?: string[]
     tables?: TableName[]
+}
+
+type DiffQueryRequest = {
+    search_context?: SearchContext[],
+    current_schema?: string
+    query?: string
+    previous_query?: string
+}
+
+type DiffQueryResponse = {
+    summary?: string
+    detailed_steps?: string[]
+    tables?: TableName[]
+    what_changed?: string
 }
 
 type CompilationError = {
@@ -174,7 +189,14 @@ export let Query = (
                 AUTOCOMPLETE_ENDPOINT,
                 params,
                 signal
-            )
+            ),
+            diff : async (params: DiffQueryRequest, signal?: AbortSignal): Promise<DiffQueryResponse> => {
+                return WaiiHttpClient.getInstance().commonFetch<DiffQueryResponse>(
+                    DIFF_ENDPOINT,
+                    params,
+                    signal
+                )
+            }
         }
     }
 )();
@@ -195,5 +217,7 @@ export {
     CancelQueryResponse,
     Tweak,
     AutoCompleteRequest,
-    AutoCompleteResponse
+    AutoCompleteResponse,
+    DiffQueryRequest,
+    DiffQueryResponse
 }
