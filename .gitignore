@@ -13,3 +13,4 @@
 dist/*
 node_modules/*
 waii-sdk-js-*.*.*.tgz
+.idea/
