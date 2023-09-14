@@ -17,7 +17,8 @@ type DBConnection = {
     warehouse?: string,
     role?: string,
     path?: string,
-    parameters?: object
+    parameters?: object,
+    sample_col_values?: boolean
 }
 
 type ModifyDBConnectionRequest = {
