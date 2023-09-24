@@ -37,7 +37,7 @@ type SchemaIndexingStatus = {
 
 type DBConnectionIndexingStatus = {
     status?: string,
-    schema_status?: { string: SchemaIndexingStatus}
+    schema_status?: {[schema_name: string]: SchemaIndexingStatus;}
 }
 
 
@@ -45,7 +45,7 @@ type ModifyDBConnectionResponse = {
     connectors?: DBConnection[],
     diagnostics?: string[],
     default_db_connection_key?: string,
-    connector_status?: {string: DBConnectionIndexingStatus}
+    connector_status?: {[key: string]: DBConnectionIndexingStatus;}
 }
 
 type GetDBConnectionRequest = {
@@ -55,7 +55,7 @@ type GetDBConnectionResponse = {
     connectors?: DBConnection[],
     diagnostics?: string[],
     default_db_connection_key?: string,
-    connector_status?: {string: DBConnectionIndexingStatus}
+    connector_status?: {[key: string]: DBConnectionIndexingStatus;}
 }
 
 type SearchContext = {
@@ -234,5 +234,7 @@ export {
     ModifyDBConnectionRequest, 
     ModifyDBConnectionResponse,
     GetCatalogRequest,
-    GetCatalogResponse
+    GetCatalogResponse,
+    DBConnectionIndexingStatus,
+    SchemaIndexingStatus
 }
