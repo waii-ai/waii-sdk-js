@@ -29,9 +29,23 @@ type ModifyDBConnectionRequest = {
     default_db_connection_key?: string
 }
 
+type SchemaIndexingStatus = {
+    n_pending_indexing_tables: number,
+    n_total_tables: number,
+    status: string
+}
+
+type DBConnectionIndexingStatus = {
+    status?: string,
+    schema_status?: { string: SchemaIndexingStatus}
+}
+
+
 type ModifyDBConnectionResponse = {
     connectors?: DBConnection[],
-    diagnostics?: string[]
+    diagnostics?: string[],
+    default_db_connection_key?: string,
+    connector_status?: {string: DBConnectionIndexingStatus}
 }
 
 type GetDBConnectionRequest = {
@@ -40,7 +54,8 @@ type GetDBConnectionRequest = {
 type GetDBConnectionResponse = {
     connectors?: DBConnection[],
     diagnostics?: string[],
-    default_db_connection_key?: string
+    default_db_connection_key?: string,
+    connector_status?: {string: DBConnectionIndexingStatus}
 }
 
 type SearchContext = {
