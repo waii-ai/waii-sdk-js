@@ -17,6 +17,8 @@ type DBConnection = {
     warehouse?: string,
     role?: string,
     path?: string,
+    host?: string,
+    port?: number,
     parameters?: object,
     sample_col_values?: boolean
 }
