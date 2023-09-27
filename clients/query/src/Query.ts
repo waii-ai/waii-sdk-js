@@ -1,5 +1,5 @@
 import WaiiHttpClient from "../../../lib/src/WaiiHttpClient";
-import { SearchContext, TableName, Column } from "../../database/src/Database"
+import { SearchContext, TableName, Column, SchemaName } from "../../database/src/Database"
 import { SemanticStatement } from "../../semantic-context/src/SemanticContext"
 
 const GENERATE_ENDPOINT: string = 'generate-query';
@@ -73,12 +73,14 @@ type GeneratedQuery = {
 type SyncRunQueryRequest = {
     query: string,
     timeout_ms?: number,
-    max_returned_rows?: number
+    max_returned_rows?: number,
+    current_schema?: SchemaName
 }
 
 type RunQueryRequest = {
     query: string,
-    session_id?: string
+    session_id?: string,
+    current_schema?: SchemaName
 }
 
 type RunQueryResponse = {
