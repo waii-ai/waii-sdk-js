@@ -13,6 +13,7 @@ Welcome to the SDK documentation for WAII (World's most powerful SQL/AI API). Th
    - [Getting Query Results](#getting-query-results)
    - [Cancelling a Query](#cancelling-a-query)
    - [Describing a Query](#describing-a-query)
+   - [Showing the difference between two queries](#diffing-a-query)
 3. [Semantic Context Module](#semantic-context-module)
    - [Modifying the Semantic Context](#modifying-the-semantic-context)
    - [Getting the Semantic Context](#getting-the-semantic-context)
