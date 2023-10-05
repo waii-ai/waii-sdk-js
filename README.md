@@ -1,6 +1,6 @@
 # WAII SDK Documentation for TypeScript and JavaScript
 
-Welcome to the SDK documentation for WAII (World's most powerful SQL/AI API). This documentation provides detailed information on how to use the SDK to interact with the WAII system. The SDK allows enables developers to generate, explain, describe, modify and run SQL queries from text input, as well as manage a semantic layer, handle database connections, perform semantic search, and access the history of generated queries.
+Welcome to the SDK documentation for WAII (World's most powerful SQL/AI API). This documentation provides detailed information on how to use the SDK to interact with the WAII system. The SDK allows enables developers to generate, explain, describe, modify, transcode and run SQL queries from text input, as well as manage a semantic layer, handle database connections, perform semantic search, and access the history of generated queries.
 
 ## Table of Contents
 
@@ -32,7 +32,7 @@ To get started with the WAII API, you first need to initialize the system. You c
 // Import the WAII module
 import WAII from 'waii-sdk-js';
 
-// Initialize the WAII system with the URL and API key
+// Initialize WAII with the URL and API key
 WAII.initialize('https://tweakit.waii.ai/api/', 'your_api_key');
 ```
 
@@ -151,6 +151,9 @@ async function run(params: RunQueryRequest, signal?: AbortSignal): Promise<GetQu
 
   - `query` (required): The query string to be executed.
   - `session_id` (optional): The session ID for the query execution. We will use the same connection for specific sessionIds, thus it's possible to use stateful statements as well (e.g: use schema, create temproary table, etc)
+  - `current_schema`: The SchemaName object to use as context when running the query. Each `SchemaName` object may contain the following fields:
+     - `schema_name` (required): The name of the schema (if applicable).
+     - `database_name` (optional): The name of the database (if applicable).
 
 - `signal` (optional): An AbortSignal object for aborting the request.
 
@@ -212,6 +215,9 @@ async function submit(params: RunQueryRequest, signal?: AbortSignal): Promise<Ru
 
   - `query` (required): The query string to be submitted.
   - `session_id` (optional): The session ID for the query execution.
+  - `current_schema`: The SchemaName object to use as context when running the query. Each `SchemaName` object may contain the following fields:
+     - `schema_name` (required): The name of the schema (if applicable).
+     - `database_name` (optional): The name of the database (if applicable).
 
 - `signal` (optional): An AbortSignal object for aborting the request.
 
