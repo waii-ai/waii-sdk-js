@@ -13,6 +13,7 @@ Welcome to the SDK documentation for WAII (World's most powerful SQL/AI API). Th
    - [Getting Query Results](#getting-query-results)
    - [Cancelling a Query](#cancelling-a-query)
    - [Describing a Query](#describing-a-query)
+   - [Autocompleting a Query](#autocomplete-a-query)
    - [Showing the difference between two queries](#diffing-a-query)
 3. [Semantic Context Module](#semantic-context-module)
    - [Modifying the Semantic Context](#modifying-the-semantic-context)
@@ -302,6 +303,36 @@ The DescribeQueryResponse object contains the following fields:
   - `database_name` (optional): The name of the database (if applicable).
 
 Please note that some fields in the DescribeQueryResponse object may be optional, and their presence depends on the information available for the query or the provided search_context.
+
+### Autocompleting a Query <a name="autocomplete-a-query"></a>
+
+This function allows you to complete a partial query.
+
+```typescript
+async function autoComplete(params: AutoCompleteRequest, signal?: AbortSignal): Promise<AutoCompleteResponse>;
+```
+
+#### Parameters:
+
+- `params` (required): An object containing the auto-complete query request parameters.
+
+   - `search_context` (optional): An array of `SearchContext` objects that specify the database, schema, and table names related to the query. This is optional, when provided the query processing engine will only consider objects in the search context. If ommitted, all objects in the database will be considered.
+  - `text` (optional): A string containing the partial or incomplete query.
+  - `cursor_offset` (optional): The offset in the `text` string where the completion is desired.
+  - `dialect` (optional): The query dialect to use `Snowflake` or `PostgreSQL`
+  - `max_output_tokens` (optional): Maximum number of tokens to generate.
+
+- `signal` (optional): An AbortSignal object for aborting the request.
+
+#### Returns:
+
+- A Promise resolving to a `AutoCompleteResponse object containing the query description details.
+The AutoCompleteResponse object contains the following fields:
+
+- `text` (optional): The additional text to complete the query (to be inserted at the cursor_offset given)
+  
+Please note that some fields in the AutoCompleteResponse object may be optional, and their presence depends on the information available for the query or the provided search_context.
+
 
 ### Showing the difference between two queries <a name="diffing-a-query"></a>
 
