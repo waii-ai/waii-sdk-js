@@ -302,6 +302,41 @@ The DescribeQueryResponse object contains the following fields:
 
 Please note that some fields in the DescribeQueryResponse object may be optional, and their presence depends on the information available for the query or the provided search_context.
 
+### Showing the difference between two queries <a name="diffing-a-query"></a>
+
+This function allows you to diff two queries, providing a summary and detailed differences.
+
+```typescript
+async function diff(params: DiffQueryRequest, signal?: AbortSignal): Promise<DiffQueryResponse>;
+```
+
+#### Parameters:
+
+- `params` (required): An object containing the diff query request parameters.
+
+  - `search_context` (optional): An array of `SearchContext` objects that specify the database, schema, and table names related to the queries. This is optional, when provided the query processing engine will only consider objects in the search context. If ommitted, all objects in the database will be considered.
+  - `current_schema` (optional): The current schema name for the query. An optional hint to the system that the query is using a particular schema.
+  - `query` (optional): Query string B to be diffed.
+  - `previous_query` (optional): Query string A to be diffed.
+
+- `signal` (optional): An AbortSignal object for aborting the request.
+
+#### Returns:
+
+- A Promise resolving to a `DiffQueryResponse object containing the query description details.
+The DiffQueryResponse object contains the following fields:
+
+- `summary` (optional): A string representing a summary of the query's purpose or objective.
+- `detailed_steps` (optional): An array of strings providing detailed steps or actions performed by the query.
+- `tables` (optional): An array of TableName objects representing the tables involved in the query. Each TableName object may contain the following fields:
+  - `table_name` (required): The name of the table.
+  - `schema_name` (optional): The name of the schema (if applicable).
+  - `database_name` (optional): The name of the database (if applicable).
+- `what_changed`: A description of the differences between the two queries.
+
+Please note that some fields in the DiffQueryResponse object may be optional, and their presence depends on the information available for the query or the provided search_context.
+
+
 ## Semantic Context Module <a name="semantic-context-module"></a>
 
 The Semantic Context module provides functions to modify and retrieve the semantic context.
