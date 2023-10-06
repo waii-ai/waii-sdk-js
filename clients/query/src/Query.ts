@@ -202,7 +202,7 @@ export let Query = (
                 params,
                 signal
             ),
-            diff : async (
+            diff: async (
                 params: DiffQueryRequest, 
                 signal?: AbortSignal
             ): Promise<DiffQueryResponse> => WaiiHttpClient.getInstance().commonFetch<DiffQueryResponse>(
