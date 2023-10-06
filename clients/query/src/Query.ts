@@ -11,6 +11,7 @@ const DIFF_ENDPOINT: string = 'diff-query';
 const RESULTS_ENDPOINT: string = 'get-query-result';
 const CANCEL_ENDPOINT: string = 'cancel-query';
 const AUTOCOMPLETE_ENDPOINT: string = 'auto-complete';
+const PERF_ENDPOINT: string = 'get-query-performance';
 
 type Tweak = {
     sql?: string,
@@ -125,6 +126,15 @@ type AutoCompleteResponse = {
     text?: string
 }
 
+type QueryPerformanceRequest = {
+    query_id: string
+}
+
+type QueryPerformanceResponse = {
+    summary: string[],
+    recommendations: string[]
+}
+
 export let Query = (
     function () {
         return {
@@ -192,13 +202,22 @@ export let Query = (
                 params,
                 signal
             ),
-            diff : async (params: DiffQueryRequest, signal?: AbortSignal): Promise<DiffQueryResponse> => {
-                return WaiiHttpClient.getInstance().commonFetch<DiffQueryResponse>(
+            diff : async (
+                params: DiffQueryRequest, 
+                signal?: AbortSignal
+            ): Promise<DiffQueryResponse> => WaiiHttpClient.getInstance().commonFetch<DiffQueryResponse>(
                     DIFF_ENDPOINT,
                     params,
                     signal
-                )
-            }
+            ),
+            analyzePerformance: async (
+                params: QueryPerformanceRequest, 
+                signal?: AbortSignal
+            ): Promise<QueryPerformanceResponse> => WaiiHttpClient.getInstance().commonFetch<QueryPerformanceResponse>(
+                    PERF_ENDPOINT,
+                    params,
+                    signal
+            ),
         }
     }
 )();
@@ -221,5 +240,7 @@ export {
     AutoCompleteRequest,
     AutoCompleteResponse,
     DiffQueryRequest,
-    DiffQueryResponse
+    DiffQueryResponse,
+    QueryPerformanceRequest,
+    QueryPerformanceResponse
 }

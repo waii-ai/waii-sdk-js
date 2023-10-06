@@ -9,6 +9,8 @@ type GeneratedQueryHistoryEntry = {
 }
 
 type GetGeneratedQueryHistoryRequest = {
+    limit?: number,
+    offset?: number
 }
 
 type GetGeneratedQueryHistoryResponse = {
@@ -22,7 +24,7 @@ export let History = (
                 signal?: AbortSignal): Promise<GetGeneratedQueryHistoryResponse> => 
                 WaiiHttpClient.getInstance().commonFetch(
                     GET_ENDPOINT,
-                    {},
+                    params,
                     signal
                 )
         }
