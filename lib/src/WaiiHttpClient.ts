@@ -57,18 +57,21 @@ export default class WaiiHttpClient {
             signal: signal
         }
 
+        let timer;
         let fetchOrTimeout = Promise.race(
             [
                 fetch(this.url + endpoint, request),
                 new Promise<Response>(
-                    (res, rej) => setTimeout(
+                    (res, rej) => {timer = setTimeout(
                         () => rej(new Error(`Call timed out after ${this.timeout} ms`)),
                         this.timeout
-                    ))
+                    );}
+                )
             ]
         );
 
         const response = await fetchOrTimeout;
+        clearTimeout(timer);
         const text = await response.text();
         if (!response.ok) {
             try {
