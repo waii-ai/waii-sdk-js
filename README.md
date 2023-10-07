@@ -15,6 +15,7 @@ Welcome to the SDK documentation for WAII (World's most powerful SQL/AI API). Th
    - [Describing a Query](#describing-a-query)
    - [Autocompleting a Query](#autocomplete-a-query)
    - [Showing the difference between two queries](#diffing-a-query)
+   - [Analyzing the performance of a query](#performance-query)
 3. [Semantic Context Module](#semantic-context-module)
    - [Modifying the Semantic Context](#modifying-the-semantic-context)
    - [Getting the Semantic Context](#getting-the-semantic-context)
@@ -368,6 +369,30 @@ The DiffQueryResponse object contains the following fields:
 
 Please note that some fields in the DiffQueryResponse object may be optional, and their presence depends on the information available for the query or the provided search_context.
 
+### Analyzing the performance of a query <a name="performance-query"></a>
+
+This function allows you to get a summary of the runtime of a query as well as recommendations of how to make the query run faster.
+
+```typescript
+async function analyzePeformance(params: QueryPerformanceRequest, signal?: AbortSignal): Promise<QueryPerformanceResponse>;
+```
+
+#### Parameters:
+
+- `params` (required): An object containing the performance request parameters.
+
+  - `query_id` (optional): The uuid of the query. Can be retrieved from a query submit call, snowflake's history, or the waii query history.
+
+- `signal` (optional): An AbortSignal object for aborting the request.
+
+#### Returns:
+
+- A Promise resolving to a `QueryPerformance` object containing the performance description details.
+The QueryPerfromanceResponse object contains the following fields:
+
+- `summary`: A string array summarizing the runtime of the query.
+- `recommendations`: An array of strings providing recommendations of how to improve the runtime.
+- `query_text`: The sql of the query.
 
 ## Semantic Context Module <a name="semantic-context-module"></a>
 
