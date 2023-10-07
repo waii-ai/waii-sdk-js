@@ -132,7 +132,8 @@ type QueryPerformanceRequest = {
 
 type QueryPerformanceResponse = {
     summary: string[],
-    recommendations: string[]
+    recommendations: string[],
+    query_text: string
 }
 
 export let Query = (
