@@ -82,7 +82,7 @@ type RunQueryRequest = {
     query: string,
     session_id?: string,
     current_schema?: SchemaName,
-    session_parameters: {[a: string]: any}
+    session_parameters?: {[a: string]: any}
 }
 
 type RunQueryResponse = {
