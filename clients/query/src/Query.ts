@@ -81,7 +81,8 @@ type SyncRunQueryRequest = {
 type RunQueryRequest = {
     query: string,
     session_id?: string,
-    current_schema?: SchemaName
+    current_schema?: SchemaName,
+    session_parameters: {[a: string]: any}
 }
 
 type RunQueryResponse = {
@@ -133,7 +134,9 @@ type QueryPerformanceRequest = {
 type QueryPerformanceResponse = {
     summary: string[],
     recommendations: string[],
-    query_text: string
+    query_text: string,
+    execution_time_ms?: number,
+    compilation_time_ms?: number
 }
 
 export let Query = (
