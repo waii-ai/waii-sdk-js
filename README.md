@@ -29,7 +29,17 @@ Welcome to the SDK documentation for WAII (World's most powerful SQL/AI API). Th
 
 ## Getting Started <a name="getting-started"></a>
 
-To get started with the WAII API, you first need to initialize the system. You can get your API key, by reaching out to us here: https://www.waii.ai
+The SDK packages are maintained on npm: https://www.npmjs.com/package/waii-sdk-js
+
+You can install the package via npm directly or add the dependency to your project's package.json file.
+
+```bash
+npm i waii-sdk-js -g
+```
+
+You will also need an API key to use the API. You can get your API key by reaching out to us here: https://www.waii.ai
+
+That wraps up the pre-requisites. To get started with the WAII API, you first need to initialize the system.
 
 ```javascript
 // Import the WAII module
