@@ -139,11 +139,27 @@ type QueryPerformanceResponse = {
     compilation_time_ms?: number
 }
 
+type TranscodeQueryRequest = {
+    search_context?: SearchContext[],
+    ask?: string,
+    source_dialect: string,
+    source_query: string,
+    target_dialect: string
+}
+
 export let Query = (
     function () {
         return {
             generate: async (
                 params: QueryGenerationRequest,
+                signal?: AbortSignal
+            ): Promise<GeneratedQuery> => WaiiHttpClient.getInstance().commonFetch<GeneratedQuery>(
+                GENERATE_ENDPOINT,
+                params,
+                signal
+            ),
+            transcode: async (
+                params: TranscodeQueryRequest,
                 signal?: AbortSignal
             ): Promise<GeneratedQuery> => WaiiHttpClient.getInstance().commonFetch<GeneratedQuery>(
                 GENERATE_ENDPOINT,
