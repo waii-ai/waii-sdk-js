@@ -12,6 +12,7 @@ const RESULTS_ENDPOINT: string = 'get-query-result';
 const CANCEL_ENDPOINT: string = 'cancel-query';
 const AUTOCOMPLETE_ENDPOINT: string = 'auto-complete';
 const PERF_ENDPOINT: string = 'get-query-performance';
+const TRANSCODE_ENDPOINT: string = 'transcode-query';
 
 type Tweak = {
     sql?: string,
@@ -162,7 +163,7 @@ export let Query = (
                 params: TranscodeQueryRequest,
                 signal?: AbortSignal
             ): Promise<GeneratedQuery> => WaiiHttpClient.getInstance().commonFetch<GeneratedQuery>(
-                GENERATE_ENDPOINT,
+                TRANSCODE_ENDPOINT,
                 params,
                 signal
             ),
