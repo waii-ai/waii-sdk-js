@@ -22,8 +22,11 @@ Welcome to the SDK documentation for WAII (World's most powerful SQL/AI API). Th
 4. [Database Module](#database-module)
    - [Modify Database Connections](#modify-database-connections)
    - [Get Database Connections](#get-database-connections)
+   - [Get Default Connection](#get-default-connection)
    - [Activate Connection](#activate-connection)
    - [Get Catalogs](#get-catalogs)
+   - [Update Schema Descriptions](#update-schema-description)
+   - [Update Table Description](#update-table-description)
 5. [History Module](#history-module)
    - [Get Generated Query History](#get-generated-query-history)
 
@@ -515,6 +518,15 @@ The `ModifyDBConnectionResponse` object represents the response of the "modify d
   - `role` (optional): A string representing the role associated with the database connection.
   - `path` (optional): A string representing the path to the database.
   - `parameters` (optional): An object containing additional parameters related to the database connection.
+  
+- `connector_status` (optional): An array of `ConnectorStatus` objects representing the status of the database connectors. Each `ConnectorStatus` object may contain the following fields:
+
+  - `status` (required): A string representing the status of the database connection. Valid values are "completed", "indexing", "not-started".
+  - `schema_status` (optional): An array of `SchemaIndexingStatus` objects representing the status of the schema indexing. Each `SchemaIndexingStatus` object may contain the following fields:
+    - `status` (required): A string representing the status of the schema indexing. Valid values are "completed", "indexing", "not-started".
+    - `n_pending_indexing_tables` (required): A number representing the number of tables pending indexing.
+    - `n_total_tables` (required): A number representing the total number of tables.
+   
 
 ### Get Database Connections <a name="get-database-connections"></a>
 
@@ -549,6 +561,14 @@ The `GetDBConnectionResponse` object represents the response of the "get databas
   - `role` (optional): A string representing the role associated with the database connection.
   - `path` (optional): A string representing the path to the database.
   - `parameters` (optional): An object containing additional parameters related to the database connection.
+
+### Get Default Connection <a name="get-default-connection"></a>
+
+This function allows you to get default database connection for subsequent API calls.
+
+```typescript
+function getDefaultConnection(): void;
+```
 
 ### Activate Connection <a name="activate-connection"></a>
 
@@ -601,6 +621,57 @@ The `GetCatalogResponse` object represents the response of the "get catalogs" op
           - `ref_cols` (optional): An array of strings representing the referenced columns.
 
   - `description` (optional): A `SchemaDescription` object representing the description of the schema.
+
+#### Returns:
+A promise resolving to a `UpdateTableDescriptionResponse` object containing the updated table description.
+
+### Update Schema Description <a name="update-schema-description"></a>
+
+This function allows you to update the description of a schema.
+
+```typescript
+async function updateSchemaDescription(params: UpdateSchemaDescriptionRequest, signal?: AbortSignal): Promise<UpdateSchemaDescriptionResponse>;
+```
+
+#### Parameters:
+
+- `params` (required): An object containing the modify table request parameters.
+
+    - `schema_name` (required): A `SchemaName` object representing the name of the schema. Each `SchemaName` object may contain the following fields:
+      - `schema_name` (required): The name of the schema (if applicable).
+      - `database_name` (optional): The name of the database (if applicable).
+    - `description` (optional): An object `SchemaDescription` representing the description of the schema. Each `SchemaDescription` object may contain the following fields:
+        - summary (optional): A string representing a summary of the schema's purpose or objective.
+        - detailed_steps (optional): An array of strings providing detailed steps or actions performed by the schema.
+        - common_tables (optional): An array of `TableDescriptionPair` objects representing the common tables in the schema. Each `TableDescriptionPair` object may contain the following fields:
+            - `name` (required): A string representing the name of the table.
+            - `description` (optional): A string representing the description of the table.
+
+- `signal` (optional): An AbortSignal object for aborting the request.
+
+#### Returns:
+A promise resolving to a `UpdateSchemaDescriptionResponse` object containing the updated schema description.
+
+
+### Update Table Description <a name="update-table-description"></a>
+
+This function allows you to update the description of a table.
+
+```typescript
+async function updateTableDescription(params: UpdateTableDescriptionRequest, signal?: AbortSignal): Promise<UpdateTableDescriptionResponse>;
+```
+
+#### Parameters:
+
+- `params` (required): An object containing the modify table request parameters.
+
+    - `table_name` (required): A `TableName` object representing the name of the table. Each `TableName` object may contain the following fields:
+        - `table_name` (required): The name of the table.
+        - `schema_name` (optional): The name of the schema (if applicable).
+        - `database_name` (optional): The name of the database (if applicable).
+    - `description` (optional): A string representing the description of the table.
+
+- `signal` (optional): An AbortSignal object for aborting the request.
 
 ## History Module <a name="history-module"></a>
 
