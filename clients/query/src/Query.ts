@@ -13,6 +13,7 @@ const CANCEL_ENDPOINT: string = 'cancel-query';
 const AUTOCOMPLETE_ENDPOINT: string = 'auto-complete';
 const PERF_ENDPOINT: string = 'get-query-performance';
 const TRANSCODE_ENDPOINT: string = 'transcode-query';
+const COMPILE_QUERY_ENDPOINT: string = 'compile-query';
 
 type Tweak = {
     sql?: string,
@@ -148,6 +149,16 @@ type TranscodeQueryRequest = {
     target_dialect: string
 }
 
+type CompileQueryRequest = {
+  query: string,
+}
+
+type CompileQueryResponse = {
+  flag: number
+  schemas?: [string]
+  tables: [string]
+}
+
 export let Query = (
     function () {
         return {
@@ -239,6 +250,14 @@ export let Query = (
                     params,
                     signal
             ),
+          compileQuery: async (
+            params: CompileQueryRequest,
+            signal?: AbortSignal
+          ): Promise<CompileQueryResponse> => WaiiHttpClient.getInstance().commonFetch<CompileQueryResponse>(
+            COMPILE_QUERY_ENDPOINT,
+            params,
+            signal
+          ),
         }
     }
 )();
