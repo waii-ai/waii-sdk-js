@@ -244,6 +244,12 @@ A Promise resolving to a `RunQueryResponse` object containing the query ID.
 The `RunQueryResponse` object represents the response of the "run query" operation and contains the following field:
 
 - `query_id` (optional): A string representing the unique identifier of the executed query. This id is to be used in the "Get Query Results" call.
+- `error_details` (optional): An object containing the error details if the query failed. The object may contain the following error code:
+  - `0` (optional): Compilation failed, but no extra information is available.
+  - `1` (optional): Found a table that can’t be mapped to any of the schemas within the database. A list of table also present which can’t be mapped to any of the present schema.
+  - `2` (optional): Found unqualified tables that can’t be mapped to any single schema.
+  - `3` (optional): Found that more than one schema contain all the unqualified tables. Schema selection is required.
+- `detected_schemas`: An array of string representing the schemas which are qualified for the query. Schema selection is required.
 
 ### Getting Query Results <a name="getting-query-results"></a>
 

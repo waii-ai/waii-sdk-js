@@ -87,7 +87,9 @@ type RunQueryRequest = {
 }
 
 type RunQueryResponse = {
-    query_id?: string
+    query_id?: string,
+    error_details?: object
+    detected_schemas?: string[]
 }
 
 type GetQueryResultRequest = {
