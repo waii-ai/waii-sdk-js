@@ -1,5 +1,4 @@
 import WaiiHttpClient from "../../../lib/src/WaiiHttpClient";
-import Database from "../../database/src/Database";
 
 const GENERATE_ENDPOINT: string = 'get-access-key';
 
