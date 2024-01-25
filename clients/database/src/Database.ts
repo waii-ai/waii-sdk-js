@@ -258,5 +258,8 @@ export {
     GetCatalogRequest,
     GetCatalogResponse,
     DBConnectionIndexingStatus,
-    SchemaIndexingStatus
+    SchemaIndexingStatus,
+    DBContentFilter,
+    DBContentFilterScope,
+    DBContentFilterType
 }
