@@ -6,6 +6,25 @@ const GET_CATALOG_ENDPOINT: string = 'get-table-definitions';
 const UPDATE_TABLE_DESCRIPTION_ENDPOINT: string = 'update-table-description';
 const UPDATE_SCHEMA_DESCRIPTION_ENDPOINT: string = 'update-schema-description';
 
+enum DBContentFilterScope {
+    schema = "schema",
+    table = "table",
+    column = "column"
+}
+
+
+enum DBContentFilterType {
+    include = "include",
+    exclude = "exclude"
+}
+
+type DBContentFilter = {
+    filter_scope?: DBContentFilterScope,
+    filter_type?: DBContentFilterType,
+    ignore_case?: boolean,
+    pattern?: string
+}
+
 type DBConnection = {
     key: string,
     db_type: string
@@ -20,7 +39,8 @@ type DBConnection = {
     host?: string,
     port?: number,
     parameters?: object,
-    sample_col_values?: boolean
+    sample_col_values?: boolean,
+    db_content_filters?: DBContentFilter[]
 }
 
 type ModifyDBConnectionRequest = {
