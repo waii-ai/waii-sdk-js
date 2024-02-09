@@ -10,24 +10,24 @@ class SemanticStatement {
     statement: string
     labels?: string[]
     always_include?: boolean
-    search_keys?: string[]
-    extract_prompt?: string
+    lookup_summaries?: string[]
+    summarization_prompt?: string
 
     public constructor(
         scope: string = '*',
         statement: string,
         labels: string[] = [],
         always_include: boolean = true,
-        search_keys: string[] = [],
-        extract_prompt: string = ''
+        lookup_summaries: string[] = [],
+        summarization_prompt: string = ''
     ) {
         this.id = uuidv4();
         this.scope = scope;
         this.statement = statement;
         this.labels = labels;
         this.always_include = always_include;
-        this.search_keys = search_keys;
-        this.extract_prompt = extract_prompt;
+        this.lookup_summaries = lookup_summaries;
+        this.summarization_prompt = summarization_prompt;
     }
 }
 
@@ -54,7 +54,7 @@ type GetSemanticContextRequest = {
 
 type GetSemanticContextResponse = {
     semantic_context?: SemanticStatement[]
-    total_candidates?: number
+    available_statements?: number
 }
 
 export let SemanticContext = (
