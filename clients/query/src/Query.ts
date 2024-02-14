@@ -13,6 +13,7 @@ const CANCEL_ENDPOINT: string = 'cancel-query';
 const AUTOCOMPLETE_ENDPOINT: string = 'auto-complete';
 const PERF_ENDPOINT: string = 'get-query-performance';
 const TRANSCODE_ENDPOINT: string = 'transcode-query';
+const GENERATE_QUESTION_ENDPOINT: string = 'generate-questions';
 
 type Tweak = {
     sql?: string,
@@ -150,6 +151,22 @@ type TranscodeQueryRequest = {
     target_dialect: string
 }
 
+type GenerateQuestionRequest = {
+    schema_name: string,
+    n_questions?: number,
+    complexity?: string
+}
+
+type GeneratedQuestion = {
+    question: string,
+    complexity: string,
+    tables?: TableName[]
+}
+
+type GenerateQuestionResponse = {
+    questions?: GeneratedQuestion[]
+}
+
 export let Query = (
     function () {
         return {
@@ -241,6 +258,14 @@ export let Query = (
                     params,
                     signal
             ),
+            generateQuestion: async (
+                params: GenerateQuestionRequest,
+                signal?: AbortSignal
+            ): Promise<GenerateQuestionResponse> => WaiiHttpClient.getInstance().commonFetch<GenerateQuestionResponse>(
+                GENERATE_QUESTION_ENDPOINT,
+                params,
+                signal
+            )
         }
     }
 )();
@@ -265,5 +290,8 @@ export {
     DiffQueryRequest,
     DiffQueryResponse,
     QueryPerformanceRequest,
-    QueryPerformanceResponse
+    QueryPerformanceResponse,
+    GenerateQuestionRequest,
+    GeneratedQuestion,
+    GenerateQuestionResponse
 }
