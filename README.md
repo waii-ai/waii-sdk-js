@@ -16,6 +16,7 @@ Welcome to the SDK documentation for WAII (World's most powerful SQL/AI API). Th
    - [Autocompleting a Query](#autocomplete-a-query)
    - [Showing the difference between two queries](#diffing-a-query)
    - [Analyzing the performance of a query](#performance-query)
+   - [Generate questions from database schema](#generate-questions)
 3. [Semantic Context Module](#semantic-context-module)
    - [Modifying the Semantic Context](#modifying-the-semantic-context)
    - [Getting the Semantic Context](#getting-the-semantic-context)
@@ -412,6 +413,36 @@ The QueryPerfromanceResponse object contains the following fields:
 - `summary`: A string array summarizing the runtime of the query.
 - `recommendations`: An array of strings providing recommendations of how to improve the runtime.
 - `query_text`: The sql of the query.
+
+### Generate questions from database schema
+
+This function allows you to generate questions from the database schema.
+
+```typescript
+async function generateQuestion(params: GenerateQuestionRequest, signal?: AbortSignal): Promise<GenerateQuestionResponse>;
+```
+
+#### Parameters
+- `schema_name` (required): The name of the schema to generate questions from.
+- `n_questions` (optional): The number of questions to generate. Default is 10
+- `complexity` (optional): The complexity of the questions to generate. Default is "medium". Possible values are "easy", "medium", "hard".
+
+#### Returns
+- A list of questions generated from the schema.
+- Each question (`GeneratedQuestion`) contains the question text, the complexity of the question, and the tables involved in the question.
+
+#### Example
+```typescript
+WAII.Query.generateQuestion({
+    schema_name: <schema_name like My_Schema>,
+    n_questions: <n_questions>,
+    complexity: "hard"
+}).then((result) => {
+    for (let i = 0; !(result.questions) || i < result.questions.length; i++) {
+        // ... 
+    }
+})
+```
 
 ## Semantic Context Module <a name="semantic-context-module"></a>
 
