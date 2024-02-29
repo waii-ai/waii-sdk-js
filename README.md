@@ -152,6 +152,14 @@ The `GeneratedQuery` object represents the details of a generated query and cont
 
 - `timestamp_ms` (optional): A number representing the timestamp (in milliseconds) when the query was generated.
 
+- `confidence_score` (optional): returns logprob confidence score based on the tokens from generated queries.
+
+- `llm_usage_stats`: token consumption during the query generation.
+
+  - `token_total`: total token usage (prompt + completed), this doesn't include cached tokens. So if you see the total_total = 0, the query is fetched from the cache. 
+ 
+- `elapsed_time_ms`: total elapsed time (in milli-seconds) between RPC request/response.
+
 Please note that some fields in the `GeneratedQuery` object may be optional, and their presence depends on the details of the specific generated query.
 
 ### Running a Query <a name="running-a-query"></a>
