@@ -4,19 +4,22 @@ const GENERATE_ENDPOINT: string = 'get-access-key';
 
 type KeysList = {
   access_keys: string[]
-}
+};
 
-export let AccessKey = (
-  function () {
-    return {
-      getKeys: async (): Promise<KeysList> => {
-        return WaiiHttpClient.getInstance().commonFetch<KeysList>(
-          GENERATE_ENDPOINT,
-          {}
-        );
-      }
-    }
-  })();
+class AccessKey {
+  private httpClient: WaiiHttpClient;
+
+  public constructor(httpClient: WaiiHttpClient) {
+    this.httpClient = httpClient;
+  }
+
+  public async getKeys(): Promise<KeysList> {
+    return this.httpClient.commonFetch<KeysList>(
+      GENERATE_ENDPOINT,
+      {}
+    );
+  }
+};
 
 export default AccessKey;
 export {

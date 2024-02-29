@@ -57,32 +57,36 @@ type GetSemanticContextResponse = {
     available_statements?: number
 }
 
-export let SemanticContext = (
-    function () {
-        return {
-            modifySemanticContext: async (
-                params: ModifySemanticContextRequest,
-                signal?: AbortSignal
-            ): Promise<ModifySemanticContextResponse> => {
-                return WaiiHttpClient.getInstance().commonFetch<ModifySemanticContextResponse>(
-                    MODIFY_ENDPOINT,
-                    params,
-                    signal
-                );
-            },
-            getSemanticContext: (
-                params: GetSemanticContextRequest = {},
-                signal?: AbortSignal
-            ): Promise<GetSemanticContextResponse> => {
-                return WaiiHttpClient.getInstance().commonFetch<GetSemanticContextResponse>(
-                    GET_ENDPOINT,
-                    params,
-                    signal
-                );
-            },
-        }
+class SemanticContext {
+
+    private httpClient: WaiiHttpClient;
+
+    public constructor(httpClient: WaiiHttpClient) {
+        this.httpClient = httpClient;
     }
-)();
+
+    public async modifySemanticContext(
+        params: ModifySemanticContextRequest,
+        signal?: AbortSignal
+    ): Promise<ModifySemanticContextResponse> {
+        return this.httpClient.commonFetch<ModifySemanticContextResponse>(
+            MODIFY_ENDPOINT,
+            params,
+            signal
+        );
+    };
+
+    public getSemanticContext(
+        params: GetSemanticContextRequest = {},
+        signal?: AbortSignal
+    ): Promise<GetSemanticContextResponse> {
+        return this.httpClient.commonFetch<GetSemanticContextResponse>(
+            GET_ENDPOINT,
+            params,
+            signal
+        );
+    };
+};
 
 export default SemanticContext;
 export {

@@ -1,5 +1,4 @@
-export default class WaiiHttpClient {
-    private static instance: WaiiHttpClient;
+class WaiiHttpClient {
 
     url: string;
     apiKey: string;
@@ -8,34 +7,26 @@ export default class WaiiHttpClient {
     orgId: string = '';
     userId: string = '';
 
-    private constructor(url: string, apiKey: string) {
+    public constructor(url: string = 'http://localhost:9859/api/', apiKey: string = '') {
         this.url = url;
         this.apiKey = apiKey;
-    }
-
-    public static getInstance(url: string = 'http://localhost:9859/api/', apiKey: string = ''): WaiiHttpClient {
-        if (!WaiiHttpClient.instance) {
-            WaiiHttpClient.instance = new WaiiHttpClient(url, apiKey);
-        }
-
-        return WaiiHttpClient.instance;
-    }
+    };
 
     public setScope(scope: string) {
         this.scope = scope;
-    }
+    };
 
     public getScope() {
         return this.scope
-    }
+    };
 
     public setOrgId(orgId: string) {
         this.orgId = orgId;
-    }
+    };
 
     public setUserId(userId: string) {
         this.userId = userId;
-    }
+    };
 
     public async commonFetch<Type>(
         endpoint: string,
@@ -87,5 +78,7 @@ export default class WaiiHttpClient {
         } catch (e) {
             throw new Error("Invalid response received.");
         }
-    }
-}
+    };
+};
+
+export default WaiiHttpClient;

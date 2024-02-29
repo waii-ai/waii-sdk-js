@@ -1,17 +1,20 @@
 import WaiiHttpClient from "../../../lib/src/WaiiHttpClient";
 const HEALTH_CHECK_ENDPOINT: string = 'health-check';
 
+class HealthCheck {
+  private httpClient: WaiiHttpClient;
 
-export let HealthCheck = (
-  function () {
-    return {
-      healthCheck: async (): Promise<any> => {
-        return WaiiHttpClient.getInstance().commonFetch<any>(
-          HEALTH_CHECK_ENDPOINT,
-          {}
-        );
-      }
-    }
-  })();
+  public constructor(httpClient: WaiiHttpClient) {
+    this.httpClient = httpClient;
+  }
+
+  public async healthCheck():
+    Promise<any> {
+    return this.httpClient.commonFetch<any>(
+      HEALTH_CHECK_ENDPOINT,
+      {}
+    );
+  };
+};
 
 export default HealthCheck;
