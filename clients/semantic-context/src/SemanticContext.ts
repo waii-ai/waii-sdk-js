@@ -42,6 +42,9 @@ type ModifySemanticContextResponse = {
 }
 
 type GetSemanticContextRequestFilter = {
+    labels?: string[],
+    scope?: string,
+    statement?: string,
     always_include?: boolean
 }
 
