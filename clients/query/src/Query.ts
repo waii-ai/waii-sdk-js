@@ -148,7 +148,8 @@ type TranscodeQueryRequest = {
     ask?: string,
     source_dialect: string,
     source_query: string,
-    target_dialect: string
+    target_dialect: string,
+    mdx_defs: string
 };
 
 type GenerateQuestionRequest = {
