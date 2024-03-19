@@ -1,6 +1,5 @@
-import {setGlobalDispatcher, Agent, fetch} from "undici";
-
 class WaiiHttpClient {
+
     url: string;
     apiKey: string;
     timeout: number = 150000000;
@@ -48,13 +47,6 @@ class WaiiHttpClient {
             body: JSON.stringify(params),
             signal: signal
         }
-
-        setGlobalDispatcher(new Agent({
-            connectTimeout: 6000_000,
-            headersTimeout: 6000_000,
-            bodyTimeout: 6000_000,
-            keepAliveTimeout: 6000_000
-        }));
 
         let timer;
         let fetchOrTimeout = Promise.race(
