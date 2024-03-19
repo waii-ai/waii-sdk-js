@@ -6,6 +6,7 @@ import AccessKey from "../clients/AccessKey/src/AccessKey";
 import HealthCheck from "../clients/health/src/HealthCheck";
 import WaiiHttpClient from "../lib/src/WaiiHttpClient";
 import Authorization from "../clients/authorization/src/Authorization";
+import LLM from "../clients/model/src/Model";
 
 
 class Waii {
@@ -17,6 +18,7 @@ class Waii {
     public AccessKey!: AccessKey;
     public HealthCheck!: HealthCheck;
     public Authorization!: Authorization;
+    public LLM!: LLM;
     
     public constructor(url: string = 'http://localhost:9859/api/', apiKey: string = '') {
         this.initialize(url, apiKey);
@@ -31,6 +33,7 @@ class Waii {
             this.AccessKey = new AccessKey(this.HttpClient);
             this.HealthCheck = new HealthCheck(this.HttpClient);
             this.Authorization = new Authorization(this.HttpClient);
+            this.LLM = new LLM(this.HttpClient);
     };
 }
 

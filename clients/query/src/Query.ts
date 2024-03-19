@@ -23,35 +23,36 @@ type Tweak = {
 type QueryGenerationRequest = {
     search_context?: SearchContext[],
     tweak_history?: Tweak[],
-    ask?: string
-    uuid?: string
-    dialect?: string
-    parent_uuid?: string
+    ask?: string,
+    uuid?: string,
+    dialect?: string,
+    parent_uuid?: string,
+    model?: string
 };
 
 type DescribeQueryRequest = {
     search_context?: SearchContext[],
-    current_schema?: string
+    current_schema?: string,
     query?: string
 };
 
 type DescribeQueryResponse = {
-    summary?: string
-    detailed_steps?: string[]
+    summary?: string,
+    detailed_steps?: string[],
     tables?: TableName[]
 };
 
 type DiffQueryRequest = {
     search_context?: SearchContext[],
-    current_schema?: string
-    query?: string
+    current_schema?: string,
+    query?: string,
     previous_query?: string
 };
 
 type DiffQueryResponse = {
-    summary?: string
-    detailed_steps?: string[]
-    tables?: TableName[]
+    summary?: string,
+    detailed_steps?: string[],
+    tables?: TableName[],
     what_changed?: string
 };
 
@@ -89,7 +90,7 @@ type RunQueryRequest = {
 
 type RunQueryResponse = {
     query_id?: string,
-    error_details?: object
+    error_details?: object,
     detected_schemas?: string[]
 };
 
@@ -112,7 +113,7 @@ type GetQueryResultResponse = {
 };
 
 type LikeQueryRequest = {
-    query_uuid: string
+    query_uuid: string,
     liked: boolean
 };
 
