@@ -1,5 +1,5 @@
 import WaiiHttpClient from "../../../lib/src/WaiiHttpClient";
-import { SearchContext, TableName, Column, SchemaName } from "../../database/src/Database"
+import {SearchContext, TableName, Column, SchemaName, SchemaIndexingStatus} from "../../database/src/Database"
 import { SemanticStatement } from "../../semantic-context/src/SemanticContext"
 
 const GENERATE_ENDPOINT: string = 'generate-query';
@@ -36,10 +36,18 @@ type DescribeQueryRequest = {
     query?: string
 };
 
+type DescribeJoinGraph = {
+    fact_table: string,
+    expressions: string,
+    joins: { [key: string]: string; }[]
+}
+
+
 type DescribeQueryResponse = {
     summary?: string,
     detailed_steps?: string[],
-    tables?: TableName[]
+    tables?: TableName[],
+    join_graphs?: DescribeJoinGraph[]
 };
 
 type DiffQueryRequest = {
@@ -318,6 +326,7 @@ export {
     LikeQueryRequest,
     LikeQueryResponse,
     DescribeQueryRequest,
+    DescribeJoinGraph,
     DescribeQueryResponse,
     CancelQueryRequest,
     CancelQueryResponse,
