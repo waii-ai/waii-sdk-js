@@ -20,4 +20,5 @@ src/*
 lib/*
 clients/*
 node_modules/*
+docs/*
 waii-sdk-js-*.*.*.tgz
