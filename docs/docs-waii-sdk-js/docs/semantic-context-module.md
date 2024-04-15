@@ -10,7 +10,10 @@ The Semantic Context module provides functions to modify and retrieve the semant
 This function allows you to modify the semantic context by adding or deleting semantic statements.
 
 ```typescript
-async function modifySemanticContext(params: ModifySemanticContextRequest, signal?: AbortSignal): Promise<ModifySemanticContextResponse>;
+async function modifySemanticContext(
+      params: ModifySemanticContextRequest,
+      signal?: AbortSignal)
+   : Promise<ModifySemanticContextResponse>;
 ```
 
 #### Parameters:
@@ -46,7 +49,10 @@ Please note that the `updated` and `deleted` fields in the `ModifySemanticContex
 This function allows you to retrieve the current semantic context.
 
 ```typescript
-async function getSemanticContext(params: GetSemanticContextRequest, signal?: AbortSignal): Promise<GetSemanticContextResponse>;
+async function getSemanticContext(
+      params: GetSemanticContextRequest,
+      signal?: AbortSignal)
+   : Promise<GetSemanticContextResponse>;
 ```
 
 #### Parameters:

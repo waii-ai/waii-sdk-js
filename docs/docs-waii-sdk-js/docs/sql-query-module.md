@@ -10,7 +10,10 @@ The Query module provides functions to generate, run, and manage SQL queries.
 This function allows you to generate or refine/update a query based on the provided request parameters.
 
 ```typescript
-async function generate(params: QueryGenerationRequest, signal?: AbortSignal): Promise<GeneratedQuery>;
+async function generate(
+      params: QueryGenerationRequest,
+      signal?: AbortSignal)
+   : Promise<GeneratedQuery>;
 ```
 
 #### Parameters:
@@ -79,7 +82,10 @@ Please note that some fields in the `GeneratedQuery` object may be optional, and
 This function allows you to run a given query.
 
 ```typescript
-async function run(params: RunQueryRequest, signal?: AbortSignal): Promise<GetQueryResultResponse>;
+async function run(
+      params: RunQueryRequest,
+      signal?: AbortSignal)
+   : Promise<GetQueryResultResponse>;
 ```
 
 #### Parameters:
@@ -122,7 +128,10 @@ Please note that some fields in the `GetQueryResultResponse` object may be optio
 This function allows you to like or favorite a specific query. This helps finding queries in the query history, but also tells the system when queries are correct to learn from them.
 
 ```typescript
-async function like(params: LikeQueryRequest, signal?: AbortSignal): Promise<LikeQueryResponse>;
+async function like(
+      params: LikeQueryRequest,
+      signal?: AbortSignal)
+   : Promise<LikeQueryResponse>;
 ```
 
 #### Parameters:
@@ -143,7 +152,10 @@ async function like(params: LikeQueryRequest, signal?: AbortSignal): Promise<Lik
 This function allows you to submit a query for processing. This is the same as "Running a Query" except that this function is async. It returns an id that can be used later to retrieve a query response.
 
 ```typescript
-async function submit(params: RunQueryRequest, signal?: AbortSignal): Promise<RunQueryResponse>;
+async function submit(
+      params: RunQueryRequest,
+      signal?: AbortSignal)
+   : Promise<RunQueryResponse>;
 ```
 
 #### Parameters:
@@ -158,7 +170,7 @@ async function submit(params: RunQueryRequest, signal?: AbortSignal): Promise<Ru
 
 - `signal` (optional): An AbortSignal object for aborting the request.
 
-### Returns:
+#### Returns:
 
 A Promise resolving to a `RunQueryResponse` object containing the query ID.
 
@@ -177,7 +189,10 @@ The `RunQueryResponse` object represents the response of the "run query" operati
 This function allows you to get the results of a previously submitted query.
 
 ```typescript
-async function getResults(params: GetQueryResultRequest, signal?: AbortSignal): Promise<GetQueryResultResponse>;
+async function getResults(
+      params: GetQueryResultRequest,
+      signal?: AbortSignal)
+   : Promise<GetQueryResultResponse>;
 ```
 
 #### Parameters:
@@ -197,7 +212,10 @@ async function getResults(params: GetQueryResultRequest, signal?: AbortSignal): 
 This function allows you to cancel a running query.
 
 ```typescript
-async function cancel(params: CancelQueryRequest, signal?: AbortSignal): Promise<CancelQueryResponse>;
+async function cancel(
+      params: CancelQueryRequest,
+      signal?: AbortSignal)
+   : Promise<CancelQueryResponse>;
 ```
 
 #### Parameters:
@@ -217,7 +235,10 @@ async function cancel(params: CancelQueryRequest, signal?: AbortSignal): Promise
 This function allows you to describe a query, providing a summary and detailed steps.
 
 ```typescript
-async function describe(params: DescribeQueryRequest, signal?: AbortSignal): Promise<DescribeQueryResponse>;
+async function describe(
+      params: DescribeQueryRequest,
+      signal?: AbortSignal)
+   : Promise<DescribeQueryResponse>;
 ```
 
 #### Parameters:
@@ -250,7 +271,10 @@ Please note that some fields in the DescribeQueryResponse object may be optional
 This function allows you to complete a partial query.
 
 ```typescript
-async function autoComplete(params: AutoCompleteRequest, signal?: AbortSignal): Promise<AutoCompleteResponse>;
+async function autoComplete(
+      params: AutoCompleteRequest,
+      signal?: AbortSignal)
+   : Promise<AutoCompleteResponse>;
 ```
 
 #### Parameters:
@@ -280,7 +304,10 @@ Please note that some fields in the AutoCompleteResponse object may be optional,
 This function allows you to diff two queries, providing a summary and detailed differences.
 
 ```typescript
-async function diff(params: DiffQueryRequest, signal?: AbortSignal): Promise<DiffQueryResponse>;
+async function diff(
+      params: DiffQueryRequest,
+      signal?: AbortSignal)
+   : Promise<DiffQueryResponse>;
 ```
 
 #### Parameters:
@@ -314,7 +341,10 @@ Please note that some fields in the DiffQueryResponse object may be optional, an
 This function allows you to get a summary of the runtime of a query as well as recommendations of how to make the query run faster.
 
 ```typescript
-async function analyzePeformance(params: QueryPerformanceRequest, signal?: AbortSignal): Promise<QueryPerformanceResponse>;
+async function analyzePeformance(
+      params: QueryPerformanceRequest,
+      signal?: AbortSignal)
+   : Promise<QueryPerformanceResponse>;
 ```
 
 #### Parameters:
@@ -339,7 +369,10 @@ The QueryPerfromanceResponse object contains the following fields:
 This function allows you to generate questions from the database schema.
 
 ```typescript
-async function generateQuestion(params: GenerateQuestionRequest, signal?: AbortSignal): Promise<GenerateQuestionResponse>;
+async function generateQuestion(
+      params: GenerateQuestionRequest,
+      signal?: AbortSignal)
+   : Promise<GenerateQuestionResponse>;
 ```
 
 #### Parameters

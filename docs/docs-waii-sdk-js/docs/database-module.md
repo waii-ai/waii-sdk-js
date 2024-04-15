@@ -10,7 +10,10 @@ The Database module provides functions to manage database connections and access
 This function allows you to modify existing database connections or add new ones.
 
 ```typescript
-async function modifyConnections(params: ModifyDBConnectionRequest, signal?: AbortSignal): Promise<ModifyDBConnectionResponse>;
+async function modifyConnections(
+      params: ModifyDBConnectionRequest,
+      signal?: AbortSignal)
+   : Promise<ModifyDBConnectionResponse>;
 ```
 
 #### Parameters:
@@ -58,7 +61,10 @@ The `ModifyDBConnectionResponse` object represents the response of the "modify d
 This function allows you to retrieve the list of current database connections.
 
 ```typescript
-async function getConnections(params: GetDBConnectionRequest = {}, signal?: AbortSignal): Promise<GetDBConnectionResponse>;
+async function getConnections(
+      params: GetDBConnectionRequest = {},
+      signal?: AbortSignal)
+   : Promise<GetDBConnectionResponse>;
 ```
 
 #### Parameters:
@@ -112,7 +118,10 @@ function activateConnection(key: string): void;
 This function allows you to fetch information about catalogs, schemas, and tables.
 
 ```typescript
-async function getCatalogs(params: GetCatalogRequest = {}, signal?: AbortSignal): Promise<GetCatalogResponse>;
+async function getCatalogs(
+      params: GetCatalogRequest = {},
+      signal?: AbortSignal)
+   : Promise<GetCatalogResponse>;
 ```
 
 #### Parameters:
@@ -155,7 +164,10 @@ A promise resolving to a `UpdateTableDescriptionResponse` object containing the 
 This function allows you to update the description of a schema.
 
 ```typescript
-async function updateSchemaDescription(params: UpdateSchemaDescriptionRequest, signal?: AbortSignal): Promise<UpdateSchemaDescriptionResponse>;
+async function updateSchemaDescription(
+      params: UpdateSchemaDescriptionRequest,
+      signal?: AbortSignal)
+   : Promise<UpdateSchemaDescriptionResponse>;
 ```
 
 #### Parameters:
@@ -183,7 +195,10 @@ A promise resolving to a `UpdateSchemaDescriptionResponse` object containing the
 This function allows you to update the description of a table.
 
 ```typescript
-async function updateTableDescription(params: UpdateTableDescriptionRequest, signal?: AbortSignal): Promise<UpdateTableDescriptionResponse>;
+async function updateTableDescription(
+      params: UpdateTableDescriptionRequest,
+      signal?: AbortSignal)
+   : Promise<UpdateTableDescriptionResponse>;
 ```
 
 #### Parameters:

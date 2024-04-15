@@ -2,7 +2,7 @@ module.exports = {
   docs: [
     {
       type: 'doc',
-      id: 'intro', // Ensure the document ID matches the filename without the .md extension
+      id: 'intro',
       label: 'Introduction',
     },
     {

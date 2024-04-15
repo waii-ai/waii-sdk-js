@@ -10,7 +10,10 @@ The History module provides functions to access the history of generated queries
 This function allows you to retrieve the history of generated queries.
 
 ```typescript
-async function list(params: GetGeneratedQueryHistoryRequest = {}, signal?: AbortSignal): Promise<GetGeneratedQueryHistoryResponse>;
+async function list(
+      params: GetGeneratedQueryHistoryRequest = {},
+      signal?: AbortSignal)
+   : Promise<GetGeneratedQueryHistoryResponse>;
 ```
 
 #### Parameters:

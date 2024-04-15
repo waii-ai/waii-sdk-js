@@ -1,6 +1,6 @@
 ---
 id: intro
-title: Waii TypeScript/JavaScript SDK
+title: Waii TypeScript & JavaScript SDK
 ---
 
 Welcome to the SDK documentation for Waii - the worlds most powerful SQL API built on LLM agents. This documentation provides detailed information on how to use the SDK to interact with the system.
