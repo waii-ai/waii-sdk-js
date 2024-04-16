@@ -13,22 +13,22 @@ module.exports = {
     {
       type: 'doc',
       id: 'sql-query-module',
-      label: 'SQL Query Module',
+      label: 'SQL Query',
     },
     {
       type: 'doc',
       id: 'semantic-context-module',
-      label: 'Semantic Context Module',
+      label: 'Semantic Context',
     },
     {
       type: 'doc',
       id: 'database-module',
-      label: 'Database Module',
+      label: 'Database',
     },
     {
 	type: 'doc',
 	id: 'history-module',
-	label: 'History Module',
+	label: 'History',
     },
   ],
 };

@@ -1,6 +1,6 @@
 ---
 id: sql-query-module
-title: SQL Query Module
+title: SQL Query
 ---
 
 The Query module provides functions to generate, run, and manage SQL queries.

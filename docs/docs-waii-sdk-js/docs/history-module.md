@@ -1,6 +1,6 @@
 ---
 id: history-module
-title: History Module
+title: History
 ---
 
 The History module provides functions to access the history of generated queries.

@@ -1,6 +1,6 @@
 ---
 id: database-module
-title: Database Module
+title: Database
 ---
 
 The Database module provides functions to manage database connections and access schema and table information.

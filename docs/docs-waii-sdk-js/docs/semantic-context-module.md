@@ -1,6 +1,6 @@
 ---
 id: semantic-context-module
-title: Semantic Context Module
+title: Semantic Context
 ---
 
 The Semantic Context module provides functions to modify and retrieve the semantic context.
