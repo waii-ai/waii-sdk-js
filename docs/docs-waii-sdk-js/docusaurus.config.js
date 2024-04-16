@@ -36,6 +36,25 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 		src: 'img/logo.png',
             },
             items: [
+		{
+		    type: 'dropdown',
+		    label: 'API Language',
+		    position: 'right',
+		    items: [
+			{
+			    label: 'TypeScript/JavaScript',
+			    to: 'https://js.doc.waii.ai',
+			},
+			{
+			    label: 'Python',
+			    to: 'https://python.doc.waii.ai', // URL to the Python docs
+			},
+			{
+			    label: 'CLI',
+			    to: 'https://rest.doc.waii.ai', // URL to the REST docs
+			},
+		    ],
+		},
             ],
 	},
 	footer: {
