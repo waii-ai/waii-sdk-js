@@ -5,7 +5,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
     title: 'Waii Javascript SDK',
     tagline: 'World most accurate text-2-sql API',
     url: 'https://docs.waii.ai',
-    baseUrl: '/',
+    baseUrl: '/js/',
     onBrokenLinks: 'throw',
     onBrokenMarkdownLinks: 'warn',
     favicon: 'img/favicon.ico',
@@ -43,15 +43,15 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 		    items: [
 			{
 			    label: 'TypeScript/JavaScript',
-			    to: 'https://js.doc.waii.ai',
+			    to: 'https://doc.waii.ai/js/',
 			},
 			{
 			    label: 'Python',
-			    to: 'https://python.doc.waii.ai', // URL to the Python docs
+			    to: 'https://doc.waii.ai/python/', // URL to the Python docs
 			},
 			{
 			    label: 'CLI',
-			    to: 'https://rest.doc.waii.ai', // URL to the REST docs
+			    to: 'https://doc.waii.ai/cli/', // URL to the REST docs
 			},
 		    ],
 		},
