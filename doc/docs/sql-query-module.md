@@ -184,7 +184,7 @@ The `RunQueryResponse` object represents the response of the "run query" operati
   - `3` (optional): Found that more than one schema contain all the unqualified tables. Schema selection is required.
 - `detected_schemas`: An array of string representing the schemas which are qualified for the query. Schema selection is required.
 
-### Transcode a query <a name="getting-query-results"></a>
+### Transcode a query <a name="transcode-query-results"></a>
 
 This function allows you to transcode a query based on the provided request parameters.
 
