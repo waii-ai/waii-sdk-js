@@ -14,6 +14,7 @@ const AUTOCOMPLETE_ENDPOINT: string = 'auto-complete';
 const PERF_ENDPOINT: string = 'get-query-performance';
 const TRANSCODE_ENDPOINT: string = 'transcode-query';
 const GENERATE_QUESTION_ENDPOINT: string = 'generate-questions';
+const GET_SIMILAR_QUERY_ENDPOINT: string = 'get-similar-query';
 
 type Tweak = {
     sql?: string,
@@ -71,7 +72,8 @@ type GeneratedQuery = {
     what_changed?: string,
     compilation_errors?: CompilationError[],
     is_new?: boolean,
-    timestamp_ms?: number
+    timestamp_ms?: number,
+    debug_info?: { [a: string]: any }
 };
 
 type SyncRunQueryRequest = {
@@ -80,6 +82,19 @@ type SyncRunQueryRequest = {
     max_returned_rows?: number,
     current_schema?: SchemaName
 };
+
+type Query_ = {
+    uuid: string,
+    ask: string,
+    query: string,
+    detailed_steps?: string[]
+};
+
+type SimilarQueryResponse = {
+    qid?: number,
+    equivalent?: boolean,
+    query?: Query_
+}
 
 type RunQueryRequest = {
     query: string,
@@ -305,6 +320,17 @@ class Query {
             signal
         );
     };
+
+        public async getSimilarQuery(
+        params: GenerateQuestionRequest,
+        signal?: AbortSignal
+        ){
+        return this.httpClient.commonFetch<SimilarQueryResponse>(
+            GET_SIMILAR_QUERY_ENDPOINT,
+            params,
+            signal
+        );
+    }
 };
 
 export default Query;
@@ -330,5 +356,6 @@ export {
     QueryPerformanceResponse,
     GenerateQuestionRequest,
     GeneratedQuestion,
-    GenerateQuestionResponse
+    GenerateQuestionResponse,
+    SimilarQueryResponse
 };
