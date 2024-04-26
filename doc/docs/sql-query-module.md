@@ -184,6 +184,78 @@ The `RunQueryResponse` object represents the response of the "run query" operati
   - `3` (optional): Found that more than one schema contain all the unqualified tables. Schema selection is required.
 - `detected_schemas`: An array of string representing the schemas which are qualified for the query. Schema selection is required.
 
+### Transcode a query <a name="transcode-query-results"></a>
+
+This function allows you to transcode a query based on the provided request parameters.
+
+```typescript
+async function transcode(
+      params: QueryGenerationRequest,
+      signal?: AbortSignal)
+   : Promise<GeneratedQuery>;
+```
+
+#### Parameters:
+
+
+- `params` (required): An object containing the transcode query request parameters.
+
+  - `search_context`: An array of `SearchContext` objects that specify the database, schema, and table names to consider during query generation. The system will automatically pick the needed objects, if this field is ommitted all the objects in the database will be considered (that's the common case).
+  - `source_query`: The source query you want to transcode
+  - `source_dialect`: The dialect of the source query that you want to transcode, such as `snowflake`, `postgresql`, `mongodb`
+  - `target_dialect`: The dialect of the target query, such as `snowflake`, `postgresql`, `mongodb`
+  - `ask`: A string containing the english language statement for the query generation. Can be a question or a description of the requested result.
+
+- `signal` (optional): An AbortSignal object for aborting the request.
+
+#### Returns:
+
+A Promise resolving to a `GeneratedQuery` object containing the details of the generated SQL query.
+
+The `GeneratedQuery` object represents the details of a generated query and contains the following fields:
+
+- `uuid` (optional): A string representing the unique identifier of the generated query. This can be later used for liking the query. Please refer to documentation of "Liking a Query".
+
+- `liked` (optional): A boolean value indicating whether the query has been liked/favorited by the user. This is always false when the query is generated, but can be set via the "like" API.
+
+- `tables` (optional): An array of `TableName` objects representing the tables used in the generated query (this is a subset of the search_context). Each `TableName` object may contain the following fields:
+
+  - `table_name` (required): The name of the table.
+  - `schema_name` (optional): The name of the schema (if applicable).
+  - `database_name` (optional): The name of the database (if applicable).
+
+- `semantic_context` (optional): An array of `SemanticStatement` objects representing the semantic context of the generated query. Each `SemanticStatement` object may contain the following fields:
+
+  - `id` (optional): A string representing the unique identifier of the semantic statement.
+  - `scope` (required): A string representing the scope of the semantic statement. This is either a database, schema, table or column name. The semantic statement will be considered whenever that object is involved in a query.
+  - `statement` (required): A string representing the semantic statement itself (e.g.: Describes the price of an item, final price is computed as 'price - discount'). This helps understand why a query was built a certain way.
+  - `labels` (optional): An array of strings representing the labels associated with the semantic statement.
+
+- `query` (optional): A string representing the generated SQL query.
+
+- `detailed_steps` (optional): An array of strings providing detailed steps or actions performed by the generated SQL query. This is the textual "explain plan".
+
+- `what_changed` (optional): A string representing what changed in the query. This will be set when a generated query is refined with additional asks.
+
+- `compilation_errors` (optional): An array of `CompilationError` objects representing any compilation errors that occurred during query generation. Each `CompilationError` object may contain the following fields:
+
+  - `message` (required): A string representing the compilation error message.
+  - `line` (optional): An array of numbers representing the line numbers where the compilation error occurred.
+
+- `is_new` (optional): A boolean value indicating whether the generated query is new.
+
+- `timestamp_ms` (optional): A number representing the timestamp (in milliseconds) when the query was generated.
+
+- `confidence_score` (optional): returns logprob confidence score based on the tokens from generated queries.
+
+- `llm_usage_stats`: token consumption during the query generation.
+
+  - `token_total`: total token usage (prompt + completed), this doesn't include cached tokens. So if you see the total_total = 0, the query is fetched from the cache. 
+ 
+- `elapsed_time_ms`: total elapsed time (in milli-seconds) between RPC request/response.
+
+Please note that some fields in the `GeneratedQuery` object may be optional, and their presence depends on the details of the specific generated query.
+
 ### Getting Query Results <a name="getting-query-results"></a>
 
 This function allows you to get the results of a previously submitted query.
@@ -335,6 +407,8 @@ The DiffQueryResponse object contains the following fields:
 - `what_changed`: A description of the differences between the two queries.
 
 Please note that some fields in the DiffQueryResponse object may be optional, and their presence depends on the information available for the query or the provided search_context.
+
+
 
 ### Analyzing the performance of a query <a name="performance-query"></a>
 
