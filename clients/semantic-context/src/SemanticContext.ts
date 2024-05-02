@@ -19,9 +19,14 @@ class SemanticStatement {
         labels: string[] = [],
         always_include: boolean = true,
         lookup_summaries: string[] = [],
-        summarization_prompt: string = ''
+        summarization_prompt: string = '',
+        id: string = ''
     ) {
-        this.id = uuidv4();
+        if (id) {
+            this.id = id;
+        } else {
+            this.id = uuidv4();
+        }
         this.scope = scope;
         this.statement = statement;
         this.labels = labels;
