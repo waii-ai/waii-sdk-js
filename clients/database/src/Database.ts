@@ -281,5 +281,6 @@ export {
     SchemaIndexingStatus,
     DBContentFilter,
     DBContentFilterScope,
-    DBContentFilterType
+    DBContentFilterType,
+    DBContentFilterActionType
 }
