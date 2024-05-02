@@ -18,11 +18,18 @@ enum DBContentFilterType {
     exclude = "exclude"
 };
 
+enum DBContentFilterActionType {
+    visibility = "visibility",
+    sample_values = "sample_values"
+};
+
+
 type DBContentFilter = {
     filter_scope?: DBContentFilterScope,
     filter_type?: DBContentFilterType,
     ignore_case?: boolean,
-    pattern?: string
+    pattern?: string,
+    filter_action_type?: DBContentFilterActionType
 };
 
 type DBConnection = {
