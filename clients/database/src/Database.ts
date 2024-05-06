@@ -1,10 +1,10 @@
 import WaiiHttpClient from "../../../lib/src/WaiiHttpClient";
-import WAII, { Waii } from "../../../src/waii-sdk";
 
 const MODIFY_DB_ENDPOINT: string = 'update-db-connect-info';
 const GET_CATALOG_ENDPOINT: string = 'get-table-definitions';
 const UPDATE_TABLE_DESCRIPTION_ENDPOINT: string = 'update-table-description';
 const UPDATE_SCHEMA_DESCRIPTION_ENDPOINT: string = 'update-schema-description';
+const EXTRACT_DATABASE_DOCUMENTATION_ENDPOINT: string = 'extract-database-documentation';
 
 enum DBContentFilterScope {
     schema = "schema",
@@ -174,8 +174,41 @@ type UpdateTableDescriptionResponse = {
 
 };
 
-type UpdateSchemaDescriptionResponse = {
+type UpdateSchemaDescriptionResponse = {};
 
+type ColumnDocumentation = {
+    name: string,
+    documentation: string
+};
+
+type TableDocumentation = {
+    name: string,
+    table_name?: TableName,
+    documentation?: string,
+    columns?: ColumnDocumentation[]
+};
+
+type SchemaDocumentation = {
+    schema_name: SchemaName,
+    documentation?: string,
+    tables?: TableDocumentation[]
+};
+
+type DatabaseDocumentation = {
+    database_name: string,
+    documentation?: string,
+    schemas?: SchemaDocumentation[]
+};
+
+type ExtractDatabaseDocumentationRequest = {
+    url?: string,
+    content?: string,
+    search_context?: SearchContext[],
+    dry_run?: boolean
+};
+
+type ExtractDatabaseDocumentationResponse = {
+    database_documentation: DatabaseDocumentation
 };
 
 class Database {
@@ -255,6 +288,16 @@ class Database {
             signal
         )
     }
+
+    public async extractDatabaseDocumentation(
+        params: ExtractDatabaseDocumentationRequest,
+        signal?: AbortSignal): Promise<ExtractDatabaseDocumentationResponse> {
+        return this.httpClient.commonFetch<ExtractDatabaseDocumentationResponse>(
+            EXTRACT_DATABASE_DOCUMENTATION_ENDPOINT,
+            params,
+            signal
+        );
+    }
 };
 
 export default Database;
@@ -282,5 +325,11 @@ export {
     DBContentFilter,
     DBContentFilterScope,
     DBContentFilterType,
-    DBContentFilterActionType
+    DBContentFilterActionType,
+    ColumnDocumentation,
+    TableDocumentation,
+    SchemaDocumentation,
+    DatabaseDocumentation,
+    ExtractDatabaseDocumentationRequest,
+    ExtractDatabaseDocumentationResponse
 }
