@@ -66,6 +66,9 @@ class WaiiHttpClient {
         const response = await fetchOrTimeout;
         clearTimeout(timer);
         const text = await response.text();
+        if (response.status === 401) {
+            throw new Error("Authentication failed: Incorrect API key.");
+        }
         if (!response.ok) {
             try {
                 let error = JSON.parse(text);
