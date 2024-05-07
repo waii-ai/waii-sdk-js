@@ -336,5 +336,6 @@ export {
     SchemaDocumentation,
     DatabaseDocumentation,
     ExtractDatabaseDocumentationRequest,
-    ExtractDatabaseDocumentationResponse
+    ExtractDatabaseDocumentationResponse,
+    DocumentContentType
 }
