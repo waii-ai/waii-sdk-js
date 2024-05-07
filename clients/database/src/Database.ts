@@ -200,11 +200,16 @@ type DatabaseDocumentation = {
     schemas?: SchemaDocumentation[]
 };
 
+enum DocumentContentType {
+    html = "html",
+    text = "text"
+}
+
 type ExtractDatabaseDocumentationRequest = {
     url?: string,
     content?: string,
     search_context?: SearchContext[],
-    dry_run?: boolean
+    content_type?: DocumentContentType
 };
 
 type ExtractDatabaseDocumentationResponse = {
