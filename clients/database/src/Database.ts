@@ -4,6 +4,7 @@ const MODIFY_DB_ENDPOINT: string = 'update-db-connect-info';
 const GET_CATALOG_ENDPOINT: string = 'get-table-definitions';
 const UPDATE_TABLE_DESCRIPTION_ENDPOINT: string = 'update-table-description';
 const UPDATE_SCHEMA_DESCRIPTION_ENDPOINT: string = 'update-schema-description';
+const UPDATE_COLUMN_DESCRIPTION_ENDPOINT: string = 'update-column-description';
 const EXTRACT_DATABASE_DOCUMENTATION_ENDPOINT: string = 'extract-database-documentation';
 
 enum DBContentFilterScope {
@@ -165,6 +166,24 @@ type UpdateTableDescriptionRequest = {
     description: string
 };
 
+type ColumnDescription = {
+    column_name: string,
+    description?: string
+}
+
+type TableToColumnDescription = {
+    table_name: TableName,
+    column_descriptions: ColumnDescription[]
+}
+
+type UpdateColumnDescriptionRequest = {
+    col_descriptions: TableToColumnDescription[]
+}
+
+
+type UpdateColumnDescriptionResponse = {
+}
+
 type UpdateSchemaDescriptionRequest = {
     schema_name: SchemaName,
     description: SchemaDescription
@@ -289,6 +308,17 @@ class Database {
     ): Promise<ModifyDBConnectionResponse> {
         return this.httpClient.commonFetch<UpdateSchemaDescriptionResponse>(
             UPDATE_SCHEMA_DESCRIPTION_ENDPOINT,
+            params,
+            signal
+        )
+    }
+
+    public async updateColumnDescription(
+        params: UpdateColumnDescriptionRequest,
+        signal?: AbortSignal
+    ): Promise<ModifyDBConnectionResponse> {
+        return this.httpClient.commonFetch<UpdateColumnDescriptionResponse>(
+            UPDATE_COLUMN_DESCRIPTION_ENDPOINT,
             params,
             signal
         )

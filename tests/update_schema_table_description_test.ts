@@ -82,6 +82,24 @@ async function main() {
     }).catch((err) => {
         console.log(err)
     })
+
+    await WAII.Database.updateColumnDescription({
+        col_descriptions : [{
+            table_name: {
+                table_name: "BATTLE",
+                schema_name: "BATTLE_DEATH",
+                database_name: "WAII"
+            },
+            column_descriptions: [{
+                column_name : "BULGARIAN_COMMANDER",
+                description : "The name of the Bulgarian commander involved in the battle. Updated"
+            }
+            ]
+        }],
+
+    }).catch((err) => {
+        console.log(err)
+    })
 }
 
 main();
