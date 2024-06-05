@@ -15,6 +15,7 @@ const PERF_ENDPOINT: string = 'get-query-performance';
 const TRANSCODE_ENDPOINT: string = 'transcode-query';
 const GENERATE_QUESTION_ENDPOINT: string = 'generate-questions';
 const GET_SIMILAR_QUERY_ENDPOINT: string = 'get-similar-query';
+const DEBUG_QUERY_ENDPOINT: string = 'debug-query';
 
 type Tweak = {
     sql?: string,
@@ -135,6 +136,21 @@ type LikeQueryRequest = {
 type LikeQueryResponse = {
 };
 
+type DebugQueryRequest = {
+    query: string
+}
+
+type DebugQueryResponse = {
+    pieces : DebugQueryPiece[]
+}
+
+type DebugQueryPiece = {
+    label: string,
+    query: string,
+    rowcount?: number,
+    error_msg?: string
+}
+
 type AutoCompleteRequest = {
     text: string,
     cursor_offset?: number,
@@ -196,6 +212,17 @@ class Query {
     ): Promise<GeneratedQuery> {
         return this.httpClient.commonFetch<GeneratedQuery>(
             GENERATE_ENDPOINT,
+            params,
+            signal
+        );
+    }
+
+    public async debug(
+        params: DebugQueryRequest,
+        signal?: AbortSignal
+    ): Promise<DebugQueryResponse> {
+        return this.httpClient.commonFetch<DebugQueryResponse>(
+            DEBUG_QUERY_ENDPOINT,
             params,
             signal
         );
