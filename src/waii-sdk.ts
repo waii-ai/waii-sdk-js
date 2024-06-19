@@ -7,6 +7,7 @@ import HealthCheck from "../clients/health/src/HealthCheck";
 import WaiiHttpClient from "../lib/src/WaiiHttpClient";
 import Authorization from "../clients/authorization/src/Authorization";
 import LLM from "../clients/model/src/Model";
+import User from "../clients/user/src/User";
 
 
 class Waii {
@@ -19,6 +20,7 @@ class Waii {
     public HealthCheck!: HealthCheck;
     public Authorization!: Authorization;
     public LLM!: LLM;
+    public User!: User;
     
     public constructor(url: string = 'http://localhost:9859/api/', apiKey: string = '') {
         this.initialize(url, apiKey);
@@ -34,6 +36,7 @@ class Waii {
             this.HealthCheck = new HealthCheck(this.HttpClient);
             this.Authorization = new Authorization(this.HttpClient);
             this.LLM = new LLM(this.HttpClient);
+            this.User = new User(this.HttpClient);
     };
 }
 
