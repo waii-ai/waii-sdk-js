@@ -47,12 +47,9 @@ This function allows you to retrieve the history of generated queries, charts an
 
 ```typescript
 interface GetHistoryRequest extends CommonRequest {
-    // by default include query for backward compatibility
     included_types?: GeneratedHistoryEntryType[];
-    // for pagination
     limit?: number;
     offset?: number;
-    // latest first (default)
     timestamp_sort_order?: 'asc' | 'desc';
 }
 ```
@@ -74,7 +71,7 @@ interface GetHistoryResponse extends CommonResponse {
 
 The `GetHistoryResponse` object represents the responses of past "generated query", "generated chart" and "generated chat" operations and contains the following fields. Please refer to the common classes above for the details of the `GeneratedQueryHistoryEntry`, `GeneratedChartHistoryEntry` and `GeneratedChatHistoryEntry` objects.
 
-### Get Generated Query History <a name="get-generated-query-history"></a> (deprecated)
+### Get Generated Query History <a name="get-generated-query-history"></a> (deprecated, you should use `getHistory` instead)
 
 This function allows you to retrieve the history of generated queries.
 

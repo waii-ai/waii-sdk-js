@@ -13,18 +13,11 @@ Chat Request and Response:
 
 ```typescript
 interface ChatRequest {
-    // Common fields, same as QueryGenerationRequest
     scope: string;
     tags: string[];
     model: string;
-
-    // User's question or prompt
     ask: string;
-
-    // Should we stream the output?
     streaming: boolean;
-
-    // What's the parent chat message, if any?
     parent_uuid: string;
 }
 ```
@@ -43,7 +36,7 @@ interface ChatResponseData {
 }
 
 interface ChatResponse {
-    response: string; // template response
+    response: string;
     response_data: ChatResponseData;
     is_new: boolean;
     timestamp: number;
@@ -117,72 +110,3 @@ async function generate(
 #### Returns:
 
 A Promise resolving to a `ChatResponse` object containing the details of the generated chat response.
-
-### Usage Examples
-
-Here are some examples of how to use the Chat module for various interactions:
-
-#### Starting a New Chat
-
-To start a new chat, you can use the `generate` function without providing a `parent_uuid`:
-
-```typescript
-  const chatRequest: ChatRequest = {
-    scope: 'snowflake://xyz123',
-    ask: 'What are the total sales for the last quarter?'
-  };
-
-  try {
-    const response = await Chat.generate(chatRequest);
-    console.log('New chat response:', response.response);
-    console.log('Generated SQL:', response.response_data.sql?.query);
-  } catch (error) {
-    console.error('Error starting new chat:', error);
-  }
-```
-
-#### Continuing a Chat
-
-To continue an existing chat, include the `parent_uuid` from the previous response:
-
-```typescript
-  const chatRequest: ChatRequest = {
-    ask: 'Can you break down those sales by product category?',
-    parent_uuid: <previous_response_uuid>
-  };
-
-  try {
-    const response = await Chat.generate(chatRequest);
-    console.log('Follow-up response:', response.response);
-    console.log('Generated SQL:', response.response_data.sql?.query);
-  } catch (error) {
-    console.error('Error continuing chat:', error);
-  }
-```
-
-#### Retrieving Chat History
-
-To retrieve the chat history, you can use the History module. Here's an example of how to get the chat history:
-
-```typescript
-  const historyRequest: GetHistoryRequest = {
-    included_types: ['chat']
-  };
-
-  try {
-    const response = await History.getHistory(historyRequest);
-    console.log('Chat history:', response.history);
-    
-    // Process each chat entry
-    response.history?.forEach((entry, index) => {
-      if (entry.history_type === 'chat') {
-        console.log(`Chat ${index + 1}:`);
-        console.log('Question:', (entry as GeneratedChatHistoryEntry).request.request);
-        console.log('Response:', (entry as GeneratedChatHistoryEntry).response.response);
-        console.log('---');
-      }
-    });
-  } catch (error) {
-    console.error('Error retrieving chat history:', error);
-  }
-```
