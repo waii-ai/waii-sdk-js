@@ -26,9 +26,14 @@ module.exports = {
       label: 'Database',
     },
     {
-	type: 'doc',
-	id: 'history-module',
-	label: 'History',
+      type: 'doc',
+      id: 'history-module',
+      label: 'History',
     },
+    {
+      type: 'doc',
+      id: 'chat-module',
+      label: 'Chat',
+    }
   ],
 };
