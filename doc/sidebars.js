@@ -34,6 +34,11 @@ module.exports = {
       type: 'doc',
       id: 'chat-module',
       label: 'Chat',
+    },
+    {
+      type: 'doc',
+      id: 'chart-module',
+      label: 'Charts',
     }
   ],
 };
