@@ -53,7 +53,7 @@ Explanation of the fields in `ChatResponse`:
 
 #### Example of `response_data`:
 
-We generate a text response based on the user's input, which can include placeholders like {data}, {sql}, {chart_spec}, {semantic_context}, {catalog}. The caller should replace these placeholders with the actual data (whenever available) before displaying the response to the user.
+We generate a text response based on the user's input, which can include placeholders like {data}, {sql}, {chart_spec}, {semantic_context}, {catalog}, {detailed_steps}. The caller should replace these placeholders with the actual data (whenever available) before displaying the response to the user.
 
 How to replace placeholders depends on the caller's implementation. For example, if the caller is a `streamlit` application, it can display the data in dataframe format, the SQL query in a code block, the chart in pyplot, etc. If the caller is a react application, it can display the data in antd tables, etc.
 
@@ -75,6 +75,34 @@ If the response contains a chart, the response will contain the chart spec with 
 Here is the sales trend for the last 6 months.
 
 {chart_spec}
+```
+
+##### No-op response
+
+If the response is just an acknowledgment or a confirmation, the response will contain only the text. Assume the ask is "Thank you!", `response_data` will look like:
+
+```
+You're welcome!
+```
+
+##### Ask how the result is calculated
+
+If the user asks how the result is calculated, the response will contain the SQL query with its explanation. Assume the ask is "How you calculate the result?", `response_data` will look like:
+
+```
+Here is the SQL query to calculate the result.
+{sql}
+
+And here are the detailed steps:
+{detailed_steps}
+```
+
+##### Semantic context
+
+User can directly ask for questions related to the semantic context. In that case, the response will contain the semantic context with its explanation. Assume the ask is "what is definition of proceeded sales?", `response_data` will look like:
+
+```
+Proceeded sales is the total sales after discount and tax.
 ```
 
 ##### Combination of multiple response types
