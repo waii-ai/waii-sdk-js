@@ -10,6 +10,7 @@ class SemanticStatement {
     statement: string
     labels?: string[]
     always_include?: boolean
+    critical?: boolean
     lookup_summaries?: string[]
     summarization_prompt?: string
 
@@ -18,6 +19,7 @@ class SemanticStatement {
         statement: string,
         labels: string[] = [],
         always_include: boolean = true,
+        critical: boolean = false,
         lookup_summaries: string[] = [],
         summarization_prompt: string = '',
         id: string = ''
@@ -33,6 +35,7 @@ class SemanticStatement {
         this.always_include = always_include;
         this.lookup_summaries = lookup_summaries;
         this.summarization_prompt = summarization_prompt;
+        this.critical = critical;
     }
 }
 
