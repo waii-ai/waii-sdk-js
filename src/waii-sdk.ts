@@ -9,7 +9,6 @@ import Authorization from "../clients/authorization/src/Authorization";
 import LLM from "../clients/model/src/Model";
 import User from "../clients/user/src/User";
 
-
 class Waii {
     public HttpClient!: WaiiHttpClient;
     public History!: History;
