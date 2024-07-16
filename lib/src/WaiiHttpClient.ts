@@ -6,12 +6,10 @@ class WaiiHttpClient {
     scope: string = '';
     orgId: string = '';
     userId: string = '';
-    fetch_func: any;
 
-    public constructor(url: string = 'http://localhost:9859/api/', apiKey: string = '', fetch_func = fetch) {
+    public constructor(url: string = 'http://localhost:9859/api/', apiKey: string = '') {
         this.url = url;
         this.apiKey = apiKey;
-        this.fetch_func = fetch_func;
     };
 
     public setScope(scope: string) {
@@ -53,7 +51,7 @@ class WaiiHttpClient {
         let timer;
         let fetchOrTimeout = Promise.race(
             [
-                this.fetch_func(this.url + endpoint, request),
+                fetch(this.url + endpoint, request),
                 new Promise<Response>(
                     (res, rej) => {timer = setTimeout(
                         () => rej(new Error(`Call timed out after ${this.timeout} ms`)),
