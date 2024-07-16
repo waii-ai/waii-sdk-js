@@ -26,8 +26,8 @@ class Waii {
         this.initialize(url, apiKey);
     }
 
-    public initialize(url: string = 'http://localhost:9859/api/', apiKey: string = '', fetch_func: any = fetch) {
-            this.HttpClient = new WaiiHttpClient(url, apiKey, fetch_func);
+    public initialize(url: string = 'http://localhost:9859/api/', apiKey: string = '') {
+            this.HttpClient = new WaiiHttpClient(url, apiKey);
             this.History = new History(this.HttpClient);
             this.SemanticContext = new SemanticContext(this.HttpClient);
             this.Query = new Query(this.HttpClient);
