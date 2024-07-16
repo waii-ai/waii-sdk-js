@@ -21,4 +21,5 @@ lib/*
 clients/*
 node_modules/*
 docs/*
+doc/*
 waii-sdk-js-*.*.*.tgz
