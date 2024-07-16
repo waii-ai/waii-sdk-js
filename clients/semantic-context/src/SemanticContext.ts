@@ -10,19 +10,19 @@ class SemanticStatement {
     statement: string
     labels?: string[]
     always_include?: boolean
-    critical?: boolean
     lookup_summaries?: string[]
     summarization_prompt?: string
+    critical?: boolean
 
     public constructor(
         scope: string = '*',
         statement: string,
         labels: string[] = [],
         always_include: boolean = true,
-        critical: boolean = false,
         lookup_summaries: string[] = [],
         summarization_prompt: string = '',
-        id: string = ''
+        id: string = '',
+        critical: boolean = false
     ) {
         if (id) {
             this.id = id;

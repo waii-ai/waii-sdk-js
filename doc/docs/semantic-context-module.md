@@ -35,10 +35,23 @@ The `ModifySemanticContextResponse` object represents the response of the "modif
 
 - `updated` (optional): An array of `SemanticStatement` objects representing the semantic statements that have been updated as a result of the operation. Each `SemanticStatement` object may contain the following fields:
 
+  id?: string
+  scope: string
+  statement: string
+  labels?: string[]
+  always_include?: boolean
+  lookup_summaries?: string[]
+  summarization_prompt?: string
+  critical?: boolean
+
   - `id` (optional): A string representing the unique identifier of the semantic statement.
   - `scope` (required): A string representing the scope of the semantic statement.
   - `statement` (required): A string representing the semantic statement itself.
   - `labels` (optional): An array of strings representing the labels associated with the semantic statement.
+  - `always_include` (optional): A boolean value indicating whether the semantic statement should always be included in the prompt when the scope matches.
+  - `lookup_summaries` (optional): An array of strings representing the lookup string associated with the semantic statement. it is used to summarize the semantic statement when the statement is too long.
+  - `summarization_prompt` (optional): A string representing the summarization prompt associated with the semantic statement.
+  - `critical` (optional): A boolean value indicating whether the semantic statement is critical. If the statement is critical, it will be double-checked after query generation, and regenerate the query if needed. (Which also means it can take longer to generate the query.)
 
 - `deleted` (optional): An array of strings representing the IDs of the semantic statements that have been deleted as a result of the operation.
 
