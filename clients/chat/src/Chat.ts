@@ -1,5 +1,5 @@
 import WaiiHttpClient from "../../../lib/src/WaiiHttpClient";
-import { ChartGenerationResponse } from "../../chart/src/Chart";
+import { ChartGenerationResponse, ChartType } from "../../chart/src/Chart";
 import { GetSemanticContextResponse } from "../../semantic-context/src/SemanticContext";
 import { GetQueryResultResponse, GeneratedQuery } from "../../query/src/Query";
 import { Catalog } from "../../database/src/Database";
@@ -9,23 +9,24 @@ const CHAT_ENDPOINT: string = 'chat-message';
 type ChatRequest = {
     ask: string;
     streaming?: boolean;
-    parentUuid?: string;
+    parent_uuid?: string;
+    chart_type?: ChartType
 }
 
 type ChatResponse = {
     response: string;
-    responseData: ChatResponseData;
-    isNew?: boolean;
+    response_data: ChatResponseData;
+    is_new?: boolean;
     timestamp: number;
-    chatUuid: string;
+    chat_uuid: string;
 }
 
 type ChatResponseData = {
     data?: GetQueryResultResponse;
     sql?: GeneratedQuery;
-    chartSpec?: ChartGenerationResponse;
-    pythonPlot?: any;
-    semanticContext?: GetSemanticContextResponse;
+    chart_spec?: ChartGenerationResponse;
+    python_plot?: any;
+    semantic_context?: GetSemanticContextResponse;
     catalog?: Catalog;
 }
 

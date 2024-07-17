@@ -5,24 +5,24 @@ const GENERATE_ENDPOINT: string = 'generate-chart';
 type ChartGenerationRequest = {
     sql?: string;
     ask?: string;
-    dataframeRows?: Record<string, any>[];
-    dataframeCols?: Column[];
-    chartType?: ChartType;
-    parentUuid?: string;
-    tweakHistory?: ChartTweak[];
+    dataframe_rows?: Record<string, any>[];
+    dataframe_cols?: Column[];
+    chart_type?: ChartType;
+    parent_uuid?: string;
+    tweak_history?: ChartTweak[];
 }
 
 type ChartGenerationResponse = {
     uuid: string;
     timestamp: number;
-    chartSpec: ChartSpec;
+    chart_spec: ChartSpec;
 }
 
 type ChartType = 'metabase' | 'superset';
 
 type ChartTweak = {
     ask: string;
-    chartSpec: ChartSpec;
+    chart_spec: ChartSpec;
 }
 
 type Column = {
@@ -31,25 +31,25 @@ type Column = {
 }
 
 type ChartSpec = {
-    plotType: ChartType;
-    specType: string;
+    plot_type: ChartType;
+    spec_type: string;
 }
 
 type MetabaseChartSpec = ChartSpec & {
     metric: string;
     dimension: string;
     name: string;
-    colorHex: string;
+    color_hex: string;
 }
 
 type SuperSetChartSpec = ChartSpec & {
     metrics: string[];
     dimensions: string[];
-    chartName: string;
-    colorHex: string;
-    xAxis: string;
-    yAxis: string;
-    gridStyle: string;
+    chart_name: string;
+    color_hex: string;
+    x_axis: string;
+    y_axis: string;
+    grid_style: string;
     stacked: boolean;
     width: number;
     height: number;

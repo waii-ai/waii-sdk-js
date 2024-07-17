@@ -21,11 +21,11 @@ type GeneratedChatHistoryEntry = {
 };
 
 type GetGeneratedQueryHistoryRequest = {
-    includedTypes?: GeneratedHistoryEntryType[],
+    included_types?: GeneratedHistoryEntryType[],
     limit?: number,
     offset?: number,
-    timestampSortOrder?: SortOrder,
-    uuidFilter?: string
+    timestamp_sort_order?: SortOrder,
+    uuid_filter?: string
 };
 
 type GetGeneratedQueryHistoryResponse = {
@@ -33,7 +33,8 @@ type GetGeneratedQueryHistoryResponse = {
 };
 
 type HistoryEntry = {
-    historyType: GeneratedHistoryEntryType
+    history_type: GeneratedHistoryEntryType,
+    timestamp_ms?: number
 };
 
 type GeneratedHistoryEntryType = 'query' | 'chart' | 'chat';
