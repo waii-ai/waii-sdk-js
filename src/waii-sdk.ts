@@ -8,6 +8,8 @@ import WaiiHttpClient from "../lib/src/WaiiHttpClient";
 import Authorization from "../clients/authorization/src/Authorization";
 import LLM from "../clients/model/src/Model";
 import User from "../clients/user/src/User";
+import Chat from "../clients/chat/src/Chat";
+import Chart from "../clients/chart/src/Chart";
 
 class Waii {
     public HttpClient!: WaiiHttpClient;
@@ -20,6 +22,8 @@ class Waii {
     public Authorization!: Authorization;
     public LLM!: LLM;
     public User!: User;
+    public Chat!: Chat;
+    public Chart!: Chart;
     
     public constructor(url: string = 'http://localhost:9859/api/', apiKey: string = '') {
         this.initialize(url, apiKey);
@@ -36,6 +40,8 @@ class Waii {
             this.Authorization = new Authorization(this.HttpClient);
             this.LLM = new LLM(this.HttpClient);
             this.User = new User(this.HttpClient);
+            this.Chart = new Chart(this.HttpClient);
+            this.Chat = new Chat(this.HttpClient);
     };
 }
 
