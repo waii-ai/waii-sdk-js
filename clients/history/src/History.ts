@@ -1,5 +1,7 @@
-import WaiiHttpClient from "../../../lib/src/WaiiHttpClient"
-import { GeneratedQuery, QueryGenerationRequest } from "../../query/src/Query"
+import WaiiHttpClient from "../../../lib/src/WaiiHttpClient";
+import { GeneratedQuery, QueryGenerationRequest } from "../../query/src/Query";
+import { ChartGenerationRequest, ChartGenerationResponse } from "../../chart/src/Chart";
+import { ChatRequest, ChatResponse } from "../../chat/src/Chat";
 
 const GET_ENDPOINT: string = 'get-generated-query-history';
 
@@ -8,14 +10,35 @@ type GeneratedQueryHistoryEntry = {
     request?: QueryGenerationRequest
 };
 
+type GeneratedChartHistoryEntry = {
+    request?: ChartGenerationRequest,
+    response?: ChartGenerationResponse
+};
+
+type GeneratedChatHistoryEntry = {
+    request?: ChatRequest,
+    response?: ChatResponse
+};
+
 type GetGeneratedQueryHistoryRequest = {
+    includedTypes?: GeneratedHistoryEntryType[],
     limit?: number,
-    offset?: number
+    offset?: number,
+    timestampSortOrder?: SortOrder,
+    uuidFilter?: string
 };
 
 type GetGeneratedQueryHistoryResponse = {
-    history?: GeneratedQueryHistoryEntry[]
+    history?: HistoryEntry[]
 };
+
+type HistoryEntry = {
+    historyType: GeneratedHistoryEntryType
+};
+
+type GeneratedHistoryEntryType = 'query' | 'chart' | 'chat';
+
+type SortOrder = 'asc' | 'desc';
 
 class History {
     private httpClient: WaiiHttpClient;
@@ -24,9 +47,11 @@ class History {
         this.httpClient = httpClient;
     };
 
-    public async list(params: GetGeneratedQueryHistoryRequest = {},
-        signal?: AbortSignal): Promise<GetGeneratedQueryHistoryResponse> {
-        return this.httpClient.commonFetch(
+    public async list(
+        params: GetGeneratedQueryHistoryRequest = {},
+        signal?: AbortSignal
+    ): Promise<GetGeneratedQueryHistoryResponse> {
+        return this.httpClient.commonFetch<GetGeneratedQueryHistoryResponse>(
             GET_ENDPOINT,
             params,
             signal
@@ -37,7 +62,11 @@ class History {
 export default History;
 export {
     GeneratedQueryHistoryEntry,
+    GeneratedChartHistoryEntry,
+    GeneratedChatHistoryEntry,
     GetGeneratedQueryHistoryRequest,
     GetGeneratedQueryHistoryResponse,
-    GeneratedQuery
+    HistoryEntry,
+    GeneratedHistoryEntryType,
+    SortOrder
 };
