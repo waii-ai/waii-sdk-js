@@ -3,7 +3,8 @@ import { GeneratedQuery, QueryGenerationRequest } from "../../query/src/Query";
 import { ChartGenerationRequest, ChartGenerationResponse } from "../../chart/src/Chart";
 import { ChatRequest, ChatResponse } from "../../chat/src/Chat";
 
-const GET_ENDPOINT: string = 'get-generated-query-history';
+const LIST_ENDPOINT: string = 'get-generated-query-history';
+const GET_ENDPOINT: string = 'get-history';
 
 type GeneratedQueryHistoryEntry = {
     query?: GeneratedQuery,
@@ -49,6 +50,17 @@ class History {
     };
 
     public async list(
+        params: GetGeneratedQueryHistoryRequest = {},
+        signal?: AbortSignal
+    ): Promise<GetGeneratedQueryHistoryResponse> {
+        return this.httpClient.commonFetch<GetGeneratedQueryHistoryResponse>(
+            LIST_ENDPOINT,
+            params,
+            signal
+        );
+    };
+
+    public async get(
         params: GetGeneratedQueryHistoryRequest = {},
         signal?: AbortSignal
     ): Promise<GetGeneratedQueryHistoryResponse> {
