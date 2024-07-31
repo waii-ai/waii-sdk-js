@@ -63,6 +63,12 @@ type CompilationError = {
     line?: number[]
 };
 
+type ConfidenceScore = {
+    log_prob_sum?: number,
+    token_count?: number,
+    confidence_value?: number
+};
+
 type GeneratedQuery = {
     uuid?: string,
     liked?: boolean,
@@ -74,7 +80,8 @@ type GeneratedQuery = {
     compilation_errors?: CompilationError[],
     is_new?: boolean,
     timestamp_ms?: number,
-    debug_info?: { [a: string]: any }
+    debug_info?: { [a: string]: any },
+    confidence_value?: ConfidenceScore
 };
 
 type SyncRunQueryRequest = {
@@ -141,7 +148,7 @@ type DebugQueryRequest = {
 }
 
 type DebugQueryResponse = {
-    pieces : DebugQueryPiece[]
+    pieces: DebugQueryPiece[]
 }
 
 type DebugQueryPiece = {
@@ -348,10 +355,10 @@ class Query {
         );
     };
 
-        public async getSimilarQuery(
+    public async getSimilarQuery(
         params: GenerateQuestionRequest,
         signal?: AbortSignal
-        ){
+    ) {
         return this.httpClient.commonFetch<SimilarQueryResponse>(
             GET_SIMILAR_QUERY_ENDPOINT,
             params,
