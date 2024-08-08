@@ -46,7 +46,9 @@ The `ModifyDBConnectionResponse` object represents the response of the "modify d
   - `role` (optional): A string representing the role associated with the database connection.
   - `path` (optional): A string representing the path to the database.
   - `parameters` (optional): An object containing additional parameters related to the database connection.
-  
+  - `sample_col_values` (optional): A boolean value denoting if you want Waii to sample string/variant columns. Allowing Waii to sample can help it to generate better queries.
+  - `db_content_filters`: If you want Waii to exclude certain columns , tables from database while generating the query, you can pass the db_content_filter. This is optional.
+  - `embedding_model` (optional): A string value denoting embedding model used for similarity search within the knowledge graph.
 - `connector_status` (optional): An array of `ConnectorStatus` objects representing the status of the database connectors. Each `ConnectorStatus` object may contain the following fields:
 
   - `status` (required): A string representing the status of the database connection. Valid values are "completed", "indexing", "not-started".

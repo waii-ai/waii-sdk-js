@@ -31,6 +31,7 @@ type DBContentFilter = {
     ignore_case?: boolean,
     pattern?: string,
     filter_action_type?: DBContentFilterActionType
+    search_context?: SearchContext[]
 };
 
 type DBConnection = {
@@ -49,6 +50,8 @@ type DBConnection = {
     parameters?: object,
     sample_col_values?: boolean,
     db_content_filters?: DBContentFilter[]
+    always_include_tables?: TableName[]
+    embedding_model?: string
 };
 
 type ModifyDBConnectionRequest = {
