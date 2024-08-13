@@ -185,12 +185,12 @@ The `CommonResponse` object is an empty object.
 
 This function deletes an existing user.
 
-\```typescript
+```typescript
 async function deleteUser(
       params: DeleteUserRequest,
       signal?: AbortSignal)
    : Promise<CommonResponse>;
-\```
+```
 
 ### Parameters
 
@@ -210,12 +210,12 @@ The `CommonResponse` object is an empty object.
 
 This function updates information about an existing user.
 
-\```typescript
+```typescript
 async function updateUser(
       params: UpdateUserRequest,
       signal?: AbortSignal)
    : Promise<CommonResponse>;
-\```
+```
 
 ### Parameters
 
@@ -241,12 +241,12 @@ The `CommonResponse` object is an empty object.
 
 This function retrieves a list of users.
 
-\```typescript
+```typescript
 async function listUsers(
       params: ListUsersRequest,
       signal?: AbortSignal)
    : Promise<ListUsersResponse>;
-\```
+```
 
 ### Parameters
 
@@ -270,3 +270,105 @@ The `ListUsersResponse` object contains the following fields:
   - `org_id` (optional): A string representing the organization ID of the user.
   - `variables` (optional): A dictionary of key-value pairs representing the user's variables.
   - `roles` (optional): An array of strings representing the roles assigned to the user.
+
+  
+The `Tenant` object is defined as 
+    •	`id` (required): A string representing the unique ID of the tenant.
+	  •	`name` (required): A string representing the display name of the tenant.
+	  •	`org_id` (optional): A string representing the organization ID of the tenant.
+	  •	`variables` (optional): A dictionary of key-value pairs representing the tenant’s variables.
+
+
+### Create Tenant 
+
+This function creates a new tenant.
+
+```typescript
+async function createTenant(
+params: CreateTenantRequest,
+signal?: AbortSignal)
+: Promise<CommonResponse>;
+```
+
+### Parameters
+  
+	•	`params` (required): An object containing the request parameters for creating a new tenant.
+	  •	`tenant` (required): An `Tenant` object which is defined as above.
+	•	`signal` (optional): An AbortSignal object for aborting the request.
+
+### Returns
+
+A Promise resolving to a `CommonResponse` object.
+
+The `CommonResponse` object is an empty object.
+
+### Update Tenant 
+
+This function updates information about an existing tenant.
+
+```typescript
+async function updateTenant(
+params: UpdateTenantRequest,
+signal?: AbortSignal)
+: Promise<CommonResponse>;
+```
+
+### Parameters
+
+	•	`params` (required): An object containing the request parameters for updating a tenant.
+	  •	`tenant` (required): A `Tenant` object containing the updated details of the tenant.
+	
+	•	`signal` (optional): An AbortSignal object for aborting the request.
+
+### Returns
+
+A Promise resolving to a `CommonResponse` object.
+
+The `CommonResponse` object is an empty object.
+
+### Delete Tenant 
+
+This function deletes an existing tenant.
+
+```typescript
+async function deleteTenant(
+params: DeleteTenantRequest,
+signal?: AbortSignal)
+: Promise<CommonResponse>;
+```
+
+### Parameters
+
+	•	`params` (required): An object containing the request parameters for deleting a tenant.
+	  •	`id` (required): A string representing the tenant ID of the tenant to be deleted.
+	•	`signal` (optional): An AbortSignal object for aborting the request.
+
+### Returns
+
+A Promise resolving to a `CommonResponse` object.
+
+The `CommonResponse` object is an empty object.
+
+### List Tenants 
+
+This function retrieves a list of tenants.
+
+```typescript
+async function listTenants(
+params: ListTenantsRequest,
+signal?: AbortSignal)
+: Promise<ListTenantsResponse>;
+```
+
+### Parameters
+
+	•	`params` (required): An object containing the request parameters for listing tenants.
+	  •	`lookup_org_id` (optional): A string representing the organization ID for  which the tenants are to be retrieved.
+	•	`signal` (optional): An AbortSignal object for aborting the request.
+
+### Returns
+
+A Promise resolving to a `ListTenantsResponse` object containing the list of tenants.
+
+The `ListTenantsResponse` object contains the following fields:
+    `tenants` (required): An array of `Tenant` objects representing the tenants.
