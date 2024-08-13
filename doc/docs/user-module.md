@@ -10,12 +10,12 @@ The `User` module contains methods related to users in the system, such as manag
 
 This function creates a new access key for a user.
 
-\```typescript
+```typescript
 async function createAccessKey(
       params: CreateAccessKeyRequest,
       signal?: AbortSignal)
    : Promise<GetAccessKeyResponse>;
-\```
+```
 
 ### Parameters
 
@@ -42,12 +42,12 @@ The `GetAccessKeyResponse` object contains the following fields:
 
 This function lists access keys of the user.
 
-\```typescript
+```typescript
 async function listAccessKeys(
       params: GetAccessKeyRequest,
       signal?: AbortSignal)
    : Promise<GetAccessKeyResponse>;
-\```
+```
 
 ### Parameters
 
@@ -72,12 +72,12 @@ The `GetAccessKeyResponse` object contains the following fields:
 
 This function deletes an access key of the user.
 
-\```typescript
+```typescript
 async function deleteAccessKey(
       params: DelAccessKeyRequest,
       signal?: AbortSignal)
    : Promise<DelAccessKeyResponse>;
-\```
+```
 
 ### Parameters
 
@@ -97,12 +97,12 @@ The `DelAccessKeyResponse` object is an empty object.
 
 This function retrieves information about a user.
 
-\```typescript
+```typescript
 async function getInfo(
       params: GetUserInfoRequest,
       signal?: AbortSignal)
    : Promise<GetUserInfoResponse>;
-\```
+```
 
 ### Parameters
 
@@ -126,12 +126,12 @@ The `GetUserInfoResponse` object contains the following fields:
 
 This function updates configuration settings for a user.
 
-\```typescript
+```typescript
 async function updateConfig(
       params: UpdateConfigRequest,
       signal?: AbortSignal)
    : Promise<UpdateConfigResponse>;
-\```
+```
 
 ### Parameters
 
@@ -154,12 +154,12 @@ The `UpdateConfigResponse` object contains the following fields:
 
 This function creates a new user.
 
-\```typescript
+```typescript
 async function createUser(
       params: CreateUserRequest,
       signal?: AbortSignal)
    : Promise<CommonResponse>;
-\```
+```
 
 ### Parameters
 
