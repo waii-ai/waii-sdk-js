@@ -49,8 +49,9 @@ type DBConnection = {
     port?: number,
     parameters?: object,
     sample_col_values?: boolean,
-    db_content_filters?: DBContentFilter[]
-    always_include_tables?: TableName[]
+    db_content_filters?: DBContentFilter[],
+    push?:boolean ,
+    always_include_tables?: TableName[],
     embedding_model?: string
 };
 
@@ -158,10 +159,14 @@ type Catalog = {
 };
 
 type GetCatalogRequest = {
+ search_context?:SearchContext[],
+ ask?:string,
 };
 
 type GetCatalogResponse = {
     catalogs?: Catalog[],
+    debug_info?: { [key: string]: any }
+
 };
 
 type UpdateTableDescriptionRequest = {

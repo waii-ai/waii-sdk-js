@@ -118,7 +118,8 @@ type RunQueryResponse = {
 };
 
 type GetQueryResultRequest = {
-    query_id: string
+    query_id: string,
+    max_returned_rows?: number
 };
 
 type CancelQueryRequest = {

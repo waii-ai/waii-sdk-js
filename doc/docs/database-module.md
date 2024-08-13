@@ -47,7 +47,9 @@ The `ModifyDBConnectionResponse` object represents the response of the "modify d
   - `path` (optional): A string representing the path to the database.
   - `parameters` (optional): An object containing additional parameters related to the database connection.
   - `sample_col_values` (optional): A boolean value denoting if you want Waii to sample string/variant columns. Allowing Waii to sample can help it to generate better queries.
-  - `db_content_filters`: If you want Waii to exclude certain columns , tables from database while generating the query, you can pass the db_content_filter. This is optional.
+  - `db_content_filters` (optional): If you want Waii to exclude certain columns , tables from database while generating the query, you can pass the db_content_filter.
+  - `push`: This is set to true if you are adding push based connection 
+  - `always_include_tables` (optional): If it is not None, then these tables will always be included, even if table selector doesn't select them.
   - `embedding_model` (optional): A string value denoting embedding model used for similarity search within the knowledge graph.
 - `connector_status` (optional): An array of `ConnectorStatus` objects representing the status of the database connectors. Each `ConnectorStatus` object may contain the following fields:
 
@@ -129,6 +131,9 @@ async function getCatalogs(
 #### Parameters:
 
 - `params` (optional): An object containing the get catalogs request parameters.
+   - `ask` (optional):You can do semantic search by providing a question here. For example, "How many cars sold in 2021?". Waii will try to filter the tables/cols based on the question.
+   - `search_context` (optional): SearchContext[] . You can provide a list of search contexts to filter the tables/cols. For example, you can provide a list of table names, column names, etc. Waii will try to filter the tables/cols based on the search contexts.
+         
 
 - `signal` (optional): An AbortSignal object for aborting the request.
 

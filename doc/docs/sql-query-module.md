@@ -272,6 +272,7 @@ async function getResults(
 - `params` (required): An object containing the get query results request parameters.
 
   - `query_id` (required): The unique identifier of the query.
+  - `max_returned_rows` (optional): Maximum no of rows you want query to return.Default is 10000
 
 - `signal` (optional): An AbortSignal object for aborting the request.
 
