@@ -138,8 +138,13 @@ async function like(
 
 - `params` (required): An object containing the like query request parameters.
 
-  - `query_uuid` (required): The unique identifier of the query to be liked or disliked.
+  - `query_uuid` (optional): A string representing uuid of query . You can either like an generated query by specifying `query_uuid` (the `uuid` from `GeneratedQuery`, not the id from run query). Or, you can specify `ask` and `query` to like a query. 
+  - `ask` (optional) :A string denoting ask. You can like a query by mentioning `ask` and `query`
+  - `query` (optional) : A string denoting query. You can like a query by mentioning `ask` and `query`
   - `liked` (required): A boolean value indicating whether to like (true) or dislike (false) the query.
+  - `rewrite_question` (optional): A boolean value which if you set it to True (default), the system will rewrite the ask based on query and the ask. Why we do this because sometimes the ask itself is wrong, ambiguous, etc. and we want to make sure the ask is clear
+  - `detailed_steps` (optional): This is list of string. You can specify steps  of generating the query in LikedQuery. 
+
 
 - `signal` (optional): An AbortSignal object for aborting the request.
 

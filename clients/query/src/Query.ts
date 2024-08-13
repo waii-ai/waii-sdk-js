@@ -137,8 +137,13 @@ type GetQueryResultResponse = {
 };
 
 type LikeQueryRequest = {
-    query_uuid: string,
-    liked: boolean
+    query_uuid?: string,
+    liked: boolean,
+    ask?: string,
+    query?:string,
+    rewrite_question?: boolean,
+    detailed_steps?:string[]
+
 };
 
 type LikeQueryResponse = {

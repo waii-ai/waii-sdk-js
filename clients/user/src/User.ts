@@ -105,6 +105,94 @@ class User {
         );
     };
 
+    public createAccessKey(
+        params: CreateAccessKeyRequest,
+        signal?: AbortSignal
+    ): Promise<GetAccessKeyResponse> {
+        return this.httpClient.commonFetch<GetAccessKeyResponse>(
+            CREATE_KEY_ENDPOINT,
+            params,
+            signal
+        );
+    }
+
+    public listAccessKeys(
+        params: GetAccessKeyRequest = {},
+        signal?: AbortSignal
+    ): Promise<GetAccessKeyResponse> {
+        return this.httpClient.commonFetch<GetAccessKeyResponse>(
+            LIST_ACCESS_KEY_ENDPOINT,
+            params,
+            signal
+        );
+    }
+
+    public deleteAccessKey(
+        params: DelAccessKeyRequest,
+        signal?: AbortSignal
+    ): Promise<DelAccessKeyResponse> {
+        return this.httpClient.commonFetch<DelAccessKeyResponse>(
+            DELETE_ACCESS_KEY_ENDPOINT,
+            params,
+            signal
+        );
+    }
+
+    public updateConfig(
+        params: UpdateConfigRequest,
+        signal?: AbortSignal
+    ): Promise<UpdateConfigResponse> {
+        return this.httpClient.commonFetch<UpdateConfigResponse>(
+            UPDATE_CONFIG_ENDPOINT,
+            params,
+            signal
+        );
+    }
+
+    public createUser(
+        params: CreateUserRequest,
+        signal?: AbortSignal
+    ): Promise<CommonResponse> {
+        return this.httpClient.commonFetch<CommonResponse>(
+            CREATE_USER_ENDPOINT,
+            params,
+            signal
+        );
+    }
+
+    public deleteUser(
+        params: DeleteUserRequest,
+        signal?: AbortSignal
+    ): Promise<CommonResponse> {
+        return this.httpClient.commonFetch<CommonResponse>(
+            DELETE_USER_ENDPOINT,
+            params,
+            signal
+        );
+    }
+
+    public updateUser(
+        params: UpdateUserRequest,
+        signal?: AbortSignal
+    ): Promise<CommonResponse> {
+        return this.httpClient.commonFetch<CommonResponse>(
+            UPDATE_USER_ENDPOINT,
+            params,
+            signal
+        );
+    }
+
+    public listUsers(
+        params: ListUsersRequest = {},
+        signal?: AbortSignal
+    ): Promise<ListUsersResponse> {
+        return this.httpClient.commonFetch<ListUsersResponse>(
+            LIST_USERS_ENDPOINT,
+            params,
+            signal
+        );
+    }
+
      
 };
 
