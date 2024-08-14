@@ -271,7 +271,9 @@ The `ListUsersResponse` object contains the following fields:
   - `variables` (optional): A dictionary of key-value pairs representing the user's variables.
   - `roles` (optional): An array of strings representing the roles assigned to the user.
 
-  
+
+### Tenant Object 
+
 The `Tenant` object is defined as: 
 
   -	`id` (required): A string representing the unique ID of the tenant.
@@ -294,7 +296,7 @@ signal?: AbortSignal)
 #### Parameters
 	
   -	`params` (required): An object containing the request parameters for creating a new tenant.
-	  -	`tenant` (required): An `Tenant` object which is defined as above.
+	  -	`tenant` (required): A `Tenant` object which is defined as above.
 	-	`signal` (optional): An AbortSignal object for aborting the request.
 
 #### Returns
@@ -315,10 +317,9 @@ signal?: AbortSignal)
 ```
 
 #### Parameters
-
-	-	`params` (required): An object containing the request parameters for updating a tenant.
-	  -	`tenant` (required): A `Tenant` object containing the updated details of the tenant.
 	
+  -	`params` (required): An object containing the request parameters for updating a new tenant.
+	  -	`tenant` (required): A `Tenant` object which needs to be updated.
 	-	`signal` (optional): An AbortSignal object for aborting the request.
 
 #### Returns
@@ -339,8 +340,9 @@ signal?: AbortSignal)
 ```
 
 #### Parameters
-	-	`params` (required): An object containing the request parameters for deleting a tenant.
-	  -	`id` (required): A string representing the tenant ID of the tenant to be deleted.
+	
+  -	`params` (required): An object containing the request parameters for deleting a new tenant.
+	  -	`id` (required): id of the `Tenant`  that needs to be deleted.
 	-	`signal` (optional): An AbortSignal object for aborting the request.
 
 #### Returns
@@ -361,8 +363,8 @@ signal?: AbortSignal)
 ```
 
 #### Parameters
-
-	-	`params` (required): An object containing the request parameters for listing tenants.
+  
+  -	`params` (required): An object containing the request parameters for deleting a new tenant.
 	  -	`lookup_org_id` (optional): A string representing the organization ID for  which the tenants are to be retrieved.
 	-	`signal` (optional): An AbortSignal object for aborting the request.
 
