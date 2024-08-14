@@ -327,7 +327,7 @@ signal?: AbortSignal)
 	
   -	`params` (required): An object containing the request parameters for updating a new tenant.
 	  -	`tenant` (required): A `Tenant` object which needs to be updated.
-	-	`signal` (optional): An AbortSignal object for aborting the request.
+  -	`signal` (optional): An AbortSignal object for aborting the request.
 
 #### Returns
 
