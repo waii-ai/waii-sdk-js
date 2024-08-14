@@ -373,14 +373,15 @@ signal?: AbortSignal)
   
   -	`params` (required): An object containing the request parameters for deleting a new tenant.
     - `lookup_org_id` (optional): A string representing the organization ID for  which the tenants are to be retrieved.
-	-	`signal` (optional): An AbortSignal object for aborting the request.
+	
+  -	`signal` (optional): An AbortSignal object for aborting the request.
 
 #### Returns
 
 A Promise resolving to a `ListTenantsResponse` object containing the list of tenants.
 
 The `ListTenantsResponse` object contains the following fields:
-  -`tenants` (required): An array of `Tenant` objects representing the tenants.
+  - `tenants` (required): An array of `Tenant` objects representing the tenants.
 
 
 ### Create Organization 
@@ -475,4 +476,4 @@ signal?: AbortSignal)
 A Promise resolving to a `ListOrganizationsResponse` object containing the list of organizations.
 
 The `ListOrganizationsResponse` object contains the following fields:
-  -`organizations` (required): An array of `Organization` objects representing the organizations.
+  - `organizations` (required): An array of `Organization` objects representing the organizations.
