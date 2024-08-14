@@ -17,7 +17,7 @@ async function createAccessKey(
    : Promise<GetAccessKeyResponse>;
 ```
 
-### Parameters
+#### Parameters
 
 - `params` (required): An object containing the request parameters for creating an access key.
 
@@ -25,7 +25,7 @@ async function createAccessKey(
 
 - `signal` (optional): An AbortSignal object for aborting the request.
 
-### Returns
+#### Returns
 
 A Promise resolving to a `GetAccessKeyResponse` object containing the details of the created access key.
 
@@ -49,13 +49,13 @@ async function listAccessKeys(
    : Promise<GetAccessKeyResponse>;
 ```
 
-### Parameters
+#### Parameters
 
 - `params` (required): An object containing the request parameters.It is empty in this case.
 
 - `signal` (optional): An AbortSignal object for aborting the request.
 
-### Returns
+#### Returns
 
 A Promise resolving to a `GetAccessKeyResponse` object containing the details of the user's access keys.
 
@@ -79,7 +79,7 @@ async function deleteAccessKey(
    : Promise<DelAccessKeyResponse>;
 ```
 
-### Parameters
+#### Parameters
 
 - `params` (required): An object containing the request parameters for deleting access keys.
 
@@ -87,7 +87,7 @@ async function deleteAccessKey(
 
 - `signal` (optional): An AbortSignal object for aborting the request.
 
-### Returns
+#### Returns
 
 A Promise resolving to a `DelAccessKeyResponse` object.
 
@@ -104,13 +104,13 @@ async function getInfo(
    : Promise<GetUserInfoResponse>;
 ```
 
-### Parameters
+#### Parameters
 
 - `params` (required): An object containing the request parameters for getting user information.It is empty in this case
 
 - `signal` (optional): An AbortSignal object for aborting the request.
 
-### Returns
+#### Returns
 
 A Promise resolving to a `GetUserInfoResponse` object containing the user details.
 
@@ -133,7 +133,7 @@ async function updateConfig(
    : Promise<UpdateConfigResponse>;
 ```
 
-### Parameters
+#### Parameters
 
 - `params` (required): An object containing the request parameters for updating the user's configuration.
 
@@ -142,7 +142,7 @@ async function updateConfig(
 
 - `signal` (optional): An AbortSignal object for aborting the request.
 
-### Returns
+#### Returns
 
 A Promise resolving to an `UpdateConfigResponse` object containing the updated configuration details.
 
@@ -161,7 +161,7 @@ async function createUser(
    : Promise<CommonResponse>;
 ```
 
-### Parameters
+#### Parameters
 
 - `params` (required): An object containing the request parameters for creating a new user.
 
@@ -175,7 +175,7 @@ async function createUser(
 
 - `signal` (optional): An AbortSignal object for aborting the request.
 
-### Returns
+#### Returns
 
 A Promise resolving to a `CommonResponse` object.
 
@@ -192,7 +192,7 @@ async function deleteUser(
    : Promise<CommonResponse>;
 ```
 
-### Parameters
+#### Parameters
 
 - `params` (required): An object containing the request parameters for deleting a user.
 
@@ -200,7 +200,7 @@ async function deleteUser(
 
 - `signal` (optional): An AbortSignal object for aborting the request.
 
-### Returns
+#### Returns
 
 A Promise resolving to a `CommonResponse` object.
 
@@ -217,7 +217,7 @@ async function updateUser(
    : Promise<CommonResponse>;
 ```
 
-### Parameters
+#### Parameters
 
 - `params` (required): An object containing the request parameters for updating a user.
 
@@ -231,7 +231,7 @@ async function updateUser(
 
 - `signal` (optional): An AbortSignal object for aborting the request.
 
-### Returns
+#### Returns
 
 A Promise resolving to a `CommonResponse` object.
 
@@ -248,7 +248,7 @@ async function listUsers(
    : Promise<ListUsersResponse>;
 ```
 
-### Parameters
+#### Parameters
 
 - `params` (required): An object containing the request parameters for listing users.
 
@@ -256,7 +256,7 @@ async function listUsers(
 
 - `signal` (optional): An AbortSignal object for aborting the request.
 
-### Returns
+#### Returns
 
 A Promise resolving to a `ListUsersResponse` object containing the list of users.
 
@@ -272,11 +272,12 @@ The `ListUsersResponse` object contains the following fields:
   - `roles` (optional): An array of strings representing the roles assigned to the user.
 
   
-The `Tenant` object is defined as 
-    •	`id` (required): A string representing the unique ID of the tenant.
-	  •	`name` (required): A string representing the display name of the tenant.
-	  •	`org_id` (optional): A string representing the organization ID of the tenant.
-	  •	`variables` (optional): A dictionary of key-value pairs representing the tenant’s variables.
+The `Tenant` object is defined as: 
+
+  -	`id` (required): A string representing the unique ID of the tenant.
+	-	`name` (required): A string representing the display name of the tenant.
+	-	`org_id` (optional): A string representing the organization ID of the tenant.
+	-	`variables` (optional): A dictionary of key-value pairs representing the tenant’s variables.
 
 
 ### Create Tenant 
@@ -290,13 +291,13 @@ signal?: AbortSignal)
 : Promise<CommonResponse>;
 ```
 
-### Parameters
-  
-	•	`params` (required): An object containing the request parameters for creating a new tenant.
-	  •	`tenant` (required): An `Tenant` object which is defined as above.
-	•	`signal` (optional): An AbortSignal object for aborting the request.
+#### Parameters
+	
+  -	`params` (required): An object containing the request parameters for creating a new tenant.
+	  -	`tenant` (required): An `Tenant` object which is defined as above.
+	-	`signal` (optional): An AbortSignal object for aborting the request.
 
-### Returns
+#### Returns
 
 A Promise resolving to a `CommonResponse` object.
 
@@ -313,14 +314,14 @@ signal?: AbortSignal)
 : Promise<CommonResponse>;
 ```
 
-### Parameters
+#### Parameters
 
-	•	`params` (required): An object containing the request parameters for updating a tenant.
-	  •	`tenant` (required): A `Tenant` object containing the updated details of the tenant.
+	-	`params` (required): An object containing the request parameters for updating a tenant.
+	  -	`tenant` (required): A `Tenant` object containing the updated details of the tenant.
 	
-	•	`signal` (optional): An AbortSignal object for aborting the request.
+	-	`signal` (optional): An AbortSignal object for aborting the request.
 
-### Returns
+#### Returns
 
 A Promise resolving to a `CommonResponse` object.
 
@@ -337,13 +338,12 @@ signal?: AbortSignal)
 : Promise<CommonResponse>;
 ```
 
-### Parameters
+#### Parameters
+	-	`params` (required): An object containing the request parameters for deleting a tenant.
+	  -	`id` (required): A string representing the tenant ID of the tenant to be deleted.
+	-	`signal` (optional): An AbortSignal object for aborting the request.
 
-	•	`params` (required): An object containing the request parameters for deleting a tenant.
-	  •	`id` (required): A string representing the tenant ID of the tenant to be deleted.
-	•	`signal` (optional): An AbortSignal object for aborting the request.
-
-### Returns
+#### Returns
 
 A Promise resolving to a `CommonResponse` object.
 
@@ -360,15 +360,15 @@ signal?: AbortSignal)
 : Promise<ListTenantsResponse>;
 ```
 
-### Parameters
+#### Parameters
 
-	•	`params` (required): An object containing the request parameters for listing tenants.
-	  •	`lookup_org_id` (optional): A string representing the organization ID for  which the tenants are to be retrieved.
-	•	`signal` (optional): An AbortSignal object for aborting the request.
+	-	`params` (required): An object containing the request parameters for listing tenants.
+	  -	`lookup_org_id` (optional): A string representing the organization ID for  which the tenants are to be retrieved.
+	-	`signal` (optional): An AbortSignal object for aborting the request.
 
-### Returns
+#### Returns
 
 A Promise resolving to a `ListTenantsResponse` object containing the list of tenants.
 
 The `ListTenantsResponse` object contains the following fields:
-    `tenants` (required): An array of `Tenant` objects representing the tenants.
+    -`tenants` (required): An array of `Tenant` objects representing the tenants.
