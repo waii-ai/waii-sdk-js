@@ -385,7 +385,7 @@ The `ListTenantsResponse` object contains the following fields:
 
 ### Create Organization 
 
-This function creates a new tenant.
+This function creates a new organization.
 
 ```typescript
 async function createOrganization(
@@ -398,10 +398,81 @@ signal?: AbortSignal)
 	
   -	`params` (required): An object containing the request parameters for creating a new org.
 	  -	`organization` (required): A `Organization` object that needs to be created.The object is defined above.
-	-	`signal` (optional): An AbortSignal object for aborting the request.
+  - `signal` (optional): An AbortSignal object for aborting the request.
 
 #### Returns
 
 A Promise resolving to a `CommonResponse` object.
 
 The `CommonResponse` object is an empty object.
+
+
+### Update Organization 
+
+This function updates an organization.
+
+```typescript
+async function updateOrganization(
+params: UpdateOrganizationRequest,
+signal?: AbortSignal)
+: Promise<CommonResponse>;
+```
+
+#### Parameters
+	
+  -	`params` (required): An object containing the request parameters for updating a organization.
+	  -	`organization` (required): A `Organization` object that needs to be updated.The object is defined above.
+  - `signal` (optional): An AbortSignal object for aborting the request.
+
+#### Returns
+
+A Promise resolving to a `CommonResponse` object.
+
+The `CommonResponse` object is an empty object.
+
+
+### Delete Organization 
+
+This function deletes organization.
+
+```typescript
+async function deleteOrganization(
+params: DeleteOrganizationRequest,
+signal?: AbortSignal)
+: Promise<CommonResponse>;
+```
+
+#### Parameters
+	
+  -	`params` (required): An object containing the request parameters for deleting a organization.
+	  -	`id` (required): The id of the organization that needs to be deleted.
+  - `signal` (optional): An AbortSignal object for aborting the request.
+
+#### Returns
+
+A Promise resolving to a `CommonResponse` object.
+
+The `CommonResponse` object is an empty object.
+
+### List Organizations
+
+This function lists all organizations.
+
+```typescript
+async function listOrganizations(
+params: ListOrganizationsRequest,
+signal?: AbortSignal)
+: Promise<ListOrganizationsResponse>;
+```
+
+#### Parameters
+	
+  -	`params` (required): An object containing the request parameters for fetching the organizations. It is empty in this case.
+  - `signal` (optional): An AbortSignal object for aborting the request.
+
+#### Returns
+
+A Promise resolving to a `ListOrganizationsResponse` object containing the list of organizations.
+
+The `ListOrganizationsResponse` object contains the following fields:
+  -`organizations` (required): An array of `Organization` objects representing the organizations.
