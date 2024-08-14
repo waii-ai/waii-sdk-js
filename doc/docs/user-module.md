@@ -272,7 +272,7 @@ The `ListUsersResponse` object contains the following fields:
   - `roles` (optional): An array of strings representing the roles assigned to the user.
 
 
-### Tenant Object 
+### Common Types 
 
 The `Tenant` object is defined as: 
 
@@ -280,6 +280,12 @@ The `Tenant` object is defined as:
 	-	`name` (required): A string representing the display name of the tenant.
 	-	`org_id` (optional): A string representing the organization ID of the tenant.
 	-	`variables` (optional): A dictionary of key-value pairs representing the tenant’s variables.
+
+The `Organization` object is defined as: 
+
+  -	`id` (required): A string representing the unique ID of the org.
+	-	`name` (required): A string representing the display name of the org.
+	-	`variables` (optional): A dictionary of key-value pairs representing the org's variables.
 
 
 ### Create Tenant 
@@ -343,7 +349,8 @@ signal?: AbortSignal)
 	
   -	`params` (required): An object containing the request parameters for deleting a new tenant.
 	  -	`id` (required): id of the `Tenant`  that needs to be deleted.
-	-	`signal` (optional): An AbortSignal object for aborting the request.
+	
+  -	`signal` (optional): An AbortSignal object for aborting the request.
 
 #### Returns
 
@@ -365,7 +372,7 @@ signal?: AbortSignal)
 #### Parameters
   
   -	`params` (required): An object containing the request parameters for deleting a new tenant.
-	  -	`lookup_org_id` (optional): A string representing the organization ID for  which the tenants are to be retrieved.
+    - `lookup_org_id` (optional): A string representing the organization ID for  which the tenants are to be retrieved.
 	-	`signal` (optional): An AbortSignal object for aborting the request.
 
 #### Returns
@@ -373,4 +380,28 @@ signal?: AbortSignal)
 A Promise resolving to a `ListTenantsResponse` object containing the list of tenants.
 
 The `ListTenantsResponse` object contains the following fields:
-    -`tenants` (required): An array of `Tenant` objects representing the tenants.
+  -`tenants` (required): An array of `Tenant` objects representing the tenants.
+
+
+### Create Organization 
+
+This function creates a new tenant.
+
+```typescript
+async function createOrganization(
+params: CreateOrganizationRequest,
+signal?: AbortSignal)
+: Promise<CommonResponse>;
+```
+
+#### Parameters
+	
+  -	`params` (required): An object containing the request parameters for creating a new org.
+	  -	`organization` (required): A `Organization` object that needs to be created.The object is defined above.
+	-	`signal` (optional): An AbortSignal object for aborting the request.
+
+#### Returns
+
+A Promise resolving to a `CommonResponse` object.
+
+The `CommonResponse` object is an empty object.
