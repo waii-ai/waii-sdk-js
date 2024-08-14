@@ -277,15 +277,15 @@ The `ListUsersResponse` object contains the following fields:
 The `Tenant` object is defined as: 
 
   -	`id` (required): A string representing the unique ID of the tenant.
-	-	`name` (required): A string representing the display name of the tenant.
-	-	`org_id` (optional): A string representing the organization ID of the tenant.
-	-	`variables` (optional): A dictionary of key-value pairs representing the tenant’s variables.
+  -	`name` (required): A string representing the display name of the tenant.
+  -	`org_id` (optional): A string representing the organization ID of the tenant.
+  -	`variables` (optional): A dictionary of key-value pairs representing the tenant’s variables.
 
 The `Organization` object is defined as: 
 
   -	`id` (required): A string representing the unique ID of the org.
-	-	`name` (required): A string representing the display name of the org.
-	-	`variables` (optional): A dictionary of key-value pairs representing the org's variables.
+  -	`name` (required): A string representing the display name of the org.
+  -	`variables` (optional): A dictionary of key-value pairs representing the org's variables.
 
 
 ### Create Tenant 
@@ -303,7 +303,8 @@ signal?: AbortSignal)
 	
   -	`params` (required): An object containing the request parameters for creating a new tenant.
 	  -	`tenant` (required): A `Tenant` object which is defined as above.
-	-	`signal` (optional): An AbortSignal object for aborting the request.
+	
+  -	`signal` (optional): An AbortSignal object for aborting the request.
 
 #### Returns
 
