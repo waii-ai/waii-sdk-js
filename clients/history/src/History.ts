@@ -27,6 +27,7 @@ type GetGeneratedQueryHistoryRequest = {
     offset?: number,
     timestamp_sort_order?: SortOrder,
     uuid_filter?: string
+    liked_query_filter?: boolean
 };
 
 type GetGeneratedQueryHistoryResponse = {
