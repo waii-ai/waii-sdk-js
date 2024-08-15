@@ -118,7 +118,8 @@ type RunQueryResponse = {
 };
 
 type GetQueryResultRequest = {
-    query_id: string
+    query_id: string,
+    max_returned_rows?: number
 };
 
 type CancelQueryRequest = {
@@ -136,8 +137,13 @@ type GetQueryResultResponse = {
 };
 
 type LikeQueryRequest = {
-    query_uuid: string,
-    liked: boolean
+    query_uuid?: string,
+    liked: boolean,
+    ask?: string,
+    query?:string,
+    rewrite_question?: boolean,
+    detailed_steps?:string[]
+
 };
 
 type LikeQueryResponse = {
