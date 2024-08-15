@@ -34,10 +34,6 @@ type GetGeneratedQueryHistoryResponse = {
     history?: HistoryEntry[]
 };
 
-type GetGeneratedQueryHistoryV2Response = {
-    history?: (GeneratedQueryHistoryEntry | GeneratedChartHistoryEntry | GeneratedChatHistoryEntry)[]
-};
-
 type HistoryEntry = {
     history_type: GeneratedHistoryEntryType,
     timestamp_ms?: number
@@ -68,30 +64,27 @@ class History {
     public async get(
         params: GetGeneratedQueryHistoryRequest = {},
         signal?: AbortSignal
-    ): Promise<GetGeneratedQueryHistoryV2Response> {
+    ): Promise<GeneratedQueryHistoryEntry | GeneratedChartHistoryEntry | GeneratedChatHistoryEntry> {
         const response = await this.httpClient.commonFetch<GetGeneratedQueryHistoryResponse>(
             GET_ENDPOINT,
             params,
             signal
         );
 
-        let _history: (GeneratedQueryHistoryEntry | GeneratedChartHistoryEntry | GeneratedChatHistoryEntry)[] = [];
-
         if (response.history && response.history.length > 0) {
-            _history = response.history.map(entry => {
-                switch (entry.history_type) {
-                    case 'query':
-                        return entry as GeneratedQueryHistoryEntry;
-                    case 'chart':
-                        return entry as GeneratedChartHistoryEntry;
-                    case 'chat':
-                        return entry as GeneratedChatHistoryEntry;
-                }
-            });
+            const entry = response.history[0];
+            switch (entry.history_type) {
+                case 'query':
+                    return entry as GeneratedQueryHistoryEntry;
+                case 'chart':
+                    return entry as GeneratedChartHistoryEntry;
+                case 'chat':
+                    return entry as GeneratedChatHistoryEntry;
+            }
         }
 
-        return { history: _history };
-    }
+        throw new Error('No history entry found');
+    };
 };
 
 export default History;
