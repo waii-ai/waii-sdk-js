@@ -16,6 +16,7 @@ const TRANSCODE_ENDPOINT: string = 'transcode-query';
 const GENERATE_QUESTION_ENDPOINT: string = 'generate-questions';
 const GET_SIMILAR_QUERY_ENDPOINT: string = 'get-similar-query';
 const DEBUG_QUERY_ENDPOINT: string = 'debug-query';
+const TABLE_ACCESS_RULES_ENDPOINT: string = 'apply-table-access-rules';
 
 type Tweak = {
     sql?: string,
@@ -155,6 +156,25 @@ type DebugQueryRequest = {
 
 type DebugQueryResponse = {
     pieces: DebugQueryPiece[]
+}
+
+type ApplyTableAccessRulesRequest = {
+    query: string;
+}
+
+enum AccessRuleProtectionState {
+    Protected = "protected",
+    Unprotected = "unprotected"
+}
+  
+type AccessRuleProtectionStatus = {
+    state: AccessRuleProtectionState;
+    msg?: string; 
+}
+  
+type ApplyTableAccessRulesResponse =  {
+    query: string;
+    status: AccessRuleProtectionStatus;
 }
 
 type DebugQueryPiece = {
@@ -350,6 +370,17 @@ class Query {
         );
     };
 
+    public async applyTableAccessRule(
+        params: ApplyTableAccessRulesRequest,
+        signal?: AbortSignal
+    ): Promise<ApplyTableAccessRulesResponse> {
+        return this.httpClient.commonFetch<ApplyTableAccessRulesResponse>(
+            TABLE_ACCESS_RULES_ENDPOINT,
+            params,
+            signal
+        );
+    };
+
     public async generateQuestion(
         params: GenerateQuestionRequest,
         signal?: AbortSignal
@@ -397,5 +428,9 @@ export {
     GenerateQuestionRequest,
     GeneratedQuestion,
     GenerateQuestionResponse,
-    SimilarQueryResponse
+    SimilarQueryResponse,
+    ApplyTableAccessRulesResponse,
+    AccessRuleProtectionStatus,
+    ApplyTableAccessRulesRequest,
+    AccessRuleProtectionState
 };
