@@ -6,6 +6,7 @@ class WaiiHttpClient {
     scope: string = '';
     orgId: string = '';
     userId: string = '';
+    impersonateUserId: string | null = null;
 
     public constructor(url: string = 'http://localhost:9859/api/', apiKey: string = '') {
         this.url = url;
@@ -28,6 +29,14 @@ class WaiiHttpClient {
         this.userId = userId;
     };
 
+    public getImpersonateUserId(userId: string | null) {
+        return this.impersonateUserId;
+    }
+
+    public setImpersonateUserId(userId: string | null): void {
+        this.impersonateUserId = userId;
+    }
+
     public async commonFetch<Type>(
         endpoint: string,
         params: object,
@@ -46,6 +55,10 @@ class WaiiHttpClient {
             },
             body: JSON.stringify(params),
             signal: signal
+        };
+        
+        if (this.impersonateUserId) {
+            (request.headers as any)['x-waii-impersonate-user'] = this.impersonateUserId;
         }
 
         let timer;
