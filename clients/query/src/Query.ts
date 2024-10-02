@@ -37,6 +37,13 @@ type DescribeQueryRequest = {
     search_context?: SearchContext[],
     current_schema?: string,
     query?: string
+    query_generation_request?: QueryGenerationRequest
+    generated_query?: GeneratedQuery
+
+    // acceptable values:
+    // "sql_expert"
+    // "business_analyst"
+    persona?: string
 };
 
 type DescribeQueryResponse = {
