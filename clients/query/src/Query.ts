@@ -18,6 +18,11 @@ const GET_SIMILAR_QUERY_ENDPOINT: string = 'get-similar-query';
 const DEBUG_QUERY_ENDPOINT: string = 'debug-query';
 const TABLE_ACCESS_RULES_ENDPOINT: string = 'apply-table-access-rules';
 
+// This is supported target persona for describe query
+const TARGET_PERSONA_SQL_EXPERT: string = 'sql_expert';
+const TARGET_PERSONA_DOMAIN_EXPERT: string = 'domain_expert';
+
+
 type Tweak = {
     sql?: string,
     ask?: string
@@ -37,13 +42,11 @@ type DescribeQueryRequest = {
     search_context?: SearchContext[],
     current_schema?: string,
     query?: string
-    query_generation_request?: QueryGenerationRequest
-    generated_query?: GeneratedQuery
+    semantic_context?: SemanticStatement[]
+    asks?: string[]
 
-    // acceptable values:
-    // "sql_expert"
-    // "business_analyst"
-    persona?: string
+    // From TARGET_PERSONA_SQL_EXPERT/TARGET_PERSONA_DOMAIN_EXPERT
+    target_persona?: string
 };
 
 type DescribeQueryResponse = {
