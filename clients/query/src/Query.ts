@@ -35,7 +35,8 @@ type QueryGenerationRequest = {
     uuid?: string,
     dialect?: string,
     parent_uuid?: string,
-    model?: string
+    model?: string,
+    parameters?: { [param: string]: any }
 };
 
 type DescribeQueryRequest = {
