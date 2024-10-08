@@ -10,6 +10,7 @@ import LLM from "../clients/model/src/Model";
 import User from "../clients/user/src/User";
 import Chat from "../clients/chat/src/Chat";
 import Chart from "../clients/chart/src/Chart";
+import Settings from "../clients/settings/src/Settings";
 
 class Waii {
     public HttpClient!: WaiiHttpClient;
@@ -24,6 +25,7 @@ class Waii {
     public User!: User;
     public Chat!: Chat;
     public Chart!: Chart;
+    public Settings!: Settings;
     
     public constructor(url: string = 'http://localhost:9859/api/', apiKey: string = '') {
         this.initialize(url, apiKey);
@@ -42,6 +44,7 @@ class Waii {
             this.User = new User(this.HttpClient);
             this.Chart = new Chart(this.HttpClient);
             this.Chat = new Chat(this.HttpClient);
+            this.Settings = new Settings(this.HttpClient);
     };
 }
 
