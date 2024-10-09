@@ -11,6 +11,7 @@ type ChatRequest = {
     streaming?: boolean;
     parent_uuid?: string;
     chart_type?: ChartType
+    parameters?: { [param: string]: any }
 }
 
 type ChatResponse = {
