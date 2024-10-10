@@ -30,10 +30,6 @@ type UpdateParameterRequest = {
 type ParameterInfo = {
     value?: any
     possible_values?: any[]
-    org_id?: string,
-    tenant_id?: string,
-    user_id?: string,
-    connection_key?: string,
 };
 
 
