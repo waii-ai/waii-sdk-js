@@ -162,6 +162,7 @@ type Column = {
     type: string,
     comment?: string,
     sample_values?: ColumnSampleValues[]
+    similarity_search_index_id?: string
 };
 
 type Catalog = {
