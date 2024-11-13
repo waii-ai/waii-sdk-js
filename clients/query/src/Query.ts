@@ -17,7 +17,7 @@ const GENERATE_QUESTION_ENDPOINT: string = 'generate-questions';
 const GET_SIMILAR_QUERY_ENDPOINT: string = 'get-similar-query';
 const DEBUG_QUERY_ENDPOINT: string = 'debug-query';
 const TABLE_ACCESS_RULES_ENDPOINT: string = 'apply-table-access-rules';
-
+const EXPAND_QUERY_ENDPOINT: string = 'expand-query';
 // This is supported target persona for describe query
 const TARGET_PERSONA_SQL_EXPERT: string = 'sql_expert';
 const TARGET_PERSONA_DOMAIN_EXPERT: string = 'domain_expert';
@@ -243,6 +243,37 @@ type GenerateQuestionResponse = {
     questions?: GeneratedQuestion[]
 };
 
+enum ExpandQueryState {
+    SUCCEEDED = "succeeded",
+    FAILED = "failed"
+}
+
+
+type PopulateSimilaritySearchFunctionsStatus = {
+    query: string;
+    state: ExpandQueryState;
+    msg?: string;
+};
+
+enum ExpandQueryOperations {
+    TABLE_ACCESS_RULES = "table_access_rules",
+    VIRTUAL_UDTFS = "virtual_udtfs",
+    ALL = "all"
+}
+
+type ExpandQueryRequest = {
+    query: string;
+    operations: ExpandQueryOperations[];
+    dialect?: string;
+};
+
+type ExpandQueryResponse = {
+    query: string;
+    access_rule_protection_status?: AccessRuleProtectionStatus;
+    populate_similarity_search_function_status?: PopulateSimilaritySearchFunctionsStatus;
+};
+
+
 class Query {
     private httpClient: WaiiHttpClient;
 
@@ -409,6 +440,16 @@ class Query {
     ) {
         return this.httpClient.commonFetch<SimilarQueryResponse>(
             GET_SIMILAR_QUERY_ENDPOINT,
+            params,
+            signal
+        );
+    }
+
+    public async expandQuery(
+        params: ExpandQueryRequest,
+        signal?: AbortSignal) {
+        return this.httpClient.commonFetch<ExpandQueryResponse>(
+            EXPAND_QUERY_ENDPOINT,
             params,
             signal
         );

@@ -6,6 +6,12 @@ const UPDATE_TABLE_DESCRIPTION_ENDPOINT: string = 'update-table-description';
 const UPDATE_SCHEMA_DESCRIPTION_ENDPOINT: string = 'update-schema-description';
 const UPDATE_COLUMN_DESCRIPTION_ENDPOINT: string = 'update-column-description';
 const EXTRACT_DATABASE_DOCUMENTATION_ENDPOINT: string = 'extract-database-documentation';
+const UPDATE_SIMILARITY_SEARCH_INDEX_ENDPOINT: string = 'update-similarity-search-index';
+const GET_SIMILARITY_SEARCH_INDEX_ENDPOINT: string = 'get-similarity-search-index';
+const DELETE_SIMILARITY_SEARCH_INDEX_ENDPOINT: string = 'delete-similarity-search-index';
+const CHECK_SIMILARITY_SEARCH_INDEX_STATUS_ENDPOINT: string = 'check-similarity-search-index-status';
+const GET_SIMILARITY_SEARCH_INDEX_TABLE_ENDPOINT: string = 'get-similarity-search-index-table';
+
 
 enum DBContentFilterScope {
     schema = "schema",
@@ -118,6 +124,11 @@ type TableName = {
     table_name: string,
     schema_name?: string,
     database_name?: string
+};
+
+type ColumnName = {
+    table_name: TableName,
+    column_name: string
 };
 
 type TableReference = {
@@ -243,6 +254,81 @@ type ExtractDatabaseDocumentationResponse = {
     database_documentation: DatabaseDocumentation
 };
 
+type CheckOperationStatusRequest = {
+    op_id: string;
+};
+
+enum OperationStatus {
+    SUCCEEDED = "succeeded",
+    FAILED = "failed",
+    IN_PROGRESS = "in_progress",
+    NOT_EXISTS = "not_exists"
+}
+
+type CheckOperationStatusResponse = {
+    op_id: string;
+    status: OperationStatus;
+    info?: string;
+};
+
+type ColumnValue = {
+    value: string
+    additional_info?: string[]
+}
+
+type UpdateSimilaritySearchIndexRequest = {
+    values?: ColumnValue[];
+    column: ColumnName;
+    enable_llm_rerank?: boolean;
+    similarity_score_threshold?: number;
+    max_matched_values?: number;
+    min_matched_values?: number;
+};
+
+type UpdateSimilaritySearchIndexResponse = {
+    op_id: string;
+};
+
+type DeleteSimilaritySearchIndexRequest = {
+    column: ColumnName;
+};
+
+type DeleteSimilaritySearchIndexResponse = {
+    op_id?: string;
+};
+
+type SimilaritySearchIndexProperties = {
+    enable_llm_rerank?: boolean;
+    similarity_score_threshold?: number;
+    max_matched_values?: number;
+    min_matched_values?: number;
+    column?: ColumnName;
+    index_id?: string;
+};
+
+type GetSimilaritySearchIndexRequest = {
+    column: ColumnName
+};
+
+
+type GetSimilaritySearchIndexOnTableResponse = {
+    table: TableName;
+    columns: ColumnName[];
+    search_index_properties: SimilaritySearchIndexProperties[];
+};
+
+
+type GetSimilaritySearchIndexResponse = {
+    column: ColumnName;
+    values?: ColumnValue[];
+    properties?: SimilaritySearchIndexProperties;
+};
+
+type GetSimilaritySearchIndexOnTableRequest = {
+    table: TableName;
+};
+
+
 class Database {
     private httpClient: WaiiHttpClient;
 
@@ -341,6 +427,56 @@ class Database {
             signal
         );
     }
+
+    public async checkSimilaritySearchIndexStatus(
+        params: CheckOperationStatusRequest,
+        signal?: AbortSignal): Promise<CheckOperationStatusResponse> {
+        return this.httpClient.commonFetch<CheckOperationStatusResponse>(
+            CHECK_SIMILARITY_SEARCH_INDEX_STATUS_ENDPOINT,
+            params,
+            signal
+        );
+    }
+
+    public async updateSimilaritySearchIndex(
+        params: UpdateSimilaritySearchIndexRequest,
+        signal?: AbortSignal): Promise<UpdateSimilaritySearchIndexResponse> {
+        return this.httpClient.commonFetch<UpdateSimilaritySearchIndexResponse>(
+            UPDATE_SIMILARITY_SEARCH_INDEX_ENDPOINT,
+            params,
+            signal
+        );
+    }
+
+    public async getSimilaritySearchIndex(
+        params: GetSimilaritySearchIndexRequest,
+        signal?: AbortSignal): Promise<GetSimilaritySearchIndexResponse> {
+        return this.httpClient.commonFetch<GetSimilaritySearchIndexResponse>(
+            GET_SIMILARITY_SEARCH_INDEX_ENDPOINT,
+            params,
+            signal
+        );
+    }
+
+    public async getSimilaritySearchIndexOnTable(
+        params: GetSimilaritySearchIndexOnTableRequest,
+        signal?: AbortSignal): Promise<GetSimilaritySearchIndexOnTableResponse> {
+        return this.httpClient.commonFetch<GetSimilaritySearchIndexOnTableResponse>(
+            GET_SIMILARITY_SEARCH_INDEX_TABLE_ENDPOINT,
+            params,
+            signal
+        );
+    }
+
+    public async deleteSimilaritySearchIndex(
+        params: DeleteSimilaritySearchIndexRequest,
+        signal?: AbortSignal): Promise<DeleteSimilaritySearchIndexResponse> {
+        return this.httpClient.commonFetch<DeleteSimilaritySearchIndexResponse>(
+            DELETE_SIMILARITY_SEARCH_INDEX_ENDPOINT,
+            params,
+            signal
+        );
+    }
 };
 
 export default Database;
@@ -351,6 +487,7 @@ export {
     Table,
     SchemaName,
     TableName,
+    ColumnName,
     TableDescriptionPair,
     TableReference,
     SchemaDescription,
@@ -375,5 +512,15 @@ export {
     DatabaseDocumentation,
     ExtractDatabaseDocumentationRequest,
     ExtractDatabaseDocumentationResponse,
-    DocumentContentType
+    DocumentContentType,
+    CheckOperationStatusRequest,
+    CheckOperationStatusResponse,
+    UpdateSimilaritySearchIndexRequest,
+    UpdateSimilaritySearchIndexResponse,
+    GetSimilaritySearchIndexRequest,
+    GetSimilaritySearchIndexResponse,
+    GetSimilaritySearchIndexOnTableRequest,
+    GetSimilaritySearchIndexOnTableResponse,
+    DeleteSimilaritySearchIndexRequest,
+    DeleteSimilaritySearchIndexResponse
 }
