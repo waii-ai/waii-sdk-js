@@ -1,3 +1,6 @@
+import { STATUS_CODES } from "node:http";
+import { ApiError } from "./ApiError";
+
 class WaiiHttpClient {
 
     url: string;
@@ -67,7 +70,7 @@ class WaiiHttpClient {
                 fetch(this.url + endpoint, request),
                 new Promise<Response>(
                     (res, rej) => {timer = setTimeout(
-                        () => rej(new Error(`Call timed out after ${this.timeout} ms`)),
+                        () => rej(new ApiError(`Call timed out after ${this.timeout} ms`, 504)),
                         this.timeout
                     );}
                 )
@@ -78,21 +81,21 @@ class WaiiHttpClient {
         clearTimeout(timer);
         const text = await response.text();
         if (response.status === 401) {
-            throw new Error("Authentication failed: Incorrect API key.");
+            throw new ApiError("Authentication failed: Incorrect API key.", 401);
         }
         if (!response.ok) {
             try {
                 let error = JSON.parse(text);
-                throw new Error(error.detail);
+                throw new ApiError(error.detail, response.status);
             } catch (e) {
-                throw new Error(text);
+                throw new ApiError(text, response.status);
             }
         }
         try {
             let result: Type = JSON.parse(text);
             return result;
         } catch (e) {
-            throw new Error("Invalid response received.");
+            throw new ApiError("Invalid response received.", response.status);
         }
     };
 };
