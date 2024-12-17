@@ -1,4 +1,3 @@
-import { STATUS_CODES } from "node:http";
 import { ApiError } from "./ApiError";
 
 class WaiiHttpClient {
