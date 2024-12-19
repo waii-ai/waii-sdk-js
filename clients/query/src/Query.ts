@@ -47,6 +47,7 @@ type DescribeQueryRequest = {
     query?: string
     semantic_context?: SemanticStatement[]
     asks?: string[]
+    save_to_history?: boolean
 
     // From TARGET_PERSONA_SQL_EXPERT/TARGET_PERSONA_DOMAIN_EXPERT
     target_persona?: string
