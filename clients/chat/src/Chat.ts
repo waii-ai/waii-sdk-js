@@ -31,6 +31,7 @@ type ChatResponseData = {
     python_plot?: any;
     semantic_context?: GetSemanticContextResponse;
     catalog?: Catalog;
+    current_step?: string;
 }
 
 type GetObjectRequest = {
