@@ -18,6 +18,8 @@ const GET_SIMILAR_QUERY_ENDPOINT: string = 'get-similar-query';
 const DEBUG_QUERY_ENDPOINT: string = 'debug-query';
 const TABLE_ACCESS_RULES_ENDPOINT: string = 'apply-table-access-rules';
 const EXPAND_QUERY_ENDPOINT: string = 'expand-query';
+const GET_GENERATED_QUERY_ENDPOINT: string = 'get-generated-query';
+const SUBMIT_GENERATE_QUERY_ENDPOINT: string = 'submit-generate-query';
 // This is supported target persona for describe query
 const TARGET_PERSONA_SQL_EXPERT: string = 'sql_expert';
 const TARGET_PERSONA_DOMAIN_EXPERT: string = 'domain_expert';
@@ -267,6 +269,21 @@ type ExpandQueryRequest = {
     dialect?: string;
 };
 
+type SubmitGenerateQueryRequest = {
+    query: string;
+    session_id?: string;
+    current_schema?: SchemaName;
+    session_parameters?: Record<string, any>;
+}
+
+type GetObjectRequest = {
+    uuid: string;
+}
+
+type GetObjectResponse = {
+    uuid: string;
+}
+
 type ExpandQueryResponse = {
     query: string;
     access_rule_protection_status?: AccessRuleProtectionStatus;
@@ -342,6 +359,28 @@ class Query {
     ): Promise<RunQueryResponse> {
         return this.httpClient.commonFetch<RunQueryResponse>(
             SUBMIT_ENDPOINT,
+            params,
+            signal
+        );
+    };
+
+    public async submitQueryForGeneration(
+        params: SubmitGenerateQueryRequest,
+        signal?: AbortSignal
+    ): Promise<GetObjectResponse> {
+        return this.httpClient.commonFetch<GetObjectResponse>(
+            SUBMIT_GENERATE_QUERY_ENDPOINT,
+            params,
+            signal
+        );
+    };
+
+    public async generateQueryProgress(
+        params: GetObjectRequest,
+        signal?: AbortSignal
+    ): Promise<GeneratedQuery> {
+        return this.httpClient.commonFetch<GeneratedQuery>(
+            GET_GENERATED_QUERY_ENDPOINT,
             params,
             signal
         );

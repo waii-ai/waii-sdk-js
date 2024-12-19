@@ -5,6 +5,8 @@ import { GetQueryResultResponse, GeneratedQuery } from "../../query/src/Query";
 import { Catalog } from "../../database/src/Database";
 
 const CHAT_ENDPOINT: string = 'chat-message';
+const SUBMIT_CHAT_ENDPOINT: string = 'submit-chat-message';
+const GET_CHAT_RESPONSE_ENDPOINT: string =  'get-chat-response';
 
 type ChatRequest = {
     ask: string;
@@ -31,6 +33,14 @@ type ChatResponseData = {
     catalog?: Catalog;
 }
 
+type GetObjectRequest = {
+    uuid: string;
+}
+
+type GetObjectResponse = {
+    uuid: string;
+}
+
 class Chat {
 
     private httpClient: WaiiHttpClient;
@@ -46,6 +56,25 @@ class Chat {
             signal
         );
     }
+
+    public async submitChat(params: ChatRequest, signal?: AbortSignal): Promise<GetObjectResponse> {
+        return this.httpClient.commonFetch<GetObjectResponse>(
+            SUBMIT_CHAT_ENDPOINT,
+            params,
+            signal
+        );
+    }
+
+    public async getChatResponse(
+        params: GetObjectRequest,
+        signal?: AbortSignal
+    ): Promise<ChatResponse> {
+        return this.httpClient.commonFetch<ChatResponse>(
+            GET_CHAT_RESPONSE_ENDPOINT,
+            params,
+            signal
+        );
+    };
 }
 
 export default Chat;
