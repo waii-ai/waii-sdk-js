@@ -22,6 +22,7 @@ type ChatResponse = {
     is_new?: boolean;
     timestamp: number;
     chat_uuid: string;
+    session_title?: string | undefined;
 }
 
 type ChatResponseData = {
