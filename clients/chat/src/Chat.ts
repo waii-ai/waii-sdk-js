@@ -23,6 +23,7 @@ type ChatResponse = {
     timestamp: number;
     chat_uuid: string;
     session_title?: string | undefined;
+    current_step?: string | undefined;
 }
 
 type ChatResponseData = {
