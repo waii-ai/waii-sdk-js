@@ -28,5 +28,6 @@ permission to publish the package, please contact the Waii team.
 
 Then, you need to bump up the version number in `package.json`.
 
-Run `npm pack && npm publish` to publish the package to NPM.
+Run `npm install && tsc && npm pack && npm publish` to publish the package to NPM.
 
+After that, run `git add -u` and commit the change
