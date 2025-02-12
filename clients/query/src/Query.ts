@@ -261,7 +261,7 @@ type PopulateSimilaritySearchFunctionsStatus = {
 enum ExpandQueryOperations {
     TABLE_ACCESS_RULES = "table_access_rules",
     VIRTUAL_UDTFS = "virtual_udtfs",
-    VIRTUAL_VIEWs = "virtual_views",
+    VIRTUAL_VIEWS = "virtual_views",
     ALL = "all"
 }
 
