@@ -144,6 +144,7 @@ type Table = {
     comment?: string[],
     last_altered_time?: number,
     refs?: TableReference[],
+    constraints?: Constraint[],
     description?: string[]
 };
 
