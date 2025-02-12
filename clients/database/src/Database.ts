@@ -329,6 +329,55 @@ type GetSimilaritySearchIndexOnTableRequest = {
     table: TableName;
 };
 
+enum ConstraintType {
+    primary = "primary",
+    foreign = "foreign"
+}
+
+enum ConstraintDetectorType {
+    database = "database",
+    manual = "manual", 
+    inferred_query_history = "inferred_query_history",
+    inferred_liked_query = "inferred_liked_query",
+    inferred_llm = "inferred_llm",
+    inferred_static = "inferred_static"
+}
+
+type Constraint = {
+    source?: ConstraintDetectorType,
+    table?: TableName,
+    cols?: string[],
+    constraint_type?: ConstraintType,
+    relationship_type?: RelationshipType,
+    src_table?: TableName,
+    src_cols?: string[],
+    comment?: string
+};
+
+type TableConstraints = {
+    table_name: TableName,
+    constraints?: Constraint[],
+    constraint_type: ConstraintType,
+    constraint_source?: ConstraintDetectorType
+};
+
+type UpdateConstraintRequest = {
+    updated_constraints?: TableConstraints[];
+};
+
+type UpdateConstraintResponse = {
+    updated_tables?: TableName[];
+};
+
+enum RelationshipType {
+    one_to_one = "one_to_one",
+    one_to_many = "one_to_many",
+    many_to_many = "many_to_many",
+    belongs_to = "belongs_to",
+    has_one = "has_one",
+    has_many = "has_many",
+    many_to_one = "many_to_one"
+}
 
 class Database {
     private httpClient: WaiiHttpClient;
@@ -478,6 +527,17 @@ class Database {
             signal
         );
     }
+
+    public async updateConstraint(
+        params: UpdateConstraintRequest,
+        signal?: AbortSignal
+    ): Promise<UpdateConstraintResponse> {
+        return this.httpClient.commonFetch<UpdateConstraintResponse>(
+            '/api/update-constraint',
+            params,
+            signal
+        );
+    }
 };
 
 export default Database;
@@ -523,5 +583,12 @@ export {
     GetSimilaritySearchIndexOnTableRequest,
     GetSimilaritySearchIndexOnTableResponse,
     DeleteSimilaritySearchIndexRequest,
-    DeleteSimilaritySearchIndexResponse
+    DeleteSimilaritySearchIndexResponse,
+    ConstraintType,
+    ConstraintDetectorType,
+    Constraint,
+    TableConstraints,
+    UpdateConstraintRequest,
+    UpdateConstraintResponse,
+    RelationshipType
 }

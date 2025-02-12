@@ -219,3 +219,35 @@ async function updateTableDescription(
     - `description` (optional): A string representing the description of the table.
 
 - `signal` (optional): An AbortSignal object for aborting the request.
+
+### Update Constraints <a name="update-constraints"></a>
+
+This function allows you to update table constraints (primary/foreign keys).
+
+```typescript
+async function updateConstraint(
+      params: UpdateConstraintRequest,
+      signal?: AbortSignal)
+   : Promise<UpdateConstraintResponse>;
+```
+
+#### Parameters:
+
+- `params` (required): An object containing the constraint update request parameters.
+  - `updated_constraints` (required): Array of `TableConstraints` objects representing constraints to update. Each contains:
+    - `table_name`: `TableName` object identifying the table
+    - `constraints`: Array of `Constraint` objects with:
+      - `source`: Origin of constraint (manual, database, inferred, etc)
+      - `constraint_type`: primary/foreign key type
+      - `cols`: Columns involved in constraint
+      - `relationship_type`: For foreign keys (one-to-one, one-to-many, etc)
+      - `src_table`/`src_cols`: For foreign key references
+    - `constraint_type`: Type of constraint being modified
+    - `constraint_source`: Source of the constraints
+
+- `signal` (optional): AbortSignal for request cancellation
+
+#### Returns: 
+
+A Promise resolving to an `UpdateConstraintResponse` containing:
+- `updated_tables`: Array of `TableName` objects for tables that received constraint updates
