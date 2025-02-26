@@ -9,6 +9,8 @@ class WaiiHttpClient {
     orgId: string = '';
     userId: string = '';
     impersonateUserId: string | null = null;
+    private additionalHeaders: Record<string, string> = {};
+
 
     public constructor(url: string = 'http://localhost:9859/api/', apiKey: string = '') {
         this.url = url;
@@ -30,6 +32,26 @@ class WaiiHttpClient {
     public setUserId(userId: string) {
         this.userId = userId;
     };
+
+    public getAdditionalHeaders(): Record<string, string> {
+        return { ...this.additionalHeaders };
+    }
+
+    public getAdditionalHeader(name: string): string | undefined {
+        return this.additionalHeaders[name];
+    }
+
+    public setAdditionalHeader(name: string, value: string): void {
+        this.additionalHeaders[name] = value;
+    }
+
+    public removeAdditionalHeader(name: string): void {
+        delete this.additionalHeaders[name];
+    }
+
+    public clearAdditionalHeaders(): void {
+        this.additionalHeaders = {};
+    }
 
     public getImpersonateUserId(userId: string | null) {
         return this.impersonateUserId;
@@ -54,6 +76,7 @@ class WaiiHttpClient {
             headers: {
                 'Authorization': 'Bearer ' + this.apiKey,
                 'Content-Type': 'application/json',
+                ...this.additionalHeaders
             },
             body: JSON.stringify(params),
             signal: signal
