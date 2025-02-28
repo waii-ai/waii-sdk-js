@@ -10,7 +10,8 @@ class WaiiHttpClient {
     userId: string = '';
     impersonateUserId: string | null = null;
     private additionalHeaders: Record<string, string> = {};
-
+    private authType: string | null = null;
+    private dispatchTokenExpiredEvents: boolean = false;
 
     public constructor(url: string = 'http://localhost:9859/api/', apiKey: string = '') {
         this.url = url;
@@ -24,6 +25,14 @@ class WaiiHttpClient {
     public getScope() {
         return this.scope
     };
+
+    public setAuthType(type: string | null) {
+        this.authType = type;
+    }
+
+    public getAuthType(): string | null {
+        return this.authType;
+    }
 
     public setOrgId(orgId: string) {
         this.orgId = orgId;
@@ -61,6 +70,15 @@ class WaiiHttpClient {
         this.impersonateUserId = userId;
     }
 
+    public setDispatchTokenExpiredEvents(dispatch: boolean): void {
+        this.dispatchTokenExpiredEvents = dispatch;
+    }
+    
+    public getDispatchTokenExpiredEvents(): boolean {
+        return this.dispatchTokenExpiredEvents;
+    }
+
+
     public async commonFetch<Type>(
         endpoint: string,
         params: object,
@@ -71,8 +89,9 @@ class WaiiHttpClient {
         (params as any)['org_id'] = this.orgId;
         (params as any)['user_id'] = this.userId;
 
-        let request = {
+        let request : RequestInit = {
             method: 'POST',
+            credentials: 'include',
             headers: {
                 'Authorization': 'Bearer ' + this.apiKey,
                 'Content-Type': 'application/json',
@@ -103,6 +122,13 @@ class WaiiHttpClient {
         clearTimeout(timer);
         const text = await response.text();
         if (response.status === 401) {
+            try {
+                if (this.dispatchTokenExpiredEvents) {
+                    window.dispatchEvent(new CustomEvent("waii-token-expired"));
+                }
+            } catch (e) {
+                console.warn("token expiration dispatcher failed");
+            }
             throw new ApiError("Authentication failed: Incorrect API key.", 401);
         }
         if (!response.ok) {
