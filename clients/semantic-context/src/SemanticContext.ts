@@ -3,6 +3,23 @@ import { v4 as uuidv4 } from 'uuid';
 
 const MODIFY_ENDPOINT: string = 'update-semantic-context';
 const GET_ENDPOINT: string = 'get-semantic-context';
+const INGEST_DOCUMENT_ENDPOINT: string = 'ingest-document';
+const GET_INGEST_DOCUMENT_JOB_STATUS_ENDPOINT: string = 'get-ingest-document-job-status';
+const ENABLE_SEMANTIC_CONTEXT_ENDPOINT: string = 'enable-semantic-context';
+const DISABLE_SEMANTIC_CONTEXT_ENDPOINT: string = 'disable-semantic-context';
+
+enum DocumentContentType {
+    PDF = 'pdf',
+    TEXT = 'text',
+    HTML = 'html',
+    // Add other content types as needed
+}
+
+enum IngestDocumentJobStatus {
+    IN_PROGRESS = 'in_progress',
+    COMPLETED = 'completed',
+    FAILED = 'failed'
+}
 
 class SemanticStatement {
     id?: string
@@ -68,6 +85,48 @@ type GetSemanticContextResponse = {
     available_statements?: number
 }
 
+// New types for document ingestion
+type LLMBasedRequest = {
+    // Base properties for LLM-based requests
+    // Add any necessary base properties here
+}
+
+type IngestDocumentRequest = LLMBasedRequest & {
+    content?: string
+    url?: string
+    content_type?: DocumentContentType
+}
+
+type IngestDocumentResponse = {
+    ingest_document_job_id: string
+}
+
+type GetIngestDocumentJobStatusRequest = {
+    ingest_document_job_id: string
+}
+
+type GetIngestDocumentJobStatusResponse = {
+    status: IngestDocumentJobStatus
+    // Additional status information if needed
+}
+
+// New types for enabling/disabling semantic context
+type EnableSemanticContextRequest = {
+    statement_ids: string[]
+}
+
+type EnableSemanticContextResponse = {
+    statement_ids: string[] // successfully enabled statement ids
+}
+
+type DisableSemanticContextRequest = {
+    statement_ids: string[]
+}
+
+type DisableSemanticContextResponse = {
+    statement_ids: string[] // successfully disabled statement ids
+}
+
 class SemanticContext {
 
     private httpClient: WaiiHttpClient;
@@ -97,14 +156,80 @@ class SemanticContext {
             signal
         );
     };
+
+    /**
+     * Ingests a document for processing
+     */
+    public async ingestDocument(
+        params: IngestDocumentRequest,
+        signal?: AbortSignal
+    ): Promise<IngestDocumentResponse> {
+        return this.httpClient.commonFetch<IngestDocumentResponse>(
+            INGEST_DOCUMENT_ENDPOINT,
+            params,
+            signal
+        );
+    };
+
+    /**
+     * Gets the status of a document ingestion job
+     */
+    public async getIngestDocumentJobStatus(
+        params: GetIngestDocumentJobStatusRequest,
+        signal?: AbortSignal
+    ): Promise<GetIngestDocumentJobStatusResponse> {
+        return this.httpClient.commonFetch<GetIngestDocumentJobStatusResponse>(
+            GET_INGEST_DOCUMENT_JOB_STATUS_ENDPOINT,
+            params,
+            signal
+        );
+    };
+
+    /**
+     * Enables semantic contexts by statement IDs
+     */
+    public async enableSemanticContext(
+        params: EnableSemanticContextRequest,
+        signal?: AbortSignal
+    ): Promise<EnableSemanticContextResponse> {
+        return this.httpClient.commonFetch<EnableSemanticContextResponse>(
+            ENABLE_SEMANTIC_CONTEXT_ENDPOINT,
+            params,
+            signal
+        );
+    };
+
+    /**
+     * Disables semantic contexts by statement IDs
+     */
+    public async disableSemanticContext(
+        params: DisableSemanticContextRequest,
+        signal?: AbortSignal
+    ): Promise<DisableSemanticContextResponse> {
+        return this.httpClient.commonFetch<DisableSemanticContextResponse>(
+            DISABLE_SEMANTIC_CONTEXT_ENDPOINT,
+            params,
+            signal
+        );
+    };
 };
 
 export default SemanticContext;
 export {
+    DocumentContentType,
+    IngestDocumentJobStatus,
     SemanticStatement,
     ModifySemanticContextRequest,
     ModifySemanticContextResponse,
     GetSemanticContextRequestFilter,
     GetSemanticContextRequest,
-    GetSemanticContextResponse
+    GetSemanticContextResponse,
+    IngestDocumentRequest,
+    IngestDocumentResponse,
+    GetIngestDocumentJobStatusRequest,
+    GetIngestDocumentJobStatusResponse,
+    EnableSemanticContextRequest,
+    EnableSemanticContextResponse,
+    DisableSemanticContextRequest,
+    DisableSemanticContextResponse
 };
