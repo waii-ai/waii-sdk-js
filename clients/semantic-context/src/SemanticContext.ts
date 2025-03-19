@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 const MODIFY_ENDPOINT: string = 'update-semantic-context';
 const GET_ENDPOINT: string = 'get-semantic-context';
+const GET_KNOWLEDGE_GRAPH_ENDPOINT: string = 'get-knowledge-graph';
 const INGEST_DOCUMENT_ENDPOINT: string = 'ingest-document';
 const GET_INGEST_DOCUMENT_JOB_STATUS_ENDPOINT: string = 'get-ingest-document-job-status';
 const ENABLE_SEMANTIC_CONTEXT_ENDPOINT: string = 'enable-semantic-context';
@@ -80,6 +81,31 @@ type GetSemanticContextRequest = {
     limit?: number
 }
 
+type GetKnowledgeGraphRequest = {
+    ask?: string
+}
+
+type GetKnowledgeGraphResponse = {
+    graph: {
+        nodes: Array<{
+            id: string;
+            display_name: string;
+            entity_type: string;
+            entity: {
+                entity_type: string;
+                [key: string]: any;
+            }
+        }>;
+        edges: Array<{
+            edge_type: string;
+            source_id: string;
+            target_id: string;
+            directed: boolean;
+            edge_entity: any | null;
+        }>;
+    }
+}
+
 type GetSemanticContextResponse = {
     semantic_context?: SemanticStatement[]
     available_statements?: number
@@ -152,6 +178,17 @@ class SemanticContext {
     ): Promise<GetSemanticContextResponse> {
         return this.httpClient.commonFetch<GetSemanticContextResponse>(
             GET_ENDPOINT,
+            params,
+            signal
+        );
+    };
+
+    public getKnowledgeGraph(
+        params: GetKnowledgeGraphRequest = {},
+        signal?: AbortSignal
+    ): Promise<GetKnowledgeGraphResponse> {
+        return this.httpClient.commonFetch<GetKnowledgeGraphResponse>(
+            GET_KNOWLEDGE_GRAPH_ENDPOINT,
             params,
             signal
         );
