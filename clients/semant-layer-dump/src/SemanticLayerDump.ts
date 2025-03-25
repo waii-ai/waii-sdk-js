@@ -7,6 +7,7 @@ const SEMANTIC_LAYER_IMPORT_ENDPOINT: string = 'semantic-layer/import';
 const SEMANTIC_LAYER_IMPORT_CHECK_STATUS_ENDPOINT: string = 'semantic-layer/import/status';
 
 type ImportSemanticLayerDumpRequest = {
+    search_context?: SearchContext[]
     db_conn_key: string;
     configuration: Record<string, any>;
     schema_mapping: Record<string, string>;
@@ -21,7 +22,7 @@ type ImportSemanticLayerDumpResponse = {
 
 type ExportSemanticLayerDumpRequest = {
     db_conn_key: string;
-    search_context: SearchContext
+    search_context?: SearchContext[]
 }
 
 type ExportSemanticLayerDumpResponse = {
