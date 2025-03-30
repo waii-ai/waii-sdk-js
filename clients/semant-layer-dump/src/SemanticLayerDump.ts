@@ -59,7 +59,15 @@ class SemanticLayerDump {
     public async export(params: ExportSemanticLayerDumpRequest) {
         // before exporting, we need to activate the db connection
         await this.database.activateConnection(params.db_conn_key);
-        
+
+        if (!params.search_context) {
+            params.search_context = [{
+                db_name: '*',
+                schema_name: '*',
+                table_name: '*'
+            }];
+        }
+
         return this.httpClient.commonFetch<ExportSemanticLayerDumpResponse>(
             SEMANTIC_LAYER_EXPORT_ENDPOINT,
             params
@@ -76,6 +84,14 @@ class SemanticLayerDump {
     public async import(params: ImportSemanticLayerDumpRequest) {
         // before importing, we need to activate the db connection
         await this.database.activateConnection(params.db_conn_key);
+
+        if (!params.search_context) {
+            params.search_context = [{
+                db_name: '*',
+                schema_name: '*',
+                table_name: '*'
+            }];
+        }
 
         return this.httpClient.commonFetch<ImportSemanticLayerDumpResponse>(
             SEMANTIC_LAYER_IMPORT_ENDPOINT,
