@@ -12,6 +12,7 @@ class WaiiHttpClient {
     private additionalHeaders: Record<string, string> = {};
     private authType: string | null = null;
     private dispatchTokenExpiredEvents: boolean = false;
+    private credentials: RequestCredentials = 'include';
 
     public constructor(url: string = 'http://localhost:9859/api/', apiKey: string = '') {
         this.url = url;
@@ -78,6 +79,13 @@ class WaiiHttpClient {
         return this.dispatchTokenExpiredEvents;
     }
 
+    public setCredentials(credentials: RequestCredentials): void {
+        this.credentials = credentials;
+    }
+
+    public getCredentials(): RequestCredentials {
+        return this.credentials;
+    }
 
     public async commonFetch<Type>(
         endpoint: string,
@@ -91,7 +99,7 @@ class WaiiHttpClient {
 
         let request : RequestInit = {
             method: 'POST',
-            credentials: 'include',
+            credentials: this.credentials,
             headers: {
                 'Authorization': 'Bearer ' + this.apiKey,
                 'Content-Type': 'application/json',
