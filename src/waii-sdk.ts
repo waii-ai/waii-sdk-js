@@ -11,7 +11,7 @@ import User from "../clients/user/src/User";
 import Chat from "../clients/chat/src/Chat";
 import Chart from "../clients/chart/src/Chart";
 import Settings from "../clients/settings/src/Settings";
-
+import SemanticLayerDump from "../clients/semant-layer-dump/src/SemanticLayerDump";
 class Waii {
     public HttpClient!: WaiiHttpClient;
     public History!: History;
@@ -26,7 +26,7 @@ class Waii {
     public Chat!: Chat;
     public Chart!: Chart;
     public Settings!: Settings;
-    
+    public SemanticLayerDump!: SemanticLayerDump;
     public constructor(url: string = 'http://localhost:9859/api/', apiKey: string = '') {
         this.initialize(url, apiKey);
     }
@@ -45,6 +45,7 @@ class Waii {
             this.Chart = new Chart(this.HttpClient);
             this.Chat = new Chat(this.HttpClient);
             this.Settings = new Settings(this.HttpClient);
+            this.SemanticLayerDump = new SemanticLayerDump(this.HttpClient);
     };
 }
 
