@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 const MODIFY_ENDPOINT: string = 'update-semantic-context';
 const GET_ENDPOINT: string = 'get-semantic-context';
 const INGEST_DOCUMENT_ENDPOINT: string = 'ingest-document';
+const LIST_PENDING_INGEST_DOCUMENT_JOBS_ENDPOINT: string = 'list-pending-ingest-document-jobs';
 const GET_INGEST_DOCUMENT_JOB_STATUS_ENDPOINT: string = 'get-ingest-document-job-status';
 const ENABLE_SEMANTIC_CONTEXT_ENDPOINT: string = 'enable-semantic-context';
 const DISABLE_SEMANTIC_CONTEXT_ENDPOINT: string = 'disable-semantic-context';
@@ -101,6 +102,7 @@ type IngestDocumentResponse = {
     ingest_document_job_id: string
 }
 
+
 type GetIngestDocumentJobStatusRequest = {
     ingest_document_job_id: string
 }
@@ -113,6 +115,20 @@ type GetIngestDocumentJobStatusResponse = {
 // New types for enabling/disabling semantic context
 type EnableSemanticContextRequest = {
     statement_ids: string[]
+}
+
+type GetAllPendingIngestDocumentJobsRequest = {
+}
+
+type GetAllPendingIngestDocumentJobsResponse = {
+    ingest_document_job_statuses: IngestDocumentJobStatusWithJobId[]
+}
+
+type IngestDocumentJobStatusWithJobId = {
+    ingest_document_job_id: string
+    status: IngestDocumentJobStatus
+    message?: string
+    progress?: number
 }
 
 type EnableSemanticContextResponse = {
@@ -186,6 +202,20 @@ class SemanticContext {
     };
 
     /**
+     * Gets all pending ingest document jobs
+     */
+    public async getAllPendingIngestDocumentJobs(
+        params: GetAllPendingIngestDocumentJobsRequest,
+        signal?: AbortSignal
+    ): Promise<GetAllPendingIngestDocumentJobsResponse> {
+        return this.httpClient.commonFetch<GetAllPendingIngestDocumentJobsResponse>(
+            LIST_PENDING_INGEST_DOCUMENT_JOBS_ENDPOINT,
+            params,
+            signal
+        );
+    };
+
+    /**
      * Enables semantic contexts by statement IDs
      */
     public async enableSemanticContext(
@@ -231,5 +261,8 @@ export {
     EnableSemanticContextRequest,
     EnableSemanticContextResponse,
     DisableSemanticContextRequest,
-    DisableSemanticContextResponse
+    DisableSemanticContextResponse,
+    GetAllPendingIngestDocumentJobsRequest,
+    GetAllPendingIngestDocumentJobsResponse,
+    IngestDocumentJobStatusWithJobId
 };
