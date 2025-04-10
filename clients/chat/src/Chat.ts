@@ -8,12 +8,19 @@ const CHAT_ENDPOINT: string = 'chat-message';
 const SUBMIT_CHAT_ENDPOINT: string = 'submit-chat-message';
 const GET_CHAT_RESPONSE_ENDPOINT: string =  'get-chat-response';
 
+type SearchContext = {
+    db_name?: string
+    schema_name?: string
+    table_name?: string
+};
+
 type ChatRequest = {
     ask: string;
     streaming?: boolean;
     parent_uuid?: string;
     chart_type?: ChartType
     parameters?: { [param: string]: any }
+    search_context?: SearchContext[]
 }
 
 type ChatResponse = {
@@ -28,12 +35,11 @@ type ChatResponse = {
 
 type ChatResponseData = {
     data?: GetQueryResultResponse;
-    sql?: GeneratedQuery;
-    chart_spec?: ChartGenerationResponse;
+    query?: GeneratedQuery;
+    chart?: ChartGenerationResponse;
     python_plot?: any;
     semantic_context?: GetSemanticContextResponse;
-    catalog?: Catalog;
-    current_step?: string;
+    tables?: Catalog;
 }
 
 type GetObjectRequest = {
