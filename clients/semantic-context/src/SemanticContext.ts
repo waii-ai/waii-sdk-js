@@ -21,7 +21,7 @@ enum IngestDocumentJobStatus {
     COMPLETED = 'completed',
     FAILED = 'failed'
 }
-
+const GET_KNOWLEDGE_GRAPH_ENDPOINT: string = 'get-knowledge-graph';
 class SemanticStatement {
     id?: string
     scope: string
@@ -79,6 +79,31 @@ type GetSemanticContextRequest = {
     search_text?: string
     offset?: number
     limit?: number
+}
+
+type GetKnowledgeGraphRequest = {
+    ask?: string
+}
+
+type GetKnowledgeGraphResponse = {
+    graph: {
+        nodes: Array<{
+            id: string;
+            display_name: string;
+            entity_type: string;
+            entity: {
+                entity_type: string;
+                [key: string]: any;
+            }
+        }>;
+        edges: Array<{
+            edge_type: string;
+            source_id: string;
+            target_id: string;
+            directed: boolean;
+            edge_entity: any | null;
+        }>;
+    }
 }
 
 type GetSemanticContextResponse = {
@@ -238,6 +263,17 @@ class SemanticContext {
     ): Promise<DisableSemanticContextResponse> {
         return this.httpClient.commonFetch<DisableSemanticContextResponse>(
             DISABLE_SEMANTIC_CONTEXT_ENDPOINT,
+            params,
+            signal
+        );
+    };
+
+    public getKnowledgeGraph(
+        params: GetKnowledgeGraphRequest = {},
+        signal?: AbortSignal
+    ): Promise<GetKnowledgeGraphResponse> {
+        return this.httpClient.commonFetch<GetKnowledgeGraphResponse>(
+            GET_KNOWLEDGE_GRAPH_ENDPOINT,
             params,
             signal
         );
