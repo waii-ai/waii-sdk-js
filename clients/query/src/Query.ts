@@ -39,6 +39,7 @@ type QueryGenerationRequest = {
     parent_uuid?: string,
     model?: string,
     parameters?: { [param: string]: any }
+    additional_context?: SemanticStatement[]
 };
 
 type DescribeQueryRequest = {

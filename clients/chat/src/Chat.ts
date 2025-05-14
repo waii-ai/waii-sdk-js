@@ -1,6 +1,6 @@
 import WaiiHttpClient from "../../../lib/src/WaiiHttpClient";
 import { ChartGenerationResponse, ChartType } from "../../chart/src/Chart";
-import { GetSemanticContextResponse } from "../../semantic-context/src/SemanticContext";
+import {GetSemanticContextResponse, SemanticStatement} from "../../semantic-context/src/SemanticContext";
 import { GetQueryResultResponse, GeneratedQuery } from "../../query/src/Query";
 import { Catalog } from "../../database/src/Database";
 
@@ -21,6 +21,7 @@ type ChatRequest = {
     chart_type?: ChartType
     parameters?: { [param: string]: any }
     search_context?: SearchContext[]
+    additional_context?: SemanticStatement[]
 }
 
 type ChatResponse = {

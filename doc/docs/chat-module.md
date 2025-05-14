@@ -14,6 +14,8 @@ type ChatRequest = {
     ask: string;
     streaming?: boolean;
     parent_uuid?: string;
+    chart_type?: ChartType;
+    additional_context?: SemanticStatement[];
 };
 
 type ChatResponse = {
@@ -63,6 +65,7 @@ type ChatRequest = {
     streaming?: boolean;
     parent_uuid?: string;
     chart_type?: ChartType;
+    additional_context?: SemanticStatement[];
 };
 ```
 
@@ -71,6 +74,8 @@ type ChatRequest = {
 - `ask`: User's query or command.
 - `streaming`: If true, indicates a continuous stream of data/response is expected.
 - `parent_uuid`: UUID of the previous related chat (if any) to maintain context.
+- `chart_type`: Type of chart requested.
+- `additional_context`: (optional) Additional context statements to be used during chat response generation. See [Semantic Context Module](semantic-context-module.md) for more details.
 
 #### `ChatResponse`
 
