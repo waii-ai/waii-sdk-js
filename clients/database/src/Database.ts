@@ -9,6 +9,7 @@ const EXTRACT_DATABASE_DOCUMENTATION_ENDPOINT: string = 'extract-database-docume
 const UPDATE_SIMILARITY_SEARCH_INDEX_ENDPOINT: string = 'update-similarity-search-index';
 const GET_SIMILARITY_SEARCH_INDEX_ENDPOINT: string = 'get-similarity-search-index';
 const DELETE_SIMILARITY_SEARCH_INDEX_ENDPOINT: string = 'delete-similarity-search-index';
+const UPDATE_CONSTRAINT_ENDPOINT: string = 'update-constraint';
 const CHECK_SIMILARITY_SEARCH_INDEX_STATUS_ENDPOINT: string = 'check-similarity-search-index-status';
 const GET_SIMILARITY_SEARCH_INDEX_TABLE_ENDPOINT: string = 'get-similarity-search-index-table';
 
@@ -534,7 +535,7 @@ class Database {
         signal?: AbortSignal
     ): Promise<UpdateConstraintResponse> {
         return this.httpClient.commonFetch<UpdateConstraintResponse>(
-            '/api/update-constraint',
+            UPDATE_CONSTRAINT_ENDPOINT,
             params,
             signal
         );

@@ -15,6 +15,9 @@ class WaiiHttpClient {
     private credentials: RequestCredentials = 'include';
 
     public constructor(url: string = 'http://localhost:9859/api/', apiKey: string = '') {
+        if (url && !url.endsWith('/')) {
+            url += '/';
+        }
         this.url = url;
         this.apiKey = apiKey;
     };
