@@ -14,38 +14,36 @@
  * limitations under the License.
  */
 
-
-import { ApiError } from "./ApiError";
+import { ApiError } from './ApiError';
 
 class WaiiHttpClient {
-
     url: string;
     apiKey: string;
-    timeout: number = 150000000;
-    scope: string = '';
-    orgId: string = '';
-    userId: string = '';
+    timeout = 150000000;
+    scope = '';
+    orgId = '';
+    userId = '';
     impersonateUserId: string | null = null;
     private additionalHeaders: Record<string, string> = {};
     private authType: string | null = null;
-    private dispatchTokenExpiredEvents: boolean = false;
+    private dispatchTokenExpiredEvents = false;
     private credentials: RequestCredentials = 'include';
 
-    public constructor(url: string = 'http://localhost:9859/api/', apiKey: string = '') {
+    public constructor(url = 'http://localhost:9859/api/', apiKey = '') {
         if (url && !url.endsWith('/')) {
             url += '/';
         }
         this.url = url;
         this.apiKey = apiKey;
-    };
+    }
 
     public setScope(scope: string) {
         this.scope = scope;
-    };
+    }
 
     public getScope() {
-        return this.scope
-    };
+        return this.scope;
+    }
 
     public setAuthType(type: string | null) {
         this.authType = type;
@@ -57,11 +55,11 @@ class WaiiHttpClient {
 
     public setOrgId(orgId: string) {
         this.orgId = orgId;
-    };
+    }
 
     public setUserId(userId: string) {
         this.userId = userId;
-    };
+    }
 
     public getAdditionalHeaders(): Record<string, string> {
         return { ...this.additionalHeaders };
@@ -83,7 +81,7 @@ class WaiiHttpClient {
         this.additionalHeaders = {};
     }
 
-    public getImpersonateUserId(userId: string | null) {
+    public getImpersonateUserId(_userId: string | null) {
         return this.impersonateUserId;
     }
 
@@ -94,7 +92,7 @@ class WaiiHttpClient {
     public setDispatchTokenExpiredEvents(dispatch: boolean): void {
         this.dispatchTokenExpiredEvents = dispatch;
     }
-    
+
     public getDispatchTokenExpiredEvents(): boolean {
         return this.dispatchTokenExpiredEvents;
     }
@@ -107,44 +105,37 @@ class WaiiHttpClient {
         return this.credentials;
     }
 
-    public async commonFetch<Type>(
-        endpoint: string,
-        params: object,
-        signal?: AbortSignal
-    ): Promise<Type> {
-
+    public async commonFetch<Type>(endpoint: string, params: object, signal?: AbortSignal): Promise<Type> {
         (params as any)['scope'] = this.scope;
         (params as any)['org_id'] = this.orgId;
         (params as any)['user_id'] = this.userId;
 
-        let request : RequestInit = {
+        let request: RequestInit = {
             method: 'POST',
             credentials: this.credentials,
             headers: {
-                'Authorization': 'Bearer ' + this.apiKey,
+                Authorization: 'Bearer ' + this.apiKey,
                 'Content-Type': 'application/json',
-                ...this.additionalHeaders
+                ...this.additionalHeaders,
             },
             body: JSON.stringify(params),
-            signal: signal
+            signal: signal,
         };
-        
+
         if (this.impersonateUserId) {
             (request.headers as any)['x-waii-impersonate-user'] = this.impersonateUserId;
         }
 
         let timer;
-        let fetchOrTimeout = Promise.race(
-            [
-                fetch(this.url + endpoint, request),
-                new Promise<Response>(
-                    (res, rej) => {timer = setTimeout(
-                        () => rej(new ApiError(`Call timed out after ${this.timeout} ms`, 504)),
-                        this.timeout
-                    );}
-                )
-            ]
-        );
+        let fetchOrTimeout = Promise.race([
+            fetch(this.url + endpoint, request),
+            new Promise<Response>((res, rej) => {
+                timer = setTimeout(
+                    () => rej(new ApiError(`Call timed out after ${this.timeout} ms`, 504)),
+                    this.timeout
+                );
+            }),
+        ]);
 
         const response = await fetchOrTimeout;
         clearTimeout(timer);
@@ -152,12 +143,12 @@ class WaiiHttpClient {
         if (response.status === 401) {
             try {
                 if (this.dispatchTokenExpiredEvents) {
-                    window.dispatchEvent(new CustomEvent("waii-token-expired"));
+                    window.dispatchEvent(new CustomEvent('waii-token-expired'));
                 }
             } catch (e) {
-                console.warn("token expiration dispatcher failed");
+                console.warn('token expiration dispatcher failed');
             }
-            throw new ApiError("Authentication failed: Incorrect API key.", 401);
+            throw new ApiError('Authentication failed: Incorrect API key.', 401);
         }
         if (!response.ok) {
             try {
@@ -171,9 +162,9 @@ class WaiiHttpClient {
             let result: Type = JSON.parse(text);
             return result;
         } catch (e) {
-            throw new ApiError("Invalid response received.", response.status);
+            throw new ApiError('Invalid response received.', response.status);
         }
-    };
-};
+    }
+}
 
 export default WaiiHttpClient;

@@ -14,24 +14,19 @@
  * limitations under the License.
  */
 
-
-import WaiiHttpClient from "../../../lib/src/WaiiHttpClient";
-const HEALTH_CHECK_ENDPOINT: string = 'health-check';
+import WaiiHttpClient from '../../../lib/src/WaiiHttpClient';
+const HEALTH_CHECK_ENDPOINT = 'health-check';
 
 class HealthCheck {
-  private httpClient: WaiiHttpClient;
+    private httpClient: WaiiHttpClient;
 
-  public constructor(httpClient: WaiiHttpClient) {
-    this.httpClient = httpClient;
-  }
+    public constructor(httpClient: WaiiHttpClient) {
+        this.httpClient = httpClient;
+    }
 
-  public async healthCheck():
-    Promise<any> {
-    return this.httpClient.commonFetch<any>(
-      HEALTH_CHECK_ENDPOINT,
-      {}
-    );
-  };
-};
+    public async healthCheck(): Promise<any> {
+        return this.httpClient.commonFetch<any>(HEALTH_CHECK_ENDPOINT, {});
+    }
+}
 
 export default HealthCheck;

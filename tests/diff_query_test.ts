@@ -14,36 +14,38 @@
  * limitations under the License.
  */
 
-
-import WAII from "../src/waii-sdk";
+import WAII from '../src/waii-sdk';
+import { readFileSync } from 'fs';
+import { homedir } from 'os';
+import { load } from 'js-yaml';
 
 async function main() {
     console.log('-----Initializing WAII-----');
 
     // read from ~/.waii/conf.yaml local file, which include url and apiKey
-    let file = require('fs').readFileSync(require('os').homedir() + '/.waii/conf.yaml', 'utf8');
-    let config = require('js-yaml').load(file);
+    let file = readFileSync(homedir() + '/.waii/conf.yaml', 'utf8');
+    let config = load(file) as any;
     let url = config.url;
     let apiKey = config.apiKey;
     WAII.initialize(url, apiKey);
 
     // Do a list of all the databases
-    let databases = await WAII.Database.getConnections()
+    let databases = await WAII.Database.getConnections();
 
     if (!databases.connectors) {
         console.log('-----No Database Connection-----');
-        return
+        return;
     }
 
-    let default_db_connection_key = databases.connectors[0].key
+    let default_db_connection_key = databases.connectors[0].key;
     console.log('-----Default Connection-----', default_db_connection_key);
 
-    await WAII.Database.activateConnection(default_db_connection_key)
+    await WAII.Database.activateConnection(default_db_connection_key);
 
     let response = await WAII.Query.diff({
-        "previous_query": "select * from orders",
-        "query": "select * from orders limit 10",
-    })
+        previous_query: 'select * from orders',
+        query: 'select * from orders limit 10',
+    });
     console.log('-----Diff-----', response);
 }
 

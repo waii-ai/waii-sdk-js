@@ -14,31 +14,25 @@
  * limitations under the License.
  */
 
+import WaiiHttpClient from '../../../lib/src/WaiiHttpClient';
 
-import WaiiHttpClient from "../../../lib/src/WaiiHttpClient";
-
-const GENERATE_ENDPOINT: string = 'get-access-key';
+const GENERATE_ENDPOINT = 'get-access-key';
 
 type KeysList = {
-  access_keys: string[]
+    access_keys: string[];
 };
 
 class AccessKey {
-  private httpClient: WaiiHttpClient;
+    private httpClient: WaiiHttpClient;
 
-  public constructor(httpClient: WaiiHttpClient) {
-    this.httpClient = httpClient;
-  }
+    public constructor(httpClient: WaiiHttpClient) {
+        this.httpClient = httpClient;
+    }
 
-  public async getKeys(): Promise<KeysList> {
-    return this.httpClient.commonFetch<KeysList>(
-      GENERATE_ENDPOINT,
-      {}
-    );
-  }
-};
+    public async getKeys(): Promise<KeysList> {
+        return this.httpClient.commonFetch<KeysList>(GENERATE_ENDPOINT, {});
+    }
+}
 
 export default AccessKey;
-export {
-  KeysList
-}
+export { KeysList };

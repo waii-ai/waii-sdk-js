@@ -14,10 +14,9 @@
  * limitations under the License.
  */
 
+import WaiiHttpClient from '../../../lib/src/WaiiHttpClient';
 
-import WaiiHttpClient from "../../../lib/src/WaiiHttpClient";
-
-const GENERATE_ENDPOINT: string = 'generate-chart';
+const GENERATE_ENDPOINT = 'generate-chart';
 
 type ChartGenerationRequest = {
     sql?: string;
@@ -27,37 +26,37 @@ type ChartGenerationRequest = {
     chart_type?: ChartType;
     parent_uuid?: string;
     tweak_history?: ChartTweak[];
-}
+};
 
 type ChartGenerationResponse = {
     uuid: string;
     timestamp: number;
     chart_spec: ChartSpec;
-}
+};
 
 type ChartType = 'metabase' | 'superset';
 
 type ChartTweak = {
     ask: string;
     chart_spec: ChartSpec;
-}
+};
 
 type Column = {
     name: string;
     type: string;
-}
+};
 
 type ChartSpec = {
     plot_type: ChartType;
     spec_type: string;
-}
+};
 
 type MetabaseChartSpec = ChartSpec & {
     metric: string;
     dimension: string;
     name: string;
     color_hex: string;
-}
+};
 
 type SuperSetChartSpec = ChartSpec & {
     metrics: string[];
@@ -70,10 +69,9 @@ type SuperSetChartSpec = ChartSpec & {
     stacked: boolean;
     width: number;
     height: number;
-}
+};
 
 class Chart {
-
     private httpClient: WaiiHttpClient;
 
     public constructor(httpClient: WaiiHttpClient) {
@@ -81,11 +79,7 @@ class Chart {
     }
 
     public async generate(params: ChartGenerationRequest, signal?: AbortSignal): Promise<ChartGenerationResponse> {
-        return this.httpClient.commonFetch<ChartGenerationResponse>(
-            GENERATE_ENDPOINT,
-            params,
-            signal
-        );
+        return this.httpClient.commonFetch<ChartGenerationResponse>(GENERATE_ENDPOINT, params, signal);
     }
 }
 
@@ -98,5 +92,5 @@ export {
     Column,
     ChartSpec,
     MetabaseChartSpec,
-    SuperSetChartSpec
+    SuperSetChartSpec,
 };

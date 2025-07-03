@@ -5,6 +5,14 @@
   "main": "dist/src/waii-sdk.js",
   "types": "dist/src/waii-sdk.d.ts",
   "prepublish": "tsc",
+  "scripts": {
+    "build": "tsc",
+    "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
+    "lint:fix": "eslint . --ext .ts,.tsx,.js,.jsx --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint-and-format": "npm run lint:fix && npm run format"
+  },
   "keywords": [
     "SQL",
     "AI",
@@ -18,8 +26,15 @@
     "type": "git"
   },
   "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
     "@types/node": "^20.4.8",
     "@types/uuid": "^9.0.2",
+    "@typescript-eslint/eslint-plugin": "^5.62.0",
+    "@typescript-eslint/parser": "^5.62.0",
+    "eslint": "^8.45.0",
+    "eslint-config-prettier": "^8.10.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "^2.8.8",
     "typescript": "^5.1.6"
   },
   "dependencies": {

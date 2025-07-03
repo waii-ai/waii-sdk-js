@@ -14,55 +14,53 @@
  * limitations under the License.
  */
 
+import WaiiHttpClient from '../../../lib/src/WaiiHttpClient';
+import Database, { SearchContext } from '../../../clients/database/src/Database';
 
-import WaiiHttpClient from "../../../lib/src/WaiiHttpClient";
-import Database, { SearchContext } from "../../../clients/database/src/Database";
-
-const SEMANTIC_LAYER_EXPORT_ENDPOINT: string = 'semantic-layer/export';
-const SEMANTIC_LAYER_EXPORT_CHECK_STATUS_ENDPOINT: string = 'semantic-layer/export/status';
-const SEMANTIC_LAYER_IMPORT_ENDPOINT: string = 'semantic-layer/import';
-const SEMANTIC_LAYER_IMPORT_CHECK_STATUS_ENDPOINT: string = 'semantic-layer/import/status';
+const SEMANTIC_LAYER_EXPORT_ENDPOINT = 'semantic-layer/export';
+const SEMANTIC_LAYER_EXPORT_CHECK_STATUS_ENDPOINT = 'semantic-layer/export/status';
+const SEMANTIC_LAYER_IMPORT_ENDPOINT = 'semantic-layer/import';
+const SEMANTIC_LAYER_IMPORT_CHECK_STATUS_ENDPOINT = 'semantic-layer/import/status';
 
 type ImportSemanticLayerDumpRequest = {
-    search_context?: SearchContext[]
+    search_context?: SearchContext[];
     db_conn_key: string;
     configuration: Record<string, any>;
     schema_mapping: Record<string, string>;
     database_mapping: Record<string, string>;
     strict_mode: boolean;
     dry_run_mode: boolean;
-}
+};
 
 type ImportSemanticLayerDumpResponse = {
     op_id: string;
-}
+};
 
 type ExportSemanticLayerDumpRequest = {
     db_conn_key: string;
-    search_context?: SearchContext[]
-}
+    search_context?: SearchContext[];
+};
 
 type ExportSemanticLayerDumpResponse = {
     op_id: string;
-}
+};
 
 type CheckStatusSemanticLayerDumpRequest = {
     op_id: string;
-}
+};
 
 enum OperationStatus {
-    SUCCEEDED = "succeeded",
-    FAILED = "failed",
-    IN_PROGRESS = "in_progress",
-    NOT_EXISTS = "not_exists"
+    SUCCEEDED = 'succeeded',
+    FAILED = 'failed',
+    IN_PROGRESS = 'in_progress',
+    NOT_EXISTS = 'not_exists',
 }
 
 type CheckStatusSemanticLayerDumpResponse = {
     op_id: string;
-    status: OperationStatus
+    status: OperationStatus;
     info?: string | any;
-}
-
+};
 
 class SemanticLayerDump {
     private httpClient: WaiiHttpClient;
@@ -78,17 +76,16 @@ class SemanticLayerDump {
         await this.database.activateConnection(params.db_conn_key);
 
         if (!params.search_context) {
-            params.search_context = [{
-                db_name: '*',
-                schema_name: '*',
-                table_name: '*'
-            }];
+            params.search_context = [
+                {
+                    db_name: '*',
+                    schema_name: '*',
+                    table_name: '*',
+                },
+            ];
         }
 
-        return this.httpClient.commonFetch<ExportSemanticLayerDumpResponse>(
-            SEMANTIC_LAYER_EXPORT_ENDPOINT,
-            params
-        );
+        return this.httpClient.commonFetch<ExportSemanticLayerDumpResponse>(SEMANTIC_LAYER_EXPORT_ENDPOINT, params);
     }
 
     public async checkExportStatus(params: CheckStatusSemanticLayerDumpRequest) {
@@ -103,17 +100,16 @@ class SemanticLayerDump {
         await this.database.activateConnection(params.db_conn_key);
 
         if (!params.search_context) {
-            params.search_context = [{
-                db_name: '*',
-                schema_name: '*',
-                table_name: '*'
-            }];
+            params.search_context = [
+                {
+                    db_name: '*',
+                    schema_name: '*',
+                    table_name: '*',
+                },
+            ];
         }
 
-        return this.httpClient.commonFetch<ImportSemanticLayerDumpResponse>(
-            SEMANTIC_LAYER_IMPORT_ENDPOINT,
-            params
-        );
+        return this.httpClient.commonFetch<ImportSemanticLayerDumpResponse>(SEMANTIC_LAYER_IMPORT_ENDPOINT, params);
     }
 
     public async checkImportStatus(params: CheckStatusSemanticLayerDumpRequest) {
@@ -131,5 +127,5 @@ export {
     CheckStatusSemanticLayerDumpRequest,
     CheckStatusSemanticLayerDumpResponse,
     ImportSemanticLayerDumpRequest,
-    ImportSemanticLayerDumpResponse
-}
+    ImportSemanticLayerDumpResponse,
+};

@@ -11,6 +11,7 @@ After making changes, you need to run `tsc` to compile the TypeScript files into
 ## Get Waii API Key
 
 If the Waii service (Python backend) is running on your local machine, you can get the API key by running
+
 ```
 curl -X 'GET' \
   'http://localhost:9859/api/get-access-key' \
@@ -23,7 +24,7 @@ Otherwise, you should get the Waii access key on Waii UI.
 
 ## Publish to NPM
 
-First, you need to login to NPM by running `npm login`. if you don't have an account, or your account doesn't have the 
+First, you need to login to NPM by running `npm login`. if you don't have an account, or your account doesn't have the
 permission to publish the package, please contact the Waii team.
 
 Then, you need to bump up the version number in `package.json`.

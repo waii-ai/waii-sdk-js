@@ -14,50 +14,49 @@
  * limitations under the License.
  */
 
+import WaiiHttpClient from '../../../lib/src/WaiiHttpClient';
+import { GeneratedQuery, QueryGenerationRequest } from '../../query/src/Query';
+import { ChartGenerationRequest, ChartGenerationResponse } from '../../chart/src/Chart';
+import { ChatRequest, ChatResponse } from '../../chat/src/Chat';
 
-import WaiiHttpClient from "../../../lib/src/WaiiHttpClient";
-import { GeneratedQuery, QueryGenerationRequest } from "../../query/src/Query";
-import { ChartGenerationRequest, ChartGenerationResponse } from "../../chart/src/Chart";
-import { ChatRequest, ChatResponse } from "../../chat/src/Chat";
-
-const LIST_ENDPOINT: string = 'get-generated-query-history';
-const GET_ENDPOINT: string = 'get-history';
+const LIST_ENDPOINT = 'get-generated-query-history';
+const GET_ENDPOINT = 'get-history';
 
 type GeneratedQueryHistoryEntry = {
-    query?: GeneratedQuery,
-    request?: QueryGenerationRequest
+    query?: GeneratedQuery;
+    request?: QueryGenerationRequest;
 };
 
 type GeneratedChartHistoryEntry = {
-    request?: ChartGenerationRequest,
-    response?: ChartGenerationResponse
+    request?: ChartGenerationRequest;
+    response?: ChartGenerationResponse;
 };
 
 type GeneratedChatHistoryEntry = {
-    request?: ChatRequest,
-    response?: ChatResponse
+    request?: ChatRequest;
+    response?: ChatResponse;
 };
 
 type GetGeneratedQueryHistoryRequest = {
-    included_types?: GeneratedHistoryEntryType[],
-    limit?: number,
-    offset?: number,
-    timestamp_sort_order?: SortOrder,
-    uuid_filter?: string
-    liked_query_filter?: boolean
+    included_types?: GeneratedHistoryEntryType[];
+    limit?: number;
+    offset?: number;
+    timestamp_sort_order?: SortOrder;
+    uuid_filter?: string;
+    liked_query_filter?: boolean;
 };
 
 type GetGeneratedQueryHistoryResponse = {
-    history?: HistoryEntry[]
+    history?: HistoryEntry[];
 };
 
 type GetGeneratedQueryHistoryV2Response = {
-    history?: (GeneratedQueryHistoryEntry | GeneratedChartHistoryEntry | GeneratedChatHistoryEntry)[]
+    history?: (GeneratedQueryHistoryEntry | GeneratedChartHistoryEntry | GeneratedChatHistoryEntry)[];
 };
 
 type HistoryEntry = {
-    history_type: GeneratedHistoryEntryType,
-    timestamp_ms?: number
+    history_type: GeneratedHistoryEntryType;
+    timestamp_ms?: number;
 } & (GeneratedQueryHistoryEntry | GeneratedChartHistoryEntry | GeneratedChatHistoryEntry);
 
 type GeneratedHistoryEntryType = 'query' | 'chart' | 'chat';
@@ -69,18 +68,14 @@ class History {
 
     public constructor(httpClient: WaiiHttpClient) {
         this.httpClient = httpClient;
-    };
+    }
 
     public async list(
         params: GetGeneratedQueryHistoryRequest = {},
         signal?: AbortSignal
     ): Promise<GetGeneratedQueryHistoryResponse> {
-        return this.httpClient.commonFetch<GetGeneratedQueryHistoryResponse>(
-            LIST_ENDPOINT,
-            params,
-            signal
-        );
-    };
+        return this.httpClient.commonFetch<GetGeneratedQueryHistoryResponse>(LIST_ENDPOINT, params, signal);
+    }
 
     public async get(
         params: GetGeneratedQueryHistoryRequest = {},
@@ -109,7 +104,7 @@ class History {
 
         return { history: _history };
     }
-};
+}
 
 export default History;
 export {
@@ -120,5 +115,5 @@ export {
     GetGeneratedQueryHistoryResponse,
     HistoryEntry,
     GeneratedHistoryEntryType,
-    SortOrder
+    SortOrder,
 };
