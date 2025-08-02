@@ -47,6 +47,7 @@ class SemanticStatement {
     lookup_summaries?: string[];
     summarization_prompt?: string;
     critical?: boolean;
+    warnings?: SemanticStatementWarning[];
 
     public constructor(
         scope = '*',
@@ -56,7 +57,8 @@ class SemanticStatement {
         lookup_summaries: string[] = [],
         summarization_prompt = '',
         id = '',
-        critical = false
+        critical = false,
+        warnings: SemanticStatementWarning[] = []
     ) {
         if (id) {
             this.id = id;
@@ -70,8 +72,13 @@ class SemanticStatement {
         this.lookup_summaries = lookup_summaries;
         this.summarization_prompt = summarization_prompt;
         this.critical = critical;
+        this.warnings = warnings;
     }
 }
+
+type SemanticStatementWarning = {
+    message: string;
+};
 
 type ModifySemanticContextRequest = {
     updated?: SemanticStatement[];
