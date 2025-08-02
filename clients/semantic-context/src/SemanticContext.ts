@@ -23,14 +23,15 @@ enum IngestDocumentJobStatus {
 }
 const GET_KNOWLEDGE_GRAPH_ENDPOINT: string = 'get-knowledge-graph';
 class SemanticStatement {
-    id?: string
-    scope: string
-    statement: string
-    labels?: string[]
-    always_include?: boolean
-    lookup_summaries?: string[]
-    summarization_prompt?: string
-    critical?: boolean
+    id?: string;
+    scope: string;
+    statement: string;
+    labels?: string[];
+    always_include?: boolean;
+    lookup_summaries?: string[];
+    summarization_prompt?: string;
+    critical?: boolean;
+    warnings?: SemanticStatementWarning[];
 
     public constructor(
         scope: string = '*',
@@ -40,7 +41,8 @@ class SemanticStatement {
         lookup_summaries: string[] = [],
         summarization_prompt: string = '',
         id: string = '',
-        critical: boolean = false
+        critical: boolean = false,
+        warnings: SemanticStatementWarning[] = []
     ) {
         if (id) {
             this.id = id;
@@ -54,8 +56,13 @@ class SemanticStatement {
         this.lookup_summaries = lookup_summaries;
         this.summarization_prompt = summarization_prompt;
         this.critical = critical;
+        this.warnings = warnings;
     }
 }
+
+type SemanticStatementWarning = {
+    message: string;
+};
 
 type ModifySemanticContextRequest = {
     updated?: SemanticStatement[],
