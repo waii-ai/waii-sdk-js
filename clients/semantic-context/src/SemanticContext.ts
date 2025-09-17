@@ -48,6 +48,7 @@ class SemanticStatement {
     summarization_prompt?: string;
     critical?: boolean;
     warnings?: SemanticStatementWarning[];
+    semantic_constraint?: string;
 
     public constructor(
         scope = '*',
@@ -58,7 +59,8 @@ class SemanticStatement {
         summarization_prompt = '',
         id = '',
         critical = false,
-        warnings: SemanticStatementWarning[] = []
+        warnings: SemanticStatementWarning[] = [],
+        semantic_constraint = ''
     ) {
         if (id) {
             this.id = id;
@@ -73,6 +75,7 @@ class SemanticStatement {
         this.summarization_prompt = summarization_prompt;
         this.critical = critical;
         this.warnings = warnings;
+        this.semantic_constraint = semantic_constraint
     }
 }
 
